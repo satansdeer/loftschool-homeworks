@@ -3,7 +3,7 @@
   height: 450px;
   border: 1px solid #d8d8fd;
   border-radius: 4px;
-  box-shadow: 0 0 9px 1px rgba(0, 0, 0, .1);
+  box-shadow: 0 0 9px 1px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
 }
@@ -14,10 +14,12 @@
 }
 
 .messages {
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -ms-flex-direction: column-reverse;
+  flex-direction: column-reverse;
   min-height: 100%;
-  padding: 370px 10px 0;
+  padding: 0 10px;
 }
 
 .input-message {

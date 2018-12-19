@@ -12,13 +12,16 @@ export default class Chat extends Component {
   };
   sendMessageOnEnter = e => {
     // e.preventDefault();
-    const {messages, messageInput} = this.state;
+    const { messages, messageInput } = this.state;
     if (e.key === 'Enter') {
-      this.setState({messages: [...messages, {text: messageInput}], messageInput: ""});
+      this.setState({
+        messages: [...messages, { text: messageInput }],
+        messageInput: ''
+      });
     }
   };
   render() {
-      const {messages, messageInput} = this.state;
+    const { messages, messageInput } = this.state;
     return (
       <div className="chat">
         <input
@@ -28,7 +31,9 @@ export default class Chat extends Component {
           onChange={this.changeInputMessage}
           onKeyPress={this.sendMessageOnEnter}
         />
-        {messages.map(message => <Message key={message} text={message.text} />)}
+        {messages.map(message => (
+          <Message key={message} text={message.text} />
+        ))}
       </div>
     );
   }

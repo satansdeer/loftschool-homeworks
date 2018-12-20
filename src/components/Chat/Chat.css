@@ -16,8 +16,8 @@
 .messages {
   display: flex;
   flex-direction: column;
-  min-height: 100%;
-  padding: 370px 10px 0;
+  /* min-height: 100%; */
+  padding: 10px 10px 0;
 }
 
 .input-message {

@@ -26,11 +26,11 @@ export default class Chat extends Component {
     return (
       <div className="chat">
         <div className="message-list">
-          {messages.map(message => (
-            <div key={message} className="messages">
-              <Message text={message.text} />
-            </div>
-          ))}
+          <div className="messages">
+            {messages.map(message => (
+              <Message key={message} text={message.text} />
+            ))}
+          </div>
         </div>
         <input
           type="text"

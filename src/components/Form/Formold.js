@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import bond from './assets/bond_approve.jpg';
 import './Form.css';
-
 const JamesData = {
   firstName: {
     value: 'james',
@@ -19,16 +18,14 @@ const JamesData = {
     errorEmpty: 'Нужно указать пароль'
   }
 };
-
-class Form extends Component {
+class Form extends React.Component {
   state = {
     firstName: '',
     lastName: '',
     password: '',
     errors: {},
-    isValid: false,
+    isValidate: false
   };
-
   changeInputText = e => {
     if (this.state.errors[e.target.name]) {
       this.setState({
@@ -36,29 +33,28 @@ class Form extends Component {
         errors: {}
       });
     } else {
-      this.setState({ [e.target.name]: e.target.value });
+      this.setState({
+        [e.target.name]: e.target.value
+      });
     }
   };
-
   formValidationSubmit = e => {
     e.preventDefault();
     const errors = {};
-    Object.keys(JamesData).forEach(field => {
-      if (this.state[field] === '') {
-        errors[field] = JamesData[field].errorEmpty;
-      } else if (JamesData[field].value !== this.state[field].toLowerCase()) {
-        errors[field] = JamesData[field].error;
+    Object.keys(JamesData).forEach(key => {
+      if (this.state[key] === '') {
+        errors[key] = JamesData[key].errorEmpty;
+      } else if (JamesData[key].value !== this.state[key].toLowerCase()) {
+        errors[key] = JamesData[key].error;
       }
     });
-    this.setState({ errors, isValid: Object.keys(errors).length === 0 });
+    this.setState({ errors, isValidate: Object.keys(errors).length === 0 });
   };
-
   render() {
-    const { firstName, lastName, password, isValid, errors } = this.state;
-
-    return (
-      <div className="app-container">
-        {!isValid ? (
+    const { firstName, lastName, password, errors, isValidate } = this.state;
+    if (!isValidate) {
+      return (
+        <div className="app-container">
           <form className="message-list" onSubmit={this.formValidationSubmit}>
             <h1>Введите свои данные, агент</h1>
             <p className="field">
@@ -115,12 +111,15 @@ class Form extends Component {
               />
             </div>
           </form>
-        ) : (
+        </div>
+      );
+    } else {
+      return (
+        <div className="app-container">
           <img src={bond} alt="bond approve" className="t-bond-image" />
-        )}
-      </div>
-    );
+        </div>
+      );
+    }
   }
 }
-
 export default Form;

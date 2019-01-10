@@ -11,7 +11,7 @@
 
 # course utils
 /course_scripts
-
+/package-lock.json
 # misc
 .DS_Store
 .env.local

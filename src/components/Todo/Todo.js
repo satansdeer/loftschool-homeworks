@@ -14,85 +14,80 @@ class Todo extends PureComponent {
     return biggest + 1;
   }
 
-  handleChange = event => {
-    this.setState({inputValue : event.target.value})
+  handleChange = ({ target }) => {
+    this.setState({ inputValue: target.value })
   };
 
   createNewRecordByEnter = event => {
-    if (event.key === 'Enter'){
+    if (event.key === 'Enter') {
       this.createNewRecord();
     }
   };
 
-  toggleRecordComplete = event => {
-    const { savedData, saveData } = this.props;
-    const newSavedData = savedData.map((data) => {
-      if (data.id === parseInt(event.target.id, 10)){
-        return {...data, x : data.x === "[x]" ? "[]" : "[x]"}
-      }
-      else return {...data}
-    })
-    
-    saveData(newSavedData);
+  toggleRecordComplete = ({ target }) => {
+    let { saveData, savedData } = this.props;
+
+    const updatedData = savedData.map(todo => {
+      return todo.id === Number(target.id) ? { ...todo, isComplited: !todo.isComplited } : { ...todo }
+    });
+
+    saveData(updatedData);
   };
 
-  createNewRecord = () => {    
-    const { savedData, saveData } = this.props;
-    const {inputValue} = this.state;
+  createNewRecord = () => {
+    let { inputValue } = this.state,
+      { saveData, savedData } = this.props,
+      currentData = [...savedData];
 
-    if(inputValue !== ""){
-      const id = this.getId();
-      const newSavedData = [{id: id, value : inputValue, x : "[]"},...savedData]
-      saveData(newSavedData);
-      this.setState({inputValue : ""});
-    }    
+    if (inputValue) {
+      currentData.push({ id: this.getId(), isComplited: false, text: inputValue });
+      saveData(currentData);
+      this.setState({ inputValue: '' });
+    }
   };
 
   render() {
     const { savedData } = this.props;
 
     return (
-    <Card title="Список дел">      
-      <div className="todo t-todo-list">
-        {this.renderEmptyRecord()}
-        {savedData.map(this.renderRecord)}
-      </div>
-    </Card>);
+      <Card title='Cписок дел'>
+        <div className='todo t-todo-list'>
+          {this.renderEmptyRecord()}
+          {savedData.map(this.renderRecord)}
+        </div>
+      </Card>
+    )
   }
 
   renderEmptyRecord() {
-    const {inputValue} = this.state
-    
+    const { inputValue } = this.state;
+
     return (
-    <div className="todo-item todo-item-new">
-      <input
-        className = "todo-input t-input"
-        placeholder = "Введите задачу"
-        value = {inputValue}
-        onChange = {this.handleChange}
-        onKeyPress = {this.createNewRecordByEnter}
-      />
-      <span 
-        className="plus t-plus" 
-        onClick={this.createNewRecord}>
-        +
-      </span>
-    </div>);
+      <div className='todo-item todo-item-new'>
+        <input
+          className='todo-input t-input'
+          type='text'
+          placeholder='Введите задачу'
+          value={inputValue}
+          onChange={this.handleChange}
+          onKeyDown={this.createNewRecordByEnter} />
+        <span onClick={this.createNewRecord} className='plus t-plus'>+</span>
+      </div>
+    )
   }
 
-  renderRecord = record => {
-    const {id, value, x} = record;
+  renderRecord = ({ text, isComplited, id }) => {
     return (
-      <div className="todo-item t-todo" key={id}>
-        <p className = "todo-item__text">{value}</p>
-        <span 
-          className="todo-item__flag t-todo-complete-flag"
-          onClick={this.toggleRecordComplete}
-          id = {id}>
-          {x}
+      <div className='todo-item t-todo' key={id}>
+        <p className='todo-item__text'>{text}</p>
+        <span
+          className='todo-item__flag t-todo-complete-flag'
+          id={id}
+          onClick={this.toggleRecordComplete}> [{isComplited ? 'x' : ' '}]
         </span>
-      </div>);
-  };
+      </div>
+    )
+  }
 }
 
 export default withLocalstorage('todo-app', [])(Todo);

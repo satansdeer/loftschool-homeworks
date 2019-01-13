@@ -25,11 +25,10 @@ class Todo extends PureComponent {
   };
 
   toggleRecordComplete = ({ target }) => {
-    let { saveData, savedData } = this.props;
-
-    const updatedData = savedData.map(todo => {
-      return todo.id === Number(target.id) ? { ...todo, isComplited: !todo.isComplited } : { ...todo }
-    });
+    let { saveData, savedData } = this.props,
+      updatedData = savedData.map(todo => {
+        return todo.id === Number(target.id) ? { ...todo, isComplited: !todo.isComplited } : { ...todo }
+      });
 
     saveData(updatedData);
   };

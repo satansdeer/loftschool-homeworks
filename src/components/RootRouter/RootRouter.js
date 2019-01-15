@@ -6,17 +6,22 @@ import AppRouter from "../AppRouter";
 import { AuthProvider } from "../../context/Auth";
 import { DataProvider } from "../../context/Data";
 
+const baseUrl = "/login";
+
 export default () => (
   <DataProvider>
     <AuthProvider>
       <BrowserRouter>
         <Switch>
-          <Route exact path='/' component={LoginForm}/>
-          <PrivateRoute path={'/app'} component={AppRouter} redirectPath={'/'}/>
+          <PrivateRoute
+            path={"/app"}
+            component={AppRouter}
+            startUrl={baseUrl}
+          />
+          <Route path={baseUrl} component={LoginForm}/>
+          <Redirect to={baseUrl}/>
         </Switch>
       </BrowserRouter>
     </AuthProvider>
   </DataProvider>
 );
-
-//  <Route exact path='/' component={LoginForm}/>

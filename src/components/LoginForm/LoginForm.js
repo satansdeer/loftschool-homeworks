@@ -1,64 +1,94 @@
 import React, { Component } from "react";
-import classes from './LoginForm.module.css';
-import classNames from 'classnames'
+import { Redirect } from "react-router-dom";
 import propTypes from "prop-types";
+import classes from "./LoginForm.module.css";
+import classNames from "classnames";
+import Input from "../Input";
+import { withAuth } from "../../context/Auth";
+import dataInputs from "../Input/dataInputs";
+
+const initialState = () => {
+  return {
+    value: ""
+  };
+};
 
 class LoginForm extends Component {
   state = {
-    email: "",
-    password: "",
-    error: true
+    formControls: {
+      email: initialState(),
+      password: initialState()
+    }
   };
 
   static get propTypes() {
-    return {};
+    return {
+      isAuthorized: propTypes.bool,
+      authError: propTypes.string,
+      authorize: propTypes.func.isRequired
+    };
   }
 
   static get defaultProps() {
-    return {};
+    return {
+      authError: "Данные введены неверно"
+    };
   }
 
-  changeState = evt => this.setState({ [evt.target.name]: evt.target.value });
+  changeState = state => this.setState({ ...state });
 
+  onChange = evt => {
+    const { name, value } = evt.target;
+    const formControls = { ...this.state.formControls };
+    const control = formControls[name];
+    control.value = value;
+    formControls[name] = control;
+    this.changeState({ formControls });
+  };
+
+  onClickButton = () => {
+    const { email, password } = this.state.formControls;
+    this.props.authorize(email.value, password.value);
+  };
+
+
+  renderInputs = () => {
+    return Object.keys(this.state.formControls).map((collName, idx) => {
+      const control = this.state.formControls[collName];
+      return (
+        <Input
+          key={collName + idx}
+          value={control.value}
+          onChange={this.onChange}
+          className={classNames(classes.input, `t-input-${collName}`)}
+          labelClassName={classes.labelText}
+          {...dataInputs[collName]}
+        />
+      );
+    });
+  };
 
   render() {
-    const { email, password, error } = this.state;
-    console.log(email);
+    const { isAuthorized, authError } = this.props;
     return (
       <div className={classes.bg}>
-        <div className={classNames(classes.form, 't-form')}>
-          <p>
-            <label htmlFor="email">
-              <span className={classes.labelText}>Почта</span>
-            </label>
-            <input
-              type="text"
-              name="email"
-              className={classNames(classes.input, 't-input-email')}
-              value={email}
-              onChange={this.changeState}
-            />
-          </p>
-          <p>
-            <label htmlFor="password">
-              <span className={classes.labelText}>Пароль</span>
-            </label>
-            <input
-              type="password"
-              name="password"
-              className={classNames(classes.input, 't-input-password')}
-              value={password}
-              onChange={this.changeState}
-            />
-          </p>
-          {error && <p className={classes.error}>Почта или пароль не верные</p>}
-          <div className="LoginForm_buttons__67s-u">
-            <button type='button' className={classNames(classes.button, 't-login')}>Войти</button>
+        <div className={classNames(classes.form, "t-form")}>
+          {this.renderInputs()}
+          <p className={classes.error}>{authError}</p>
+          <div className={classes.buttons}>
+            <button
+              type='button'
+              className={classNames(classes.button, "t-login")}
+              onClick={this.onClickButton}
+            >
+              Войти
+            </button>
           </div>
         </div>
+        {isAuthorized && <Redirect to={"/app"}/>}
       </div>
     );
   }
 }
 
-export default LoginForm;
+export default withAuth(LoginForm);

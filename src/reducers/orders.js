@@ -2,6 +2,11 @@ import { CREATE_NEW_ORDER } from '../modules/clients';
 import { MOVE_ORDER_NEXT, MOVE_ORDER_BACK } from '../actions/moveOrder';
 import { ADD_INGREDIENT } from '../actions/ingredients';
 
+// Реализуйте редьюсер
+// Типы экшенов, которые вам нужно обрабатывать уже импортированы
+// Обратите внимание на `orders.test.js`.
+// Он поможет понять, какие значения должен возвращать редьюсер.
+
 const MAX_INGREDIENTS_QUANTITY = 4;
 
 export default (state = [], action) => {

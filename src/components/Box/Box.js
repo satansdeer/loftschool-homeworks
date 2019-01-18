@@ -1,12 +1,11 @@
-import React, { PureComponent } from 'react';
-import Button from '../Button';
-import styles from './Box.module.css';
-import cx from 'classnames';
+import React, { PureComponent } from "react";
+import Button from "../Button";
+import styles from "./Box.module.css";
+import cx from "classnames";
 
 class Box extends PureComponent {
   renderControllButtons() {
     const { onNext, onBack } = this.props;
-
     if (onNext || onBack) {
       return (
         <div className={styles.controllButtons}>

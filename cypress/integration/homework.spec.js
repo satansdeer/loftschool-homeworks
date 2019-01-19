@@ -1,50 +1,50 @@
-describe('Поведение приложения', () => {
+describe("Поведение приложения", () => {
   beforeEach(() => {
-    cy.visit('/');
+    cy.visit("/");
   });
 
-  it('При нажатии кнопки новый заказ должна появлятся пицца у клиентов', () => {
-    cy.get('.t-new-order').click();
-    cy.get('.t-clients .t-pizza').should('have.length', 1);
+  it("При нажатии кнопки новый заказ должна появлятся пицца у клиентов", () => {
+    cy.get(".t-new-order").click();
+    cy.get(".t-clients .t-pizza").should("have.length", 1);
   });
 
-  it('При создании пиццы, можно перенести ее на первый ковеер нажав кнопку > у клиента', () => {
-    cy.get('.t-new-order').click();
-    cy.get('.t-clients .t-next').click();
-    cy.get('.t-conveyor-conveyor_1 .t-pizza').should('have.length', 1);
+  it("При создании пиццы, можно перенести ее на первый ковеер нажав кнопку > у клиента", () => {
+    cy.get(".t-new-order").click();
+    cy.get(".t-clients .t-next").click();
+    cy.get(".t-conveyor-conveyor_1 .t-pizza").should("have.length", 1);
   });
 
-  it('Пиццу можно перенести до конца вправо, но если у нее не будет игридиентов, ее нельзя закончить', () => {
-    cy.get('.t-new-order').click();
-    cy.get('.t-clients .t-next').click();
-    cy.get('.t-conveyor-conveyor_1 .t-next').click();
-    cy.get('.t-conveyor-conveyor_2 .t-next').click();
-    cy.get('.t-conveyor-conveyor_3 .t-next').click();
-    cy.get('.t-conveyor-conveyor_4 .t-next').click();
-    cy.get('.t-conveyor-conveyor_4 .t-pizza').should('have.length', 1);
+  it("Пиццу можно перенести до конца вправо, но если у нее не будет игридиентов, ее нельзя закончить", () => {
+    cy.get(".t-new-order").click();
+    cy.get(".t-clients .t-next").click();
+    cy.get(".t-conveyor-conveyor_1 .t-next").click();
+    cy.get(".t-conveyor-conveyor_2 .t-next").click();
+    cy.get(".t-conveyor-conveyor_3 .t-next").click();
+    cy.get(".t-conveyor-conveyor_4 .t-next").click();
+    cy.get(".t-conveyor-conveyor_4 .t-pizza").should("have.length", 1);
   });
 
-  it('Пиццу можно перенести до конца вправо, а затем обратно к первому конвееру, но не к клиентам', () => {
-    cy.get('.t-new-order').click();
-    cy.get('.t-clients .t-next').click();
-    cy.get('.t-conveyor-conveyor_1 .t-next').click();
-    cy.get('.t-conveyor-conveyor_2 .t-next').click();
-    cy.get('.t-conveyor-conveyor_3 .t-next').click();
-    cy.get('.t-conveyor-conveyor_4 .t-next').click();
-    cy.get('.t-conveyor-conveyor_4 .t-back').click();
-    cy.get('.t-conveyor-conveyor_3 .t-back').click();
-    cy.get('.t-conveyor-conveyor_2 .t-back').click();
-    cy.get('.t-conveyor-conveyor_1 .t-back').click();
-    cy.get('.t-conveyor-conveyor_1 .t-pizza').should('have.length', 1);
+  it("Пиццу можно перенести до конца вправо, а затем обратно к первому конвееру, но не к клиентам", () => {
+    cy.get(".t-new-order").click();
+    cy.get(".t-clients .t-next").click();
+    cy.get(".t-conveyor-conveyor_1 .t-next").click();
+    cy.get(".t-conveyor-conveyor_2 .t-next").click();
+    cy.get(".t-conveyor-conveyor_3 .t-next").click();
+    cy.get(".t-conveyor-conveyor_4 .t-next").click();
+    cy.get(".t-conveyor-conveyor_4 .t-back").click();
+    cy.get(".t-conveyor-conveyor_3 .t-back").click();
+    cy.get(".t-conveyor-conveyor_2 .t-back").click();
+    cy.get(".t-conveyor-conveyor_1 .t-back").click();
+    cy.get(".t-conveyor-conveyor_1 .t-pizza").should("have.length", 1);
   });
 
-  it('После создания пиццы статистика показывает "Создана 1 пицца"', () => {
+  it("После создания пиццы статистика показывает \"Создана 1 пицца\"", () => {
     createPizza().then(() =>
-      cy.get('.t-statistic').should('contain', 'Создана 1 пицца')
+      cy.get(".t-statistic").should("contain", "Создана 1 пицца")
     );
   });
 
-  it('После создания 10 пицц статистика показывает "Создано 10 пицц"', () => {
+  it("После создания 10 пицц статистика показывает \"Создано 10 пицц\"", () => {
     let queue = null;
     [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].forEach(() => {
       if (queue) {
@@ -54,17 +54,17 @@ describe('Поведение приложения', () => {
       }
     });
     queue.then(() =>
-      cy.get('.t-statistic').should('contain', 'Создано 10 пицц')
+      cy.get(".t-statistic").should("contain", "Создано 10 пицц")
     );
   });
 });
 
 function createPizza() {
   return cy
-    .get('.t-new-order')
+    .get(".t-new-order")
     .click()
-    .then(() => cy.get('.t-clients .t-next').click())
-    .then(() => cy.get('.t-conveyor-conveyor_1 .t-pizza').then(assemblePizza));
+    .then(() => cy.get(".t-clients .t-next").click())
+    .then(() => cy.get(".t-conveyor-conveyor_1 .t-pizza").then(assemblePizza));
 }
 
 function assemblePizza(pizza) {
@@ -82,18 +82,19 @@ function assemblePizza(pizza) {
       queue = promise();
     }
   });
-  queue.then(() => {});
+  queue.then(() => {
+  });
 }
 
 function getPizzaIngredients(pizza) {
-  return Array.from(pizza.querySelectorAll('.t-icon')).map(icon => {
+  return Array.from(pizza.querySelectorAll(".t-icon")).map(icon => {
     const classes = Array.from(icon.classList);
 
     const iconClass = classes.find(iconClass =>
       /t-icon-(\S+)$/.test(iconClass)
     );
 
-    return iconClass.replace('t-icon-', '');
+    return iconClass.replace("t-icon-", "");
   });
 }
 

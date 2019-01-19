@@ -1,14 +1,22 @@
-import rootReducer from './reducers';
-import { createStore } from 'redux';
+import rootReducer from "./reducers";
+import { createStore, applyMiddleware, compose } from "redux";
+import ordermiddleware from "./middleware/ordermiddleware";
+
+const composeEnhancers =
+  typeof window === "object" &&
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+      // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+    }) : compose;
+
+const enhancer = composeEnhancers(
+  applyMiddleware(ordermiddleware),
+  // other store enhancers if any
+);
 
 export default () => {
-  const store = createStore(
+  return createStore(
     rootReducer,
-    undefined,
-    window.__REDUX_DEVTOOLS_EXTENSION__
-      ? window.__REDUX_DEVTOOLS_EXTENSION__()
-      : noop => noop
+    enhancer
   );
-
-  return store;
 };

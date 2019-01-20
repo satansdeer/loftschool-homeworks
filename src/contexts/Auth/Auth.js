@@ -24,7 +24,7 @@ class AuthProvider extends PureComponent {
   }
 
   logout = () => {
-    this.setState({ emial: '', isAuthorized: false })
+    this.setState({ emial: '',authorizeError: '', isAuthorized: false })
   }
 
   getProviderValue = () => {

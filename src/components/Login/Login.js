@@ -1,15 +1,15 @@
-import React, { PureComponent } from 'react';
-import styles from './Login.module.css';
-import { getIsAuthorized, addApiKey } from '../../modules/Auth';
-import { connect } from 'react-redux';
-import { withRouter, Redirect } from 'react-router-dom';
-import Input from '../Input';
+import React, { PureComponent } from "react";
+import styles from "./Login.module.css";
+import { getIsAuthorized, addApiKey } from "../../modules/Auth";
+import { connect } from "react-redux";
+import { withRouter, Redirect } from "react-router-dom";
+import Input from "../Input";
 
 class Login extends PureComponent {
   // на время разработки свой access token можно вставить сюда, чтобы
   // не вводить каждый раз
   state = {
-    key: ''
+    key: ""
   };
 
   input = React.createRef();
@@ -22,7 +22,7 @@ class Login extends PureComponent {
     const { addApiKey } = this.props;
     const { key } = this.state;
 
-    if (event.key === 'Enter') addApiKey(key);
+    if (event.key === "Enter") addApiKey(key);
   };
 
   componentDidMount() {
@@ -32,21 +32,21 @@ class Login extends PureComponent {
   render() {
     const { isAuthorized } = this.props;
     const { key } = this.state;
-
-    if (isAuthorized) return <Redirect to="/search" />;
+    if (isAuthorized) return <Redirect to="/search"/>;
+    //console.log(isAuthorized);
 
     return (
       <div className={styles.root}>
         <h1>Токен авторизации</h1>
         <p className={styles.p}>
-          Получить токен нужно на своей странице github, перейдите по{' '}
+          Получить токен нужно на своей странице github, перейдите по{" "}
           <a
             target="_blank"
             rel="noopener noreferrer"
             href="https://github.com/settings/tokens"
           >
             адресу
-          </a>{' '}
+          </a>{" "}
           и создать себе токен. Запишите куда нибудь токен, так как после
           создания доступ к нему будет только один раз.
         </p>

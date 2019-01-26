@@ -9,6 +9,7 @@ export default (state = initialState, action) => {
   switch (type) {
     case addApiKey.toString():
       return {
+        ...state,
         apiKey: payload
       };
     default: {

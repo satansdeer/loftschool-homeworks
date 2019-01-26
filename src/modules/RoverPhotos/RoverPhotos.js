@@ -54,7 +54,6 @@ export default (state = initialState, action) => {
       };
 
     case changeSol.toString():
-      console.log(payload);
       return {
         ...state,
         sol: {

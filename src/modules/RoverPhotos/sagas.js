@@ -3,29 +3,28 @@ import { fetchPhotosRequest, fetchPhotosSuccess, fetchPhotosFailure, fetchPhotos
 import { getPhotos } from "./api";
 
 const names = ["curiosity", "opportunity", "spirit"];
+let rover = "";
 
-function* fetchSearchData(action) {
-  // const { rover } = action;
+function* fetchSearchData() {
   try {
-    for (let rover of names) {
-      yield put({ type: fetchPhotosRequest.toString(), payload: rover });
+    for (let roverName of names) {
+      rover = roverName;
+      yield put({ type: fetchPhotosRequest.toString(), payload: roverName });
       const { auth: { apiKey }, roverPhotos: { sol } } = yield select();
-      const { photos } = yield call(getPhotos, apiKey, rover, sol.current);
-      yield put({ type: fetchPhotosSuccess.toString(), payload: photos, rover });
+      const { photos } = yield call(getPhotos, apiKey, roverName, sol.current);
+      yield put({ type: fetchPhotosSuccess.toString(), payload: photos, rover: roverName });
     }
   } catch (error) {
-    //yield put({ type: fetchPhotosFailure.toString(), payload: error, rover });
+    yield put({ type: fetchPhotosFailure.toString(), payload: error, rover });
   }
 }
 
 
 export function* fetchFollowersFlow() {
   while (true) {
-    const { payload } = yield take(changeSol);
-    yield put({ type: changeSol.toString(), payload });
+    yield take(changeSol);
     yield call(fetchSearchData);
   }
-
 }
 
 function* fetchFollowersWatcher() {

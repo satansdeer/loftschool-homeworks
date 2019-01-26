@@ -43,7 +43,9 @@ class RoversViewer extends Component {
           <SelectSol minSol={min} maxSol={max} selectedSol={solNum}/>
         </div>
         <div>
-          {photos && photos.map(item => <RoverPhotos key={item.name} name={item.name} photos={item.photos}/>)}
+          {photos && photos.map(item => {
+            return <RoverPhotos key={item.name} name={item.name} photos={item.photos}/>
+          })}
         </div>
       </div>
     );

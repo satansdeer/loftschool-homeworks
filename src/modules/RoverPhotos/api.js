@@ -1,10 +1,10 @@
-export const getPhotos = (apiKey, rover, solNum) =>
-  fetch(
+export const getPhotos = (apiKey, rover, solNum) => {
+  return fetch(
     `https://api.nasa.gov/mars-photos/api/v1/rovers/` +
-      `${rover}/photos?` +
-      `sol=${solNum}&` +
-      `api_key=${apiKey}`
+    `${rover}/photos?` +
+    `sol=${solNum}&` +
+    `api_key=${apiKey}`
   ).then(
-    response =>
-      response.status !== 200 ? Promise.reject(response) : response.json()
+    response => response.status !== 200 ? Promise.reject(response) : response.json()
   );
+};

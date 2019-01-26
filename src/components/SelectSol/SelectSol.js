@@ -1,22 +1,24 @@
-import React, { PureComponent } from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Slider from '@material-ui/lab/Slider';
-import Typography from '@material-ui/core/Typography';
-import debounce from 'debounce';
+import React, { PureComponent } from "react";
+import { withStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import Slider from "@material-ui/lab/Slider";
+import Typography from "@material-ui/core/Typography";
+import debounce from "debounce";
+import { connect } from "react-redux";
+import { changeSol } from "../../modules/RoverPhotos";
 
 const styles = {
   root: {
     width: 500,
-    padding: '0 20px',
-    margin: '20px 0 40px'
+    padding: "0 20px",
+    margin: "20px 0 40px"
   },
   slider: {
-    padding: '22px 0px'
+    padding: "22px 0px"
   },
   text: {
-    textAlign: 'center',
-    padding: '0 0 10px 0'
+    textAlign: "center",
+    padding: "0 0 10px 0"
   }
 };
 
@@ -60,4 +62,6 @@ class SelectSol extends PureComponent {
   }
 }
 
-export default withStyles(styles)(SelectSol);
+const mapDispatchFromProps = { changeSol };
+
+export default connect(null, mapDispatchFromProps)(withStyles(styles)(SelectSol));

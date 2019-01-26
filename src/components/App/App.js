@@ -1,11 +1,11 @@
-import React, { PureComponent } from 'react';
-import Grid from '@material-ui/core/Grid';
-import Login from '../Login';
-import NasaCard from '../NasaCard';
-import RoversViewer from '../RoversViewer';
-import styles from './App.module.css';
-import { connect } from 'react-redux';
-import { getIsAuthorized, addKey } from '../../modules/Auth';
+import React, { PureComponent } from "react";
+import Grid from "@material-ui/core/Grid";
+import Login from "../Login";
+import NasaCard from "../NasaCard";
+import RoversViewer from "../RoversViewer";
+import styles from "./App.module.css";
+import { connect } from "react-redux";
+import { getIsAuthorized, addKey } from "../../modules/Auth";
 
 class App extends PureComponent {
   handleEnterApiKey = apiKey => {
@@ -20,7 +20,8 @@ class App extends PureComponent {
   }
 
   renderApp() {
-    return <RoversViewer />;
+    const { isAuthorized } = this.props;
+    return <RoversViewer apiKey={isAuthorized}/>;
   }
 
   renderLogin() {
@@ -32,8 +33,8 @@ class App extends PureComponent {
         justify="space-between"
         container
       >
-        <NasaCard />
-        <Login onEnter={this.handleEnterApiKey} />
+        <NasaCard/>
+        <Login onEnter={this.handleEnterApiKey}/>
       </Grid>
     );
   }

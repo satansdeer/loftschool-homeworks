@@ -1,14 +1,14 @@
-import React, { PureComponent } from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
+import React, { PureComponent } from "react";
+import { withStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import GridList from "@material-ui/core/GridList";
+import GridListTile from "@material-ui/core/GridListTile";
 
 const styles = {
   root: {
-    width: '30%',
-    padding: '20px',
+    width: "30%",
+    padding: "20px"
   },
   title: {
     fontSize: 20,
@@ -19,6 +19,7 @@ const styles = {
 class RoverPhotos extends PureComponent {
   render() {
     const { classes, photos, name } = this.props;
+    if (!photos) return null;
     return (
       <Paper className={classes.root}>
         <Typography className={classes.title} component="h2">{name}</Typography>
@@ -28,7 +29,7 @@ class RoverPhotos extends PureComponent {
               key={photo.id}
               cols={Math.round(Math.random() * 3 - 0.5)}
             >
-              <img src={photo.img_src} alt={photo.camera.full_name} />
+              <img src={photo.img_src} alt={photo.camera.full_name}/>
             </GridListTile>
           ))}
         </GridList>

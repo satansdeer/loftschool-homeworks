@@ -23,9 +23,6 @@
     "eslint-plugin-cypress": "^2.0.1",
     "eslint-plugin-react": "^7.11.1",
     "eslint-plugin-react-perf": "^2.0.9"
-<<<<<<< HEAD
-  }
-=======
   },
   "browserslist": [
     ">0.2%",
@@ -33,5 +30,4 @@
     "not ie <= 11",
     "not op_mini all"
   ]
->>>>>>> 5ca6a919e06b98e2acda12ac1ea9f822557791d3
 }

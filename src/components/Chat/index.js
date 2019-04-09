@@ -1,37 +1,77 @@
-import React, { Component } from 'react';
-import { Message } from '../Message';
+import React, { Component, createRef } from 'react';
+import Message from '../Message';
+import './Chat.css';
 
-export class Chat extends Component {
-  state = {
-    messages: [],
-    messageInput: ''
-  };
+const ENTER_KEY = 'Enter';
+const EMPTY_STRING = "";
+
+export default class Chat extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      messages: [],
+      messageInput: EMPTY_STRING
+    };
+
+    this.listContainer = createRef();
+    this.inputField = createRef();
+  }
+
+  componentDidUpdate() {
+    const { current } = this.listContainer;
+
+    if (current && current.lastChild) {
+      console.log('current');
+      current.lastChild.scrollIntoView({
+        block: 'end',
+        behavior: 'smooth'
+      });
+    }
+  }
 
   changeInputMessage = value => {
-    this.setState({ ...this.state, messageInput: value });
+    const parsedValue = this.getNormalizedValue(value);
+    this.setState({
+      ...this.state,
+      messageInput: parsedValue
+    });
   };
 
-  sendMessageOnEnter = code => {
+  getNormalizedValue = value => {
+    return +value ? +value : value;
+  };
+
+  sendMessageOnEnter = key => {
     const { messages, messageInput } = this.state;
-    if (code === 13) {
+    if (key === ENTER_KEY && messageInput) {
       const newMessage = { text: messageInput };
       const newMessages = [...messages, newMessage];
-      this.setState({ ...this.state, messages: newMessages });
+
+      this.inputField.current.value = '';
+
+      this.setState({
+        ...this.state,
+        messages: newMessages,
+        messageInput: EMPTY_STRING
+      });
     }
   };
 
   render() {
     const { messages } = this.state;
     return (
-      <div className="chat">
+      <div className="chat" ref={this.listContainer}>
         <input
           className="input-message"
           onChange={({ target: { value } }) => this.changeInputMessage(value)}
-          onKeyDown={({ keyCode }) => this.sendMessageOnEnter(keyCode)}
+          onKeyPress={({ key }) => this.sendMessageOnEnter(key)}
+          ref={this.inputField}
         />
-        {messages.map((item, index) => (
-          <Message text={item.text} key={`${new Date()}_${index}`} />
-        ))}
+        {messages &&
+          messages.map((item, index) => (
+            <Message text={item.text} key={`${new Date()}_${index}`} />
+          ))}
       </div>
     );
   }

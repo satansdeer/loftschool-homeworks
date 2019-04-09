@@ -24,4 +24,18 @@ code {
 a {
   color: #4CD0FF;
   text-decoration-color: rgba(0, 210, 233, 0.5);
+=======
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

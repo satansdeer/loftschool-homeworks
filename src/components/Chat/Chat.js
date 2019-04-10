@@ -10,7 +10,6 @@ class Chat extends React.Component {
 
   changeInputMessage = e => {
     const { value } = e.target;
-
     this.setState({ messageInput: value });
   };
 
@@ -31,9 +30,9 @@ class Chat extends React.Component {
       <div className="chat">
         <div className="message-list">
           <div className="messages">
-            {messages.map((message, index) => (
-              <Message text={message.text} key={`${message.text}+${index}`} />
-            ))}
+            {messages.map(({ text }, index) => {
+              return <Message text={text} key={`${text}+${index}`} />;
+            })}
           </div>
         </div>
         <input

@@ -22,7 +22,6 @@ export default class Chat extends Component {
     const { current } = this.listContainer;
 
     if (current && current.lastChild) {
-      console.log('current');
       current.lastChild.scrollIntoView({
         block: 'end',
         behavior: 'smooth'
@@ -44,11 +43,15 @@ export default class Chat extends Component {
 
   sendMessageOnEnter = key => {
     const { messages, messageInput } = this.state;
+
     if (key === ENTER_KEY && messageInput) {
       const newMessage = { text: messageInput };
       const newMessages = [...messages, newMessage];
-
-      this.inputField.current.value = '';
+      const {current} = this.inputField;
+      
+      if(current) {
+        this.inputField.current.value = EMPTY_STRING;
+      }
 
       this.setState({
         ...this.state,
@@ -68,7 +71,7 @@ export default class Chat extends Component {
           onKeyPress={({ key }) => this.sendMessageOnEnter(key)}
           ref={this.inputField}
         />
-        {messages &&
+        {
           messages.map((item, index) => (
             <Message text={item.text} key={`${new Date()}_${index}`} />
           ))}

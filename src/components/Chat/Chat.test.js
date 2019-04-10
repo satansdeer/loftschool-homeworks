@@ -52,7 +52,7 @@ describe('Компонента Chat', () => {
 
       wrapper
         .find('input')
-        .simulate('onKeyPress', { keyCode: 13, key: 'Enter' });
+        .simulate('keyPress', { keyCode: 13, key: 'Enter' });
 
       expect(wrapper.state().messages).toEqual([{ text: 10 }]);
     });
@@ -64,7 +64,7 @@ describe('Компонента Chat', () => {
       wrapper.find('input').simulate('change', { target: { value: 10 } });
       wrapper
         .find('input')
-        .simulate('onKeyPress', { keyCode: 13, key: 'Enter' });
+        .simulate('keyPress', { keyCode: 13, key: 'Enter' });
 
       expect(wrapper.contains(<Message text={10} />)).toBeTruthy();
     });

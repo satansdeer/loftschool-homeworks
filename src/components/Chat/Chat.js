@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import Message from '../Message/Message';
-
+import Message from '../Message';
 import './Chat.css';
 
 export default class Chat extends Component {
   state = {
     messages: [],
     messageInput: ''
-  }
+  };
 
   changeInputMessage = e => {
     this.setState({
@@ -18,14 +17,14 @@ export default class Chat extends Component {
   sendMessageOnEnter = e => {
     if (e.key === 'Enter') {
       this.setState(({ messages }) => {
-        const newMessages = [...messages, {text: this.state.messageInput}];
-        
+        const newMessages = [...messages, { text: this.state.messageInput }];
+
         return {
           messages: newMessages,
           messageInput: ''
         };
       });
-    };
+    }
   };
 
   render() {
@@ -33,17 +32,14 @@ export default class Chat extends Component {
 
     return (
       <div className="chat">
-        <ul className="message-list">
-          {
-            messages.map((message, index) => {
-              return (
-                <Message key={index} text={message.text}/>
-              )
-            })
-          }
-        </ul>
-
-        <input 
+        <div className="message-list">
+          <div className="messages">
+            {messages.map((message, index) => (
+              <Message key={index} text={message.text} />
+            ))}
+          </div>
+        </div>
+        <input
           className="input-message"
           value={messageInput}
           onChange={this.changeInputMessage}
@@ -51,5 +47,5 @@ export default class Chat extends Component {
         />
       </div>
     );
-  };
-};
+  }
+}

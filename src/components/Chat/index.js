@@ -47,11 +47,6 @@ export default class Chat extends Component {
     if (key === ENTER_KEY && messageInput) {
       const newMessage = { text: messageInput };
       const newMessages = [...messages, newMessage];
-      const {current} = this.inputField;
-      
-      if(current) {
-        this.inputField.current.value = EMPTY_STRING;
-      }
 
       this.setState({
         ...this.state,
@@ -69,7 +64,7 @@ export default class Chat extends Component {
           className="input-message"
           onChange={({ target: { value } }) => this.changeInputMessage(value)}
           onKeyPress={({ key }) => this.sendMessageOnEnter(key)}
-          ref={this.inputField}
+          value={this.state.messageInput}
         />
         {
           messages.map((item, index) => (

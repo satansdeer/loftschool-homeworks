@@ -50,7 +50,9 @@ describe('Компонента Chat', () => {
 
       wrapper.find('input').simulate('change', { target: { value: 10 } });
 
-      wrapper.find('input').simulate('keyPress', { keyCode: 13, key: 'Enter' });
+      wrapper
+        .find('input')
+        .simulate('keyPress', { keyCode: 13, key: 'Enter' });
 
       expect(wrapper.state().messages).toEqual([{ text: 10 }]);
     });
@@ -60,7 +62,9 @@ describe('Компонента Chat', () => {
     it('Содержимое state.messages рендерится в список компонент Message', () => {
       const wrapper = shallow(<Chat />);
       wrapper.find('input').simulate('change', { target: { value: 10 } });
-      wrapper.find('input').simulate('keyPress', { keyCode: 13, key: 'Enter' });
+      wrapper
+        .find('input')
+        .simulate('keyPress', { keyCode: 13, key: 'Enter' });
 
       expect(wrapper.contains(<Message text={10} />)).toBeTruthy();
     });

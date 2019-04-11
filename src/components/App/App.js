@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
-const homework_1 = () => (
-    <div className="App">
-        <p className="description">Миру-мир, студентам - beer.</p>
-    </div>
+const App = () => (
+  <div className="App">
+    <p className="description">Миру-мир, студентам - beer.</p>
+  </div>
 );
 
-export default homework_1;
+export default App;

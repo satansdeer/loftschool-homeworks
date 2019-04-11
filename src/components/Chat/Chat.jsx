@@ -2,34 +2,22 @@ import React, { Component } from 'react';
 import Message from '../Message';
 
 export default class Chat extends Component {
-    get messageInput() {
-        const { messageInput } = this.state || { messageInput: '' };
-        return messageInput;
-    }
-
-    get messages() {
-        const { messages } = this.state || { messages: [] };
-        return messages;
-    }
+    state = {
+        messages: [],
+        messageInput: ''
+    };
 
     get renderMessages() {
         return this.messages.map((message, index) => <Message text={message.text} key={index} />);
     }
 
-    componentDidMount() {
-        this.setState({
-            messages: [],
-            messageInput: '',
-        });
-    }
-
-    changeInputMessage(value) {
+    changeInputMessage = value => {
         this.setState({
             messageInput: value
         });
     }
 
-    sendMessageOnEnter(key) {
+    sendMessageOnEnter = key => {
         if (key !== 'Enter' || this.inputText === '') {
             return;
         }

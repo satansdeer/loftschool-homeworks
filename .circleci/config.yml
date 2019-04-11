@@ -1,56 +1,41 @@
 version: 2
-
-defaults: &defaults
-  working_directory: ~/app
-  docker:
-    - image: cypress/base:8
-      environment:
-        TERM: xterm
-
 jobs:
-  lint-and-workspace-warm:
-    <<: *defaults
+  build:
+    working_directory: ~/app
+    docker:
+      - image: cypress/base:8
+        environment:
+          TERM: xterm
+
     steps:
       - checkout
-      - restore_cache: &restore_cache
+
+      - restore_cache:
           keys:
-            - yarn-packages-v12-{{ checksum "yarn.lock" }}
-            - yarn-packages-v12-
-
-      - run: &install_deps
-          name: Install Dependencies
-          command: |
-            yarn install
-            yarn autoclean --force
-
-      - save_cache: &save_cache
-          name: Save Yarn Package Cache
-          key: yarn-packages-v12-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/.cache/Cypress
-            - node_modules
+            - yarn-packages-v2-{{ checksum "yarn.lock" }}
+            - v2-deps-{{ .Branch }}
+            - v2-deps
 
       - run:
-          name: Run linters
-          command: yarn run lint
+          name: Install Dependencies
+          command: yarn install
 
-      - persist_to_workspace:
-          root: ~/
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-v2-{{ checksum "yarn.lock" }}
           paths:
-            - app/node_modules
-            - .cache/Cypress
+            - ~/.npm
+            - ~/.cache
 
-  unit-tests:
-    <<: *defaults
-    steps:
-      - checkout
-      - attach_workspace:
-          at: ~/
+      - run:
+          name: Build app
+          command: yarn build
 
       - run:
           name: Unit tests
           command: yarn test
 
+<<<<<<< HEAD
   integration-tests:
     <<: *defaults
     steps:
@@ -58,6 +43,8 @@ jobs:
       - attach_workspace:
           at: ~/
 
+=======
+>>>>>>> upstream/homework-2
       - run:
           name: Start background app
           command: yarn start
@@ -67,6 +54,7 @@ jobs:
           name: Cypress tests
           command: yarn run cypress:run
 
+<<<<<<< HEAD
   build:
     <<: *defaults
     steps:
@@ -93,6 +81,8 @@ jobs:
       - attach_workspace:
           at: build
 
+=======
+>>>>>>> upstream/homework-2
       - run:
           name: Set PR number
           command: |
@@ -101,6 +91,14 @@ jobs:
             echo $CIRCLE_PR_NUMBER
 
       - run:
+<<<<<<< HEAD
+=======
+
+          name: Remove service workers
+          command: rm ~/app/build/service-worker.js
+
+      - run:
+>>>>>>> upstream/homework-2
           name: Remove old build
           command:
             ssh -o StrictHostKeyChecking=no root@51.15.83.43 rm -rf
@@ -109,7 +107,11 @@ jobs:
       - run:
           name: Copy new build
           command:
+<<<<<<< HEAD
             scp -v -o StrictHostKeyChecking=no -r build
+=======
+            scp -v -o StrictHostKeyChecking=no -r ~/app/build
+>>>>>>> upstream/homework-2
             root@51.15.83.43:/var/www/sep-pr-$CIRCLE_PR_NUMBER
 
       - run:
@@ -117,6 +119,7 @@ jobs:
           command:
             ssh -o StrictHostKeyChecking=no root@51.15.83.43
             "/var/www/setup-server/index.js --address sep-pr-$CIRCLE_PR_NUMBER"
+<<<<<<< HEAD
 
 workflows:
   version: 2
@@ -141,3 +144,5 @@ workflows:
             - build
             - unit-tests
             - integration-tests
+=======
+>>>>>>> upstream/homework-2

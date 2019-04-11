@@ -14,7 +14,7 @@ export default class Chat extends Component {
       messageInput: EMPTY_STRING
     };
 
-    this.listContainer = createRef(); 
+    this.listContainer = createRef();
   }
 
   componentDidUpdate() {

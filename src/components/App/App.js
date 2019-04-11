@@ -7,7 +7,7 @@ class App extends React.Component {
             <p className="description">Миру-мир, студентам - beer.</p>
           </div>
         );
-      }
-
+    }
 }
+
 export default App;

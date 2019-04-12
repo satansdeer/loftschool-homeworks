@@ -4,8 +4,8 @@ import './Chat.css';
 
 class Chat extends React.Component {
   state = {
-    messageInput: '',
-    messages: []
+    messages: [],
+    messageInput: ''
   };
 
   changeInputMessage = event => {
@@ -22,11 +22,12 @@ class Chat extends React.Component {
   };
 
   render() {
+    const { messages, messageInput } = this.state;
     return (
       <div className="chat">
         <div className="message-list">
           <div className="messages">
-            {this.state.messages.map((message, index) => (
+            {messages.map((message, index) => (
               <Message text={message.text} key={index} />
             ))}
           </div>
@@ -36,7 +37,7 @@ class Chat extends React.Component {
           type="text"
           onChange={this.changeInputMessage}
           onKeyPress={this.sendMessageOnEnter}
-          value={this.state.messageInput}
+          value={messageInput}
         />
       </div>
     );

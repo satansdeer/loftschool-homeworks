@@ -14,10 +14,10 @@ class Chat extends React.Component {
 
   sendMessageOnEnter = event => {
     if (event.key === 'Enter') {
-      this.setState({
-        messages: [...this.state.messages, { text: this.state.messageInput }]
-      });
-      this.setState({ messageInput: '' });
+      this.setState(({ messages, messageInput }) => ({
+        messages: [...messages, { text: messageInput }],
+        messageInput: ''
+      }));
     }
   };
 

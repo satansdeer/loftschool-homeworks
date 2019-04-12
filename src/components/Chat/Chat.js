@@ -1,26 +1,28 @@
 
 import React, {Component} from "react";
 import Message from "../Message/Message.js";
-
+import "./Chat.css";
 class Chat extends Component {
     state = { 
         messages: [], 
-        messageInput: '',
-        count: 0 
-    };
+        messageInput: ''
+    }
 
     changeInputMessage = (event) => {
-        this.setState({ messageInput: event.target.value });
+        const {value} = event.target;
+        this.setState({ messageInput: value });
     }
 
     sendMessageOnEnter = (event) => {
-        if (event.key === 'Enter') {
-            this.setState({ messages: [ ...this.state.messages, {
-                text: this.state.messageInput
-            }]});
-            this.setState({ messageInput: '' });
+        const { messageInput } = this.state;
+        if (event.key === 'Enter' && messageInput !== '') {
+            this.setState(
+                {   
+                    messages: [ ...this.state.messages, { text: messageInput}],
+                    messageInput: ''
+                }
+            );
         }
-        
     }
 
     render() {
@@ -32,16 +34,14 @@ class Chat extends Component {
                 value={messageInput}
                 onChange={this.changeInputMessage}
                 onKeyPress={this.sendMessageOnEnter}/>
+                <ul>
+                    {messages.map(({text}) => (
+                        <li>
+                            <Message text={text}/>
+                        </li>  
+                    ))}
+                </ul>
             </div>
-            <ul>
-                {messages.map(({text}) => (
-                    <li>
-                        <Message text={text}/>
-                    </li>  
-                ))}
-            </ul>
-            
-            
         </div>
       );
     }

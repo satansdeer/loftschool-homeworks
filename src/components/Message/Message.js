@@ -1,13 +1,5 @@
-import React, {Component} from "react";
-
-class Message extends Component {
-    
-    render() {
-      const { text } = this.props;
-      return (
-           <span className="message">{text}</span>
-        );
-    }
-  };
+import React from "react";
+import "./Message.css";
+const Message = ({text}) => <span className="message">{text}</span>
 
 export default Message;

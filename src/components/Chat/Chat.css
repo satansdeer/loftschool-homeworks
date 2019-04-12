@@ -29,3 +29,8 @@
   outline: none;
   padding: 4px 10px;
 }
+
+.message__wrapper{
+  display: flex;
+  flex-direction: column;
+}

@@ -12,6 +12,9 @@
 # course utils
 /course_scripts
 
+# vscode settings
+/.vscode
+
 # misc
 .DS_Store
 .env.local

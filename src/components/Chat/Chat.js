@@ -1,48 +1,40 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import Message from '../Message/Message';
 import './Chat.css';
 
-class Chat extends Component {
-  state = {
-    messageInput: '',
-    messages: []
+const Chat = () => {
+  const [messageInput, setMessageInput] = useState('');
+  const [messages, setMessages] = useState([]);
+
+  const changeInputMessage = e => {
+    setMessageInput(e.target.value);
   };
 
-  changeInputMessage = e => {
-    this.setState({ messageInput: e.target.value });
-  };
-
-  sendMessageOnEnter = e => {
-    if (e.key === 'Enter' && this.state.messageInput) {
-      this.setState(({ messageInput, messages }) => ({
-        messageInput: '',
-        messages: [...messages, { text: messageInput }]
-      }));
+  const sendMessageOnEnter = e => {
+    if (e.key === 'Enter' && messageInput) {
+      setMessageInput('');
+      setMessages([...messages, { text: messageInput }]);
     }
   };
 
-  render() {
-    const { messages, messageInput } = this.state;
-
-    return (
-      <div className="chat">
-        <div className="message-list">
-          <div className="messages">
-            {messages.map((it, i) => (
-              <Message key={i} text={it.text} />
-            ))}
-          </div>
+  return (
+    <div className="chat">
+      <div className="message-list">
+        <div className="messages">
+          {messages.map((it, i) => (
+            <Message key={i} text={it.text} />
+          ))}
         </div>
-        <input
-          type="text"
-          className="input-message"
-          value={messageInput}
-          onChange={this.changeInputMessage}
-          onKeyPress={this.sendMessageOnEnter}
-        />
       </div>
-    );
-  }
-}
+      <input
+        type="text"
+        className="input-message"
+        value={messageInput}
+        onChange={changeInputMessage}
+        onKeyPress={sendMessageOnEnter}
+      />
+    </div>
+  );
+};
 
 export default Chat;

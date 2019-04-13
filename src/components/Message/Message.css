@@ -9,18 +9,6 @@
   align-self: baseline;
 }
 
-.message-list {
-  flex: 10 1;
-  overflow-y: scroll;
-}
-
-.messages {
-  display: flex;
-  flex-direction: column;
-  min-height: 100%;
-  padding: 10px 10px 0;
-}
-
 .message__like {
   width: auto;
   height: 16px;

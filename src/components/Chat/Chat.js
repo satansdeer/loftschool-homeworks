@@ -22,19 +22,16 @@ class Chat extends Component {
       let msg = this.state.messageInput;
       console.log(this.state.messageInput, 'messageInput after add value');
 
-      let messages = this.state.messages;
-      console.log(this.state.messages, 'messages');
-
-      messages.push({ text: msg });
-      console.log(this.state.messages, 'messages after push');
-
-      this.setState({
-        messageInput: '',
-        text: msg,
-        messages: messages
-      });
-
-      console.log(this.state, 'state');
+      this.setState(
+        {
+          messageInput: '',
+          text: msg,
+          messages: [...this.state.messages, { text: msg }]
+        },
+        () => {
+          console.log(this.state, 'state');
+        }
+      );
 
       event.target.value = '';
     }

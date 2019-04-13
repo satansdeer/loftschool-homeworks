@@ -3,16 +3,15 @@ import Message from 'components/Message/index.js';
 import './Chat.css';
 
 class Chat extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      messageInput: '',
-      messages: []
-    };
-  }
+  state = {
+    messageInput: '',
+    messages: []
+  };
+
   changeInputMessage = e => {
     this.setState({ messageInput: e.target.value });
   };
+
   sendMessageOnEnter = e => {
     if (e.key === 'Enter') {
       this.setState({
@@ -21,10 +20,11 @@ class Chat extends Component {
       });
     }
   };
+
   render() {
-    const msg = this.state.messages.map(el => {
-      return <Message key={el.text} text={el.text} />;
-    });
+    const msg = this.state.messages.map((el, index) => (
+      <Message key={index} text={el.text} />
+    ));
     return (
       <div className="chat">
         <div className="message-list">

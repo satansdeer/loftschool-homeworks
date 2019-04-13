@@ -20,20 +20,22 @@ class Chat extends Component {
   sendMessageOnEnter = event => {
     if (event.key === 'Enter') {
       let msg = this.state.messageInput;
-      console.log(this.state.messageInput, 'messageInput after add value');
+      console.log(this.state, 'state before change');
 
-      this.setState(
-        {
-          messageInput: '',
-          text: msg,
-          messages: [...this.state.messages, { text: msg }]
-        },
-        () => {
-          console.log(this.state, 'state');
-        }
-      );
+      if (msg) {
+        this.setState(
+          {
+            messageInput: '',
+            text: msg,
+            messages: [...this.state.messages, { text: msg }]
+          },
+          () => {
+            console.log(this.state, 'state after change');
+          }
+        );
 
-      event.target.value = '';
+        event.target.value = '';
+      }
     }
   };
 

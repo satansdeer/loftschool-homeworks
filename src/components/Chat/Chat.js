@@ -7,7 +7,6 @@ class Chat extends Component {
     super(props);
     this.state = {
       messageInput: '',
-      text: '',
       messages: []
     };
   }
@@ -19,40 +18,32 @@ class Chat extends Component {
 
   sendMessageOnEnter = event => {
     if (event.key === 'Enter') {
-      let msg = this.state.messageInput;
-      console.log(this.state, 'state before change');
+      let { messages, messageInput } = this.state;
 
-      if (msg) {
-        this.setState(
-          {
-            messageInput: '',
-            text: msg,
-            messages: [...this.state.messages, { text: msg }]
-          },
-          () => {
-            console.log(this.state, 'state after change');
-          }
-        );
-
-        event.target.value = '';
+      if (messageInput) {
+        this.setState({
+          messageInput: '',
+          messages: [...messages, { text: messageInput }]
+        });
       }
     }
   };
 
   render() {
-    let messages = [];
-
-    for (let i = 0, length = this.state.messages.length; i < length; i++) {
-      messages.push(<Message key={i} text={this.state.messages[i].text} />);
-    }
+    let { messages, messageInput } = this.state;
 
     return (
       <div className="chat">
-        <ul className="message-list">{messages}</ul>
+        <ul className="message-list">
+          {messages.map((message, i) => (
+            <Message key={i} text={message.text} />
+          ))}
+        </ul>
         <input
           className="input-message"
           onChange={this.changeInputMessage}
           onKeyPress={this.sendMessageOnEnter}
+          value={messageInput}
         />
       </div>
     );

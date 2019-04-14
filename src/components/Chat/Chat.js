@@ -3,13 +3,10 @@ import Message from '../Message';
 import './Chat.css'
 
 export default class Chat extends React.Component {
-    constructor(props) {
-        super(props)
 
-        this.state = {
-            messages: [],
-            messageInput: ''
-        }
+    state = {
+        messages: [],
+        messageInput: ''
     }
 
     sendMessageOnEnter = (e) => {

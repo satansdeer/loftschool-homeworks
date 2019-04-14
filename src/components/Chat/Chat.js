@@ -1,25 +1,25 @@
 // import React from 'react';
-import React, { Componentы } from 'react';
+import React from 'react';
 import Message from '../Message';
 import './Chat.css';
 
 class Chat extends React.Component {
   state = {
-    messageInput: '',
-    messages: [{ text: messageInput }]
+    messages: [],
+    messageInput: ''
   };
 
   changeInputMessage = () => {
-    // this.setState({
-    //   messageInput: state.messageInput
-    // });
-  };
-  sendMessageOnEnter = () => {
     this.setState({
-      messages: [(text: messageInput.value)]
+      messageInput: this.state.messageInput
     });
-
-    state.messageInput = '';
+  };
+  sendMessageOnEnter = event => {
+    if (event.key === 'Enter')
+      this.setState({
+        messages: [...messages, { text: messageInput }],
+        messageInput: ''
+      });
   };
 
   render() {
@@ -40,15 +40,5 @@ class Chat extends React.Component {
     );
   }
 }
-
-// const Chat = () => {
-//   changeInputMessage = () => {};
-
-//   return (
-//     <div className="chat">
-//       <input className="input-message" onChange={this.changeInputMessage} />
-//     </div>
-//   );
-// };
 
 export default Chat;

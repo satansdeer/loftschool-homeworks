@@ -1,7 +1,10 @@
 import React from 'react';
 import Chat from '../Chat';
 import Message from '../Message';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
+
+let scrollIntoViewMock = jest.fn();
+window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock;
 
 describe('Компонента Chat', () => {
   const wrapper = shallow(<Chat />);
@@ -38,7 +41,7 @@ describe('Компонента Chat', () => {
 
   describe('Поведение компоненты', () => {
     it('При вводе значения в input, оно сохраняется в state.messageInput', () => {
-      const wrapper = shallow(<Chat />);
+      const wrapper = mount(<Chat />);
 
       wrapper.find('input').simulate('change', { target: { value: 10 } });
 
@@ -46,23 +49,26 @@ describe('Компонента Chat', () => {
     });
 
     it('При нажатии Enter в input, значение в state.messages станет содержать [{text: значение_из_messageInput}], а state.messageInput станет пустой строкой ""', () => {
-      const wrapper = shallow(<Chat />);
+      const wrapper = mount(<Chat />);
 
       wrapper.find('input').simulate('change', { target: { value: 10 } });
 
       wrapper.find('input').simulate('keyPress', { keyCode: 13, key: 'Enter' });
 
       expect(wrapper.state().messages).toEqual([{ text: 10 }]);
+      expect(scrollIntoViewMock).toBeCalled();
     });
   });
 
   describe('проверка рендера компонент Messages', () => {
     it('Содержимое state.messages рендерится в список компонент Message', () => {
-      const wrapper = shallow(<Chat />);
+      const wrapper = mount(<Chat />);
+
       wrapper.find('input').simulate('change', { target: { value: 10 } });
       wrapper.find('input').simulate('keyPress', { keyCode: 13, key: 'Enter' });
 
       expect(wrapper.contains(<Message text={10} />)).toBeTruthy();
+      expect(scrollIntoViewMock).toBeCalled();
     });
   });
 });

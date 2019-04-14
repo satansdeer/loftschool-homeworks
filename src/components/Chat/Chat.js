@@ -35,9 +35,11 @@ class Chat extends React.Component {
           onKeyPress={this.sendMessageOnEnter}
           value={messageInput}
         />
-        {messages.map((item, index) => (
-          <Message text={item.text} key={`${new Date()}_${index}`} />
-        ))}
+        <ul className="message-list">
+          {messages.map((message, index) => (
+            <Message text={message.text} key={`${new Date()}_${index}`} />
+          ))}
+        </ul>
       </div>
     );
   }

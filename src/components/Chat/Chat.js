@@ -9,11 +9,12 @@ class Chat extends React.Component {
     messageInput: ''
   };
 
-  changeInputMessage = () => {
-    this.setState({
-      messageInput: this.state.messageInput
-    });
+  changeInputMessage = event => {
+    const inputText = event.target.value ? event.target.value : '';
+
+    this.setState({ messageInput: inputText });
   };
+
   sendMessageOnEnter = event => {
     const { messages, messageInput } = this.state;
 

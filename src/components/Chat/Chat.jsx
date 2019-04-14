@@ -8,7 +8,7 @@ export default class Chat extends Component {
     };
 
     get renderMessages() {
-        return this.messages.map((message, index) => <Message text={message.text} key={index} />);
+        return this.state.messages.map((message, index) => <Message text={message.text} key={index} />);
     }
 
     changeInputMessage = value => {
@@ -23,7 +23,7 @@ export default class Chat extends Component {
         }
 
         this.setState(prevState => ({
-            messages: [...prevState.messages, { text: this.messageInput }],
+            messages: [...prevState.messages, { text: this.state.messageInput }],
             messageInput: '',
         }));
     }

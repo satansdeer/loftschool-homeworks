@@ -13,6 +13,7 @@
 /course_scripts
 
 # misc
+.idea
 .DS_Store
 .env.local
 .env.development.local

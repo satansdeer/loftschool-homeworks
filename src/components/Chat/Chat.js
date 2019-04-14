@@ -30,18 +30,16 @@ class Chat extends Component {
     });
   }
 
-  render() {
+  render()
     return (
       <div className="chat">
         <div className="message-list">
-          <div ref={this.messageList} className="messages">
-            renderMessages();
-          </div>
+          <div className="messages">{this.renderMessages()}</div>
           <input
             className="input-message"
             onChange={this.changeInputMessage}
             onKeyPress={this.sendMessageOnEnter}
-            value={this.state.messageInput}
+            value={this.messageInput}
           />
         </div>
       </div>

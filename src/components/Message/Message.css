@@ -1,4 +1,5 @@
 .message {
+  display: block;
   margin: 5px 0;
   align-self: left;
   background-color: #5b5bff;

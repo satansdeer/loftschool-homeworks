@@ -18,10 +18,10 @@ export default class Chat extends React.Component {
     sendMessageOnEnter = (e) => {
         if (e.key === 'Enter') {
             if (e.target.value !== '') {
-                let temp = this.state.messages;
-                temp.push(e.target.value)
-                this.setState({messages: temp});
-                this.setState({messageInput: ''});
+              this.setState(prevState => ({
+                messages: [...prevState.messages, { text: e.target.value }],
+                messageInput: ''
+              }));
             }
         }
     }

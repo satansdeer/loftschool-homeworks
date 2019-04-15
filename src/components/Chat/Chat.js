@@ -6,33 +6,34 @@ class Chat extends Component {
   state = { messages: [], messageInput: '' };
 
   changeInputMessage = e => {
+    const {value} = e.target
     this.setState({
-      messageInput: e.target.value
+      messageInput: value
     });
   };
 
   sendMessageOnEnter = e => {
-    if (e.key === 'Enter' && this.state.messageInput) {
-      const newItem = {
-        text: this.state.messageInput
-      };
-      this.setState(({ messages }) => {
-        const newArr = [...messages, newItem];
-        return {
-          messages: newArr,
-          messageInput: ''
-        };
+    const { messageInput, messages } = this.state;
+    if (e.key === 'Enter' && messageInput !== '') {
+      this.setState({
+        messages: [...messages, { text: messageInput }],
+        messageInput: ''
       });
     }
   };
   render() {
-    const messages = this.state.messages.map((item, index) => {
-      return <Message key={index} text={item.text} />;
-    });
+    const { messages, messageInput } = this.state;
+
     return (
       <div className="chat">
         <div className="message-list">
-          <div className="messages">{messages}</div>
+          <div className="messages">
+            {messages.map((item, index) => {
+              return (
+                <Message key={`${item.text}_${index}`} text={item.text} />
+              );
+            })}
+          </div>
         </div>
 
         <input
@@ -40,7 +41,7 @@ class Chat extends Component {
           onKeyPress={this.sendMessageOnEnter}
           className="input-message"
           type="text"
-          value={this.state.messageInput}
+          value={messageInput}
         />
       </div>
     );

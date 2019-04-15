@@ -1,16 +1,19 @@
 
 const formInsideFields = [
     {
-      name: 'Имя',
-      type: 'text',
+        nameLabel: 'Имя',
+        name: 'firstname',
+        type: 'text',
     },
     {
-      name: 'Фамилия',
-      type: 'text',
+        nameLabel: 'Фамилия',
+        name: 'lastname',
+        type: 'text',
     },
     {
-      name: 'Пароль',
-      type: 'password',
+        nameLabel: 'Пароль',
+        name: 'password',
+        type: 'password',
     }
 ]
 

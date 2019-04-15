@@ -8,6 +8,10 @@ const NAME_WRONG_MESSAGE = 'Имя указано не верно';
 const LASTNAME_WRONG_MESSAGE = 'Фамилия указана не верно';
 const PASSWORD_WRONG_MESSAGE = 'Пароль указан не верно';
 
+const VALID_NAME = 'james'
+const VALID_LASTNAME = 'bond'
+const VALID_PASSWORD = '007'
+
 class FormStateProvider extends Component {
   constructor(props){
     super(props)
@@ -29,29 +33,37 @@ class FormStateProvider extends Component {
   validate = (name, value) => {
     console.log('test validateName', name, value)
 
-    if(name === 'Имя') {
+    if(name === 'firstname') {
       if(!value){
         return NAME_EMPTY_MESSAGE
       }
 
-      return NAME_WRONG_MESSAGE
+      if(value !== VALID_NAME){
+        return NAME_WRONG_MESSAGE
+      }
     }
 
-    if(name === 'Фамилия') {
+    if(name === 'lastname') {
       if(!value){
         return LASTNAME_EMPTY_MESSAGE
       }
 
-      return LASTNAME_WRONG_MESSAGE
+      if(value !== VALID_LASTNAME){
+        return LASTNAME_WRONG_MESSAGE
+      }
     }
 
-    if(name === 'Пароль') {
+    if(name === 'password') {
       if(!value){
         return PASSWORD_EMPTY_MESSAGE
       }
 
-      return PASSWORD_WRONG_MESSAGE
+      if(value !== VALID_PASSWORD){
+        return PASSWORD_WRONG_MESSAGE
+      }
     }
+
+    this.props.setValidApp()
   }
 
   changeField = (name, fieldValue) => {

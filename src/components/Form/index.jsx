@@ -9,13 +9,13 @@ const Form = props => {
   return (
     <form className="form" onSubmit={handleValidate}>
       <h1>Введите свои данные, агент</h1>
-      {fields.map(({name, error, value, type})=>{
+      {fields.map(({name, error, value, type, nameLabel})=>{
         return (
           <Field
           type={type}
           classname={`field__input field-input t-input-${name}`}
           error={stateOfFields[name].error ? stateOfFields[name].error : ''}
-          label={name}
+          label={nameLabel}
           name={name}
           handleChange={changeField}
           key={name}

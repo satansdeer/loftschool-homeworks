@@ -1,9 +1,7 @@
 import React from 'react';
 import './Field.css';
 
-const getAutoCompleted = value => {
-  return value === 'password' ? 'on' : 'off';
-};
+const getAutoCompleted = value =>  value === 'password' ? 'off' : 'on';
 
 const Field = ({
   handleChange,
@@ -24,6 +22,8 @@ const Field = ({
       onChange={({ target: { value } }) => handleChange(name, value)}
       autoComplete={getAutoCompleted(type)}
       id={name}
+      onDrop={e=>e.preventDefault()}
+      onPaste={e=>e.preventDefault()}
     />
     <span className={`field__error field-error t-error-${name}`}>{error}</span>
   </p>

@@ -1,3 +1,12 @@
-import React from 'react'
+import React from 'react';
+import Form from '../Form';
+import FormStateProvider from '../../containers/FormStateProvider';
+import './App.css';
 
-export default () => <p>Homework app</p>
+export default () => (
+  <div className="app-container">
+    <FormStateProvider>
+      <Form />
+    </FormStateProvider>
+  </div>
+);

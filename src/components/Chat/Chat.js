@@ -22,7 +22,6 @@ class Chat extends Component {
 				messages: [ { text: this.state.messageInput } ],
 				messageInput: ''
 			});
-			console.log(this.state.messages);
 		}
 	};
 

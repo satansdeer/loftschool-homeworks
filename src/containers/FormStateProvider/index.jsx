@@ -1,70 +1,76 @@
 import React, { Component } from 'react';
+import formInsideFields from '../../appConfig'
 
 const NAME_EMPTY_MESSAGE = 'Нужно указать имя';
+const LASTNAME_EMPTY_MESSAGE = 'Нужно указать фамилию';
+const PASSWORD_EMPTY_MESSAGE = 'Нужно указать пароль';
 const NAME_WRONG_MESSAGE = 'Имя указано не верно';
+const LASTNAME_WRONG_MESSAGE = 'Фамилия указана не верно';
+const PASSWORD_WRONG_MESSAGE = 'Пароль указан не верно';
 
 class FormStateProvider extends Component {
-  state = {
-    name: {
-      value: '',
-      error: null
-    },
-    lastname: {
-      value: '',
-      error: null
-    },
-    password: {
-      value: '',
-      error: null
-    }
-  };
+  constructor(props){
+    super(props)
+
+    this.state = formInsideFields.reduce((accumulator, element, index, array) => {
+      accumulator[element.name] = {value: '',error: null}
+      return accumulator
+    }, {}) 
+  }
 
   handleValidate = event => {
     event.preventDefault();
-    // const { name, surname, password } = this.state;
-    console.log('test handleValidate');
-    // if( !validateName && !validateSurname && !validatePassword) {
-    //     this.
-    // }
+    const newState = {...this.state}
+    formInsideFields.forEach(({name}) => newState[name].error = this.validate(name, this.state[name].value))
+
+    this.setState({...newState})
   };
 
-  validateName = name => {
-    if (name === '') return NAME_EMPTY_MESSAGE;
+  validate = (name, value) => {
+    console.log('test validateName', name, value)
 
-    if (typeof name !== 'string') return NAME_WRONG_MESSAGE;
+    if(name === 'Имя') {
+      if(!value){
+        return NAME_EMPTY_MESSAGE
+      }
 
-    return null;
-  };
+      return NAME_WRONG_MESSAGE
+    }
 
-  changeNameField = fieldValue => {
-    console.log('fieldValue', fieldValue);
+    if(name === 'Фамилия') {
+      if(!value){
+        return LASTNAME_EMPTY_MESSAGE
+      }
 
-    this.setState({ ...this.state, name: { value: fieldValue, error: null } });
-  };
+      return LASTNAME_WRONG_MESSAGE
+    }
 
-  changeLastNameField = fieldValue => {
-    console.log('fieldValue', fieldValue);
+    if(name === 'Пароль') {
+      if(!value){
+        return PASSWORD_EMPTY_MESSAGE
+      }
 
-    this.setState({
-      ...this.state,
-      lastname: { value: fieldValue, error: null }
-    });
-  };
+      return PASSWORD_WRONG_MESSAGE
+    }
+  }
 
-  changePasswordField = fieldValue => {
-    console.log('fieldValue', fieldValue);
+  changeField = (name, fieldValue) => {
+    const result = {...this.state}
 
-    this.setState({
-      ...this.state,
-      password: { value: fieldValue, error: null }
-    });
+    formInsideFields.forEach(({name}) => result[name].error = null)
+
+    result[name].value = fieldValue
+
+    this.setState({...result})
   };
 
   render = () =>
     React.Children.map(this.props.children, child =>
       React.cloneElement(child, {
         handleValidate: this.handleValidate,
-        changeNameField: this.changeNameField
+        changeField: this.changeField,
+        fields: formInsideFields,
+        stateOfFields: this.state
       })
     );
 }

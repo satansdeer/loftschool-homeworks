@@ -21,8 +21,7 @@ const Field = ({
     <input
       className={classname}
       type={type}
-      value={value}
-      onChange={({ target: { value } }) => handleChange(value)}
+      onChange={({ target: { value } }) => handleChange(name, value)}
       autoComplete={getAutoCompleted(type)}
       id={name}
     />

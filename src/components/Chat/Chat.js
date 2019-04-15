@@ -3,8 +3,6 @@ import Message from '../Message';
 import './Chat.css';
 
 class Chat extends Component {
-  messageId = 0;
-
   state = { messages: [], messageInput: '' };
 
   changeInputMessage = e => {
@@ -16,8 +14,7 @@ class Chat extends Component {
   sendMessageOnEnter = e => {
     if (e.key === 'Enter' && this.state.messageInput) {
       const newItem = {
-        text: this.state.messageInput,
-        id: this.messageId++
+        text: this.state.messageInput
       };
       this.setState(({ messages }) => {
         const newArr = [...messages, newItem];
@@ -29,8 +26,8 @@ class Chat extends Component {
     }
   };
   render() {
-    const messages = this.state.messages.map(item => {
-      return <Message key={item.id} text={item.text} />;
+    const messages = this.state.messages.map((item, index) => {
+      return <Message key={index} text={item.text} />;
     });
     return (
       <div className="chat">

@@ -22,3 +22,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+/.idea
+/.circleci
+cypress/screenshots
+package-lock.json

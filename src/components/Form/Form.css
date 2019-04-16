@@ -14,7 +14,7 @@
 }
 
 .field {
-  margin: 0;
+  margin: 15px 0;
 }
 
 .field__label {
@@ -56,4 +56,13 @@
   font-size: 16px;
   font-weight: 500;
   padding: 5px 10px;
+}
+
+
+.hidden{
+  display: none;
+}
+
+.bond{
+  display: block;
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Form.css';
+import Bond from './assets/bond_approve.jpg';
 
 class Form extends Component {
   state = {
@@ -112,68 +113,90 @@ class Form extends Component {
       passWord,
       errorFirstName,
       errorLastName,
-      errorPassWord
+      errorPassWord,
+      firstNameRight,
+      lastNameRight,
+      passWordRight
     } = this.state;
-    return (
-      <div className="app-container">
-        <form className="form">
-          <h1>Введите свои данные, агент</h1>
-          <p className="field">
-            <label htmlFor="firstname" className="field__label">
-              <span className="field-label">Имя</span>
-            </label>
-            <input
-              type="text"
-              name="firstname"
-              value={firstName}
-              className="field__input field-input t-input-firstname"
-              onChange={this.handleChengeName}
-            />
-            <span className="field__error field-error t-error-firstname">
-              {errorFirstName}
-            </span>
-          </p>
-          <p className="field">
-            <label htmlFor="firstname" className="field__label">
-              <span className="field-label">Фамилия</span>
-            </label>
-            <input
-              type="text"
-              name="lastname"
-              value={lastName}
-              className="field__input field-input t-input-lastname"
-              onChange={this.handleChengeLastName}
-            />
-            <span className="field__error field-error t-error-lastname">
-              {errorLastName}
-            </span>
-          </p>
-          <p className="field">
-            <label htmlFor="firstname" className="field__label">
-              <span className="field-label">Пароль</span>
-            </label>
-            <input
-              type="password"
-              name="password"
-              value={passWord}
-              className="field__input field-input t-input-password"
-              onChange={this.handleChengePassword}
-            />
-            <span className="field__error field-error t-error-password">
-              {errorPassWord}
-            </span>
-          </p>
-          <div className="form__buttons">
-            <input
-              type="submit"
-              className="button t-submit"
-              value="Проверить"
-              onClick={this.hendleSubmit}
-            />
-          </div>
-        </form>
-      </div>
-    );
+
+    if (
+      firstNameRight === false ||
+      lastNameRight === false ||
+      passWordRight === false
+    ) {
+      return (
+        <div className="app-container">
+          <form className="form">
+            <h1>Введите свои данные, агент</h1>
+            <p className="field">
+              <label htmlFor="firstname" className="field__label">
+                <span className="field-label">Имя</span>
+              </label>
+              <input
+                type="text"
+                name="firstname"
+                value={firstName}
+                className="field__input field-input t-input-firstname"
+                onChange={this.handleChengeName}
+              />
+              <span className="field__error field-error t-error-firstname">
+                {errorFirstName}
+              </span>
+            </p>
+            <p className="field">
+              <label htmlFor="firstname" className="field__label">
+                <span className="field-label">Фамилия</span>
+              </label>
+              <input
+                type="text"
+                name="lastname"
+                value={lastName}
+                className="field__input field-input t-input-lastname"
+                onChange={this.handleChengeLastName}
+              />
+              <span className="field__error field-error t-error-lastname">
+                {errorLastName}
+              </span>
+            </p>
+            <p className="field">
+              <label htmlFor="firstname" className="field__label">
+                <span className="field-label">Пароль</span>
+              </label>
+              <input
+                type="password"
+                name="password"
+                value={passWord}
+                className="field__input field-input t-input-password"
+                onChange={this.handleChengePassword}
+              />
+              <span className="field__error field-error t-error-password">
+                {errorPassWord}
+              </span>
+            </p>
+            <div className="form__buttons">
+              <input
+                type="submit"
+                className="button t-submit"
+                value="Проверить"
+                onClick={this.hendleSubmit}
+              />
+            </div>
+          </form>
+        </div>
+      );
+    }
+
+    if (
+      firstNameRight === true &&
+      lastNameRight === true &&
+      passWordRight === true
+    ) {
+      return (
+        <div className="app-container">
+          <img src={Bond} alt="Bond" class="t-bond-image" />
+        </div>
+      );
+    }
   }
 }
 

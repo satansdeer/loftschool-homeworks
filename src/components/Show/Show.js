@@ -23,7 +23,6 @@ class Show extends PureComponent {
       return <p className="show-inforation t-show-info">Шоу не выбрано</p>;
     } else {
       const { genres, image, name, summary } = data;
-      console.log(data);
       const genresString = genres.join(', ');
       const { original } = image;
       return (

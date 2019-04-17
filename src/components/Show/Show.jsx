@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 const URL = 'http://api.tvmaze.com/shows';
 
@@ -10,50 +10,54 @@ const fetchMap = {
 
 const getUrl = key => `${URL}/${fetchMap[key]}`;
 
-export default class Show extends Component {
-  static getDerivedStateFromProps(nextProps) {
-    const { showId } = nextProps;
-
-    if (showId) {
-      const newState = {};
-      fetch(getUrl(showId))
-        .then(data => data.json())
-        .then(({ name, genres, summary, image: { medium: mediumImage } }) => {
-          newState['name'] = name;
-          newState['genres'] = genres.toString();
-          newState['text'] = summary;
-          newState['image'] = mediumImage;
-          return { ...newState };
-        });
-
-      console.log(newState);
-    }
-
-    return null;
+export default class Show extends PureComponent {
+  static getDerivedStateFromProps(nextProps, prevState){
+    const {showId} = nextProps
+    return {...prevState,showId }
   }
 
   state = {
-    image: '',
-    name: '',
-    genres: '',
-    text: ''
+    data: null,
+    showId: ''
   };
 
-  render() {
-    const { image, name, genres, text } = this;
+  componentDidUpdate(prevProps, prevState) {
+    const {showId: showIdPrev} = prevProps
+    const {showId: showIdNext} = this.state;
 
-    return (
-      this.props.showId && (
-        <div className="show">
-          <img className="show-image" src={image} />
-          <h2 className="show-label t-show-name">{name}</h2>
-          <p className="show-text t-show-genre">
-            <b>Жанр: </b>
-            {genres}
-          </p>
-          <p className="show-text t-show-summary">{text}</p>
-        </div>
+    if(showIdNext !== showIdPrev && showIdNext) {
+      console.log('check')
+      fetch(getUrl(showIdNext))
+        .then(data => data.json())
+        .then(data => this.setData(data))
+    }
+  }
+
+  setData = (data) => this.setState({...this.state, data:data})
+
+  getText = data => data.split('"').join('')
+
+  render() {
+    const { data } = this.state;
+    if(data) {
+      const { image:{medium: mediumImage}, name, genres, summary } = data;
+      const stringGenres = genres.toString();
+
+      return (
+        this.props.showId && (
+          <div className="show">
+            <img className="show-image" src={mediumImage} />
+            <h2 className="show-label t-show-name">{name}</h2>
+            <p className="show-text t-show-genre">
+              <b>Жанр: </b>
+              {stringGenres}
+            </p>
+            <p className="show-text t-show-summary" dangerouslySetInnerHTML={{ __html: this.getText(summary) }}></p>
+          </div>
+        )
       )
-    );
+    }
+
+    return null
   }
 }

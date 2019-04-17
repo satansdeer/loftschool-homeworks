@@ -9,8 +9,10 @@ class Show extends PureComponent {
   };
 
   componentDidUpdate(prevProps) {
-    if (this.props !== prevProps) {
-      const { showId } = this.props;
+    const { showId } = this.props;
+    const { prevshowId } = prevProps;
+    if (showId !== prevshowId) {
+      
       getShowInfo(showId).then(obj =>
         this.setState({ data: obj, showId: showId })
       );
@@ -19,13 +21,15 @@ class Show extends PureComponent {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const { showId } = nextProps;
-    if (showId === prevState.showId) {
+    const { prevshowId } = prevState;
+    if (showId === prevshowId) {
       return null;
     }
     return { prevState };
   }
 
   render() {
+    console.log('render');
     const { showId, data } = this.state;
     if (showId === '') {
       return <p className="show-inforation t-show-info">Шоу не выбрано</p>;

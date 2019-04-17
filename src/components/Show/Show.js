@@ -29,7 +29,6 @@ class Show extends PureComponent {
   }
 
   render() {
-    console.log('render');
     const { showId, data } = this.state;
     if (showId === '') {
       return <p className="show-inforation t-show-info">Шоу не выбрано</p>;

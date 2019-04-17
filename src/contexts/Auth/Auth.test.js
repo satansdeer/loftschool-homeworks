@@ -61,7 +61,7 @@ describe('AuthProvider', () => {
   describe('Функция logout', () => {
     it('Устанавливает state.isAuthorized: false', () => {
       wrapper.instance().authorize('stu@dent.co', '123');
-      wrapper.instance().logout()
+      wrapper.instance().logout();
       expect(wrapper.state().isAuthorized).toBeFalsy();
     });
   });

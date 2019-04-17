@@ -193,7 +193,7 @@ class Form extends Component {
     ) {
       return (
         <div className="app-container">
-          <img src={Bond} alt="Bond" class="t-bond-image" />
+          <img src={Bond} alt="Bond" className="t-bond-image" />
         </div>
       );
     }

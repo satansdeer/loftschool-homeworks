@@ -73,10 +73,10 @@ export default class Form extends Component {
   validate = () => {
     const { lastname, firstname, password } = this.state;
 
-    if (lastname !== 'james' && firstname !== 'bond' && password !== '007') {
-      this.checkWrongData();
-    } else {
+    if (firstname === 'james' && lastname === 'bond' && password === '007') {
       this.setState({ isLoggedIn: true });
+    } else {
+      this.checkWrongData();
     }
   };
 

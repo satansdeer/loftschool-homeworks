@@ -16,13 +16,10 @@ class FormStateProvider extends Component {
   constructor(props) {
     super(props);
 
-    this.state = formInsideFields.reduce(
-      (accumulator, element, index, array) => {
-        accumulator[element.name] = { value: '', error: null };
-        return accumulator;
-      },
-      {}
-    );
+    this.state = formInsideFields.reduce((accumulator, element, index) => {
+      accumulator[element.name] = { value: '', error: null };
+      return accumulator;
+    }, {});
   }
 
   handleValidate = event => {
@@ -33,7 +30,13 @@ class FormStateProvider extends Component {
         (newState[name].error = this.validate(name, this.state[name].value))
     );
 
-    this.setState({ ...newState });
+    const arrayOfValues = Object.values(newState).filter(
+      ({ error }) => error === null
+    );
+
+    return arrayOfValues.length === 3
+      ? this.props.setValidApp()
+      : this.setState({ ...newState });
   };
 
   validate = (name, value) => {
@@ -67,7 +70,7 @@ class FormStateProvider extends Component {
       }
     }
 
-    this.props.setValidApp();
+    return null;
   };
 
   changeField = (name, fieldValue) => {

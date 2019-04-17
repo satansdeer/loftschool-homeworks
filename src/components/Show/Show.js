@@ -33,7 +33,10 @@ class Show extends PureComponent {
             <b>Жанр: </b>
             {genresString}
           </p>
-          <p className="show-text t-show-summary" dangerouslySetInnerHTML={{__html: summary}}></p>
+          <p
+            className="show-text t-show-summary"
+            dangerouslySetInnerHTML={{ __html: summary }}
+          />
         </div>
       );
     }

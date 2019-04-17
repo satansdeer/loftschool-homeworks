@@ -28,58 +28,71 @@ export default class Form extends Component {
     this.validate();
   };
 
+  checkSuccessData = () => {
+    const { firstname, lastname, password } = this.state;
+
+    if (
+      firstname &&
+      lastname &&
+      password &&
+      firstname === 'james' &&
+      lastname === 'bond' &&
+      password === '007'
+    ) {
+      this.setState({
+        isLoggedIn: true,
+        firstnameError: '',
+        lastnameError: '',
+        passwordError: ''
+      });
+    }
+  };
+
   checkFirstname = () => {
-    if (!this.state.firstname) {
+    if (this.state.firstname === '') {
       this.setState({
-        firstnameError: 'Нужно указать имя',
-        isLoggedIn: false
+        firstnameError: 'Нужно указать имя'
       });
-    } else if (this.state.firstname !== 'James') {
+    } else if (this.state.firstname !== 'james') {
       this.setState({
-        firstnameError: 'Имя указано не верно',
-        isLoggedIn: false
+        firstnameError: 'Имя указано не верно'
       });
-    } else {
-      this.setState({ firstnameError: '', isLoggedIn: true });
     }
   };
 
   checkLastname = () => {
-    if (!this.state.lastname) {
+    if (this.state.lastname === '') {
       this.setState({
-        lastnameError: 'Нужно указать фамилию',
-        isLoggedIn: false
+        lastnameError: 'Нужно указать фамилию'
       });
-    } else if (this.state.lastname !== 'Bond') {
+    } else if (this.state.lastname !== 'bond') {
       this.setState({
-        lastnameError: 'Фамилия указана не верно',
-        isLoggedIn: false
+        lastnameError: 'Фамилия указана не верно'
       });
-    } else {
-      this.setState({ lastnameError: '', isLoggedIn: true });
     }
   };
 
   checkPassword = () => {
-    if (!this.state.password) {
+    if (this.state.password === '') {
       this.setState({
-        passwordError: 'Нужно указать пароль',
-        isLoggedIn: false
+        passwordError: 'Нужно указать пароль'
       });
     } else if (this.state.password !== '007') {
       this.setState({
-        passwordError: 'Пароль указан не верно',
-        isLoggedIn: false
+        passwordError: 'Пароль указан не верно'
       });
-    } else {
-      this.setState({ passwordError: '', isLoggedIn: true });
     }
   };
 
-  validate = () => {
+  checkWrongData = () => {
     this.checkFirstname();
     this.checkLastname();
     this.checkPassword();
+  };
+
+  validate = () => {
+    this.checkSuccessData();
+    this.checkWrongData();
   };
 
   render() {
@@ -92,6 +105,8 @@ export default class Form extends Component {
       passwordError,
       isLoggedIn
     } = this.state;
+
+    console.log(isLoggedIn);
 
     return (
       <div className="app-container">

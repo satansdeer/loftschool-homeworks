@@ -10,6 +10,19 @@ const fetchMap = {
 
 const getUrl = key => `${URL}/${fetchMap[key]}`;
 
+const parseText = array => {
+  const newArray = [...array];
+  const length = newArray.length;
+
+  if(length > 1){
+    for(let i = 1; i < length; i++) {
+        newArray[i] = ' '+newArray[i]
+    }
+  }
+
+  return newArray.toString()
+}
+
 export default class Show extends PureComponent {
   state = {
     data: null,
@@ -28,15 +41,16 @@ export default class Show extends PureComponent {
 
   setData = (data) => this.setState({...this.state, data:data})
 
-  getText = data => data.split('"').join('')
+  getText = data => data.slice(3,-4)
 
   render() {
     const { data, showId } = this.state;
 
     if(data) {
       const { image:{medium: mediumImage}, name, genres, summary } = data;
-      const stringGenres = genres.toString();
+      const stringGenres = parseText(genres)
 
+      console.log('check', this.getText(summary))
       return (
         showId && (
           <div className="show">
@@ -52,6 +66,6 @@ export default class Show extends PureComponent {
       )
     }
 
-    return null
+    return <p class="show-inforation t-show-info">Шоу не выбрано</p>
   }
 }

@@ -43,16 +43,12 @@ export default class Show extends PureComponent {
 
   getText = data => data.slice(3,-4)
 
-  render() {
-    const { data, showId } = this.state;
-
-    if(data) {
+  getCard = (data, showId) => {
+    console.log(data)
       const { image:{medium: mediumImage}, name, genres, summary } = data;
       const stringGenres = parseText(genres)
 
-      console.log('check', this.getText(summary))
       return (
-        showId && (
           <div className="show">
             <img className="show-image" src={mediumImage} />
             <h2 className="show-label t-show-name">{name}</h2>
@@ -63,9 +59,11 @@ export default class Show extends PureComponent {
             <p className="show-text t-show-summary" dangerouslySetInnerHTML={{ __html: this.getText(summary) }}></p>
           </div>
         )
-      )
-    }
+  }
+  
+  render() {
+    const { data, showId } = this.state;
 
-    return <p class="show-inforation t-show-info">Шоу не выбрано</p>
+    return data && showId ? (this.getCard(data, showId)) : (<p class="show-inforation t-show-info">Шоу не выбрано</p>)
   }
 }

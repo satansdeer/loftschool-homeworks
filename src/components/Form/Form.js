@@ -28,26 +28,6 @@ export default class Form extends Component {
     this.validate();
   };
 
-  checkSuccessData = () => {
-    const { firstname, lastname, password } = this.state;
-
-    if (
-      firstname &&
-      lastname &&
-      password &&
-      firstname === 'james' &&
-      lastname === 'bond' &&
-      password === '007'
-    ) {
-      this.setState({
-        isLoggedIn: true,
-        firstnameError: '',
-        lastnameError: '',
-        passwordError: ''
-      });
-    }
-  };
-
   checkFirstname = () => {
     if (this.state.firstname === '') {
       this.setState({
@@ -91,8 +71,13 @@ export default class Form extends Component {
   };
 
   validate = () => {
-    this.checkSuccessData();
-    this.checkWrongData();
+    const { lastname, firstname, password } = this.state;
+
+    if (lastname !== 'james' && firstname !== 'bond' && password !== '007') {
+      this.checkWrongData();
+    } else {
+      this.setState({ isLoggedIn: true });
+    }
   };
 
   render() {
@@ -105,8 +90,6 @@ export default class Form extends Component {
       passwordError,
       isLoggedIn
     } = this.state;
-
-    console.log(isLoggedIn);
 
     return (
       <div className="app-container">

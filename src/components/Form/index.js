@@ -1,42 +1,67 @@
 import React from 'react';
 import './Form.css';
-
-const Warning = ({ valid, text, classes }) => (
-  <span className={classes}>{!valid && text}</span>
-);
+const FormData = {
+  firstname: {
+    value: 'james',
+    error: 'Имя указано не верно',
+    errorEmpty: 'Нужно указать имя'
+  },
+  lastname: {
+    value: 'bond',
+    error: 'Фамилия указана не верно',
+    errorEmpty: 'Нужно указать фамилию'
+  },
+  password: {
+    value: '007',
+    error: 'Пароль указан не верно',
+    errorEmpty: 'Нужно указать пароль'
+  }
+};
 
 class Form extends React.Component {
   state = {
-    isFirstnameValid: true,
-    isLastnameValid: true,
-    isPasswordValid: true,
-    showPicture: false
+    errors: {},
+    isValidate: false,
+    values: { firstname: ``, lastname: ``, password: `` }
   };
 
-  handleClick = e => {
-    e.preventDefault();
-    const form = e.target;
-    let isFirstnameValid = form.firstname.value.toLowerCase() === 'james';
-    let isLastnameValid = form.lastname.value.toLowerCase() === 'bond';
-    let isPasswordValid = form.password.value === '007';
-    let showPicture = false;
-    if (
-      [isFirstnameValid, isLastnameValid, isPasswordValid].every(item => !!item)
-    )
-      showPicture = true;
+  handleChange = e => {
+    const currentInput = e.target;
     this.setState({
-      isFirstnameValid: isFirstnameValid,
-      isLastnameValid: isLastnameValid,
-      isPasswordValid: isPasswordValid,
-      showPicture: showPicture
+      values: { ...this.state.values, [currentInput.name]: currentInput.value },
+      errors: {}
+    });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+    let errors = {};
+    const form = e.target;
+    const [firstname, lastname, password] = form;
+    [firstname, lastname, password].forEach(item => {
+      const name = item.name;
+      const value = item.value;
+      if (!value) {
+        errors[name] = FormData[name]['errorEmpty'];
+        return;
+      }
+      if (value.toLowerCase() !== FormData[name]['value']) {
+        errors[name] = FormData[name]['error'];
+      }
+    });
+
+    this.setState({
+      errors: errors,
+      isValidate: Object.keys(errors).length === 0
     });
   };
 
   render() {
+    const { errors } = this.state;
     return (
       <main className="app-container">
-        {!this.state.showPicture && (
-          <form className="form" onSubmit={this.handleClick}>
+        {!this.state.isValidate && (
+          <form className="form" onSubmit={this.handleSubmit}>
             <h1>Введите свои данные, агент</h1>
             <p className="field">
               <label className="field__label" htmlFor="firstname">
@@ -44,14 +69,13 @@ class Form extends React.Component {
               </label>
               <input
                 name="firstname"
-                className="field-input"
+                className="field-input t-input-firstname"
                 autoComplete="off"
+                onChange={this.handleChange}
               />
-              <Warning
-                classes="field-error field__error t-error-firstname"
-                text="Имя указано не верно"
-                valid={this.state.isFirstnameValid}
-              />
+              <span className="field-error field__error t-error-firstname">
+                {errors['firstname']}
+              </span>
             </p>
             <p className="field">
               <label className="field__label" htmlFor="lastname">
@@ -59,14 +83,13 @@ class Form extends React.Component {
               </label>
               <input
                 name="lastname"
-                className="field-input"
+                className="field-input t-input-lastname"
                 autoComplete="off"
+                onChange={this.handleChange}
               />
-              <Warning
-                classes="field-error field__error t-error-lastname"
-                text="Фамилия указана не верно"
-                valid={this.state.isLastnameValid}
-              />
+              <span className="field-error field__error t-error-lastname">
+                {errors['lastname']}
+              </span>
             </p>
             <p className="field">
               <label className="field__label" htmlFor="password">
@@ -74,22 +97,21 @@ class Form extends React.Component {
               </label>
               <input
                 name="password"
-                className="field-input"
                 type="password"
+                className="field-input t-input-password"
                 autoComplete="off"
+                onChange={this.handleChange}
               />
-              <Warning
-                classes="field-error field__error t-error-password"
-                text="Пароль указан не верно"
-                valid={this.state.isPasswordValid}
-              />
+              <span className="field-error field__error t-error-password">
+                {errors['password']}
+              </span>
             </p>
             <div className="form__button">
               <input className="button t-submit" type="submit" />
             </div>
           </form>
         )}
-        {this.state.showPicture && (
+        {this.state.isValidate && (
           <img
             alt="James Bond"
             src="../src/components/Form/assets/bond_approve.jpg"

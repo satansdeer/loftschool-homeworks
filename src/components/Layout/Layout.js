@@ -4,8 +4,15 @@ import './Layout.css';
 
 class Layout extends PureComponent {
   render() {
-    return 'empty';
+    const { children } = this.props;
+    return (
+      <main className="main main--with-header main--with-footer">>
+        <SectionTitle className="mail__title">main</SectionTitle>
+        {children}
+      </main>
+    );
   }
+
 
   renderHeader(HeaderChild) {
     return 'empty';

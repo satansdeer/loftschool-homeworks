@@ -9,7 +9,6 @@ class Show extends PureComponent {
   };
 
   componentDidUpdate(prevProps) {
-    console.log( this.state);
     const { showId } = this.state;
     if (showId !== '') {
       getShowInfo(showId).then(obj => this.setState({ data: obj }));
@@ -18,8 +17,7 @@ class Show extends PureComponent {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const { showId } = nextProps;
-    const { prevshowId } = prevState;
-    if (showId === prevshowId) {
+    if (showId === prevState.showId) {
       return null;
     } else {
       return { showId: showId, data: null };

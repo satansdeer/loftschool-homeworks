@@ -23,9 +23,11 @@ const parseText = array => {
   return newArray.toString()
 }
 export default class Show extends PureComponent {
-  static getDerivedStateFromProps(nextProps, prevState){
-    const {showId} = nextProps
-    return {...prevState,showId }
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.showId !== prevState.showId) {
+      return { showId: nextProps.showId, data: null };
+    }
+    return null;
   }
 
   state = {
@@ -33,20 +35,16 @@ export default class Show extends PureComponent {
     showId: ''
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    const {showId: showIdPrev} = prevProps
-    const {showId: showIdNext} = this.state;
-
-    if(showIdNext !== showIdPrev && showIdNext) {
-      console.log('check')
-      fetch(getUrl(showIdNext))
+  componentDidUpdate() {
+    const { data, showId } = this.state;
+    if (data == null && showId !== '') {
+      fetch(getUrl(showId))
         .then(data => data.json())
         .then(data => this.setData(data))
     }
   }
 
   getCard = (data, showId) => {
-    console.log(data)
       const { image:{medium: mediumImage}, name, genres, summary } = data;
       const stringGenres = parseText(genres)
 

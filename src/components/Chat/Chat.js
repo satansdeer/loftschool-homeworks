@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Message from '../Message';
-import './Chat.test';
-
+import './Chat.css';
 const empty = '';
 class Chat extends Component {
   state = { messages: [], messageInput: empty };

@@ -9,13 +9,10 @@ class Show extends PureComponent {
   };
 
   componentDidUpdate(prevProps) {
-    const { showId } = this.props;
-    const { prevshowId } = prevProps;
-    if (showId !== prevshowId) {
-      
-      getShowInfo(showId).then(obj =>
-        this.setState({ data: obj, showId: showId })
-      );
+    console.log( this.state);
+    const { showId } = this.state;
+    if (showId !== '') {
+      getShowInfo(showId).then(obj => this.setState({ data: obj }));
     }
   }
 
@@ -24,15 +21,16 @@ class Show extends PureComponent {
     const { prevshowId } = prevState;
     if (showId === prevshowId) {
       return null;
+    } else {
+      return { showId: showId, data: null };
     }
-    return { prevState };
   }
 
   render() {
     const { showId, data } = this.state;
-    if (showId === '') {
+    if (showId === '' || data === null) {
       return <p className="show-inforation t-show-info">Шоу не выбрано</p>;
-    } else {
+    } else if (showId !== '' && data !== null) {
       const { genres, image, name, summary } = data;
       const genresString = genres.join(', ');
       const { original } = image;

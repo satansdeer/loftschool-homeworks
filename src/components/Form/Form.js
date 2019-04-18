@@ -1,5 +1,6 @@
 import React from 'react';
 import './Form.css';
+import img from './assets/bond_approve.jpg';
 
 class Form extends React.Component {
   state = {
@@ -108,11 +109,7 @@ class Form extends React.Component {
     if (this.state.isValid) {
       return (
         <div className="app-container">
-          <img
-            src="./assets/bond_approve.jpg"
-            alt="bond approve"
-            className="t-bond-image"
-          />
+          <img className="t-bond-image" src={img} alt="bond approve" />
         </div>
       );
     }

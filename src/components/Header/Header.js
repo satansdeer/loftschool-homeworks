@@ -14,12 +14,14 @@ class Header extends PureComponent {
                 <p className="header-menu__email header-email t-header-email">
                   {email}
                 </p>
-                <button className="header-menu__button t-logout button" onClick = {logout}>
+                <Button
+                  className="header-menu__button t-logout button"
+                  onClick={logout}
+                >
                   Выйти
-                </button>
+                </Button>
               </div>
-            ) : (null
-            )
+            ) : null
           }
         </AuthConsumer>
       </div>

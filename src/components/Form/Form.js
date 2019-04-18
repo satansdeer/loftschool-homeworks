@@ -41,7 +41,7 @@ class Form extends React.Component {
       this.errors.firstname = 'Нужно указать имя';
     } else if (firstName !== '' && firstName !== 'james') {
       this.errors.firstname = 'Имя указано не верно';
-    } else if (firstName === 'James') {
+    } else if (firstName === 'james') {
       this.errors.firstname = '';
     }
   };
@@ -51,7 +51,7 @@ class Form extends React.Component {
       this.errors.lastname = 'Нужно указать фамилию';
     } else if (lastName !== '' && lastName !== 'bond') {
       this.errors.lastname = 'Фамилия указана не верно';
-    } else if (lastName === 'Bond') {
+    } else if (lastName === 'bond') {
       this.errors.lastname = '';
     }
   };

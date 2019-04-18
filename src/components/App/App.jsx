@@ -30,8 +30,8 @@ class App extends PureComponent {
     selectedShow: ''
   };
 
-  selectShow = event => {
-    this.setState({ selectedShow: event.target.value });
+  selectShow = target => {
+    this.setState({ selectedShow: target.value });
   };
 
   render() {
@@ -54,7 +54,7 @@ class App extends PureComponent {
                 name="show"
                 value={radioInfo.apiKey}
                 checked={selectedShow === radioInfo.apiKey}
-                onChange={this.selectShow}
+                onChange={({ target }) => this.selectShow(target)}
               />
               <label htmlFor={radioInfo.apiKey} className="radio-label">
                 <img

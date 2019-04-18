@@ -11,6 +11,7 @@
 
 # course utils
 /course_scripts
+/.vscode
 
 # misc
 .DS_Store

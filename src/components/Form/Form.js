@@ -4,9 +4,9 @@ import img from './assets/bond_approve.jpg';
 
 class Form extends React.Component {
   state = {
-    firstnameInput: '',
-    lastnameInput: '',
-    passwordInput: '',
+    firstname: '',
+    lastname: '',
+    password: '',
     isValid: false,
     errors: {
       firstname: '',
@@ -15,16 +15,8 @@ class Form extends React.Component {
     }
   };
 
-  isValid = false;
-
-  errors = {
-    firstname: '',
-    lastname: '',
-    password: ''
-  };
-
   changeInput = e => {
-    let inputName = e.target.name + 'Input';
+    let inputName = e.target.name;
     let obj = {};
     obj[inputName] = e.target.value;
     obj.errors = {
@@ -36,71 +28,61 @@ class Form extends React.Component {
     this.setState(obj);
   };
 
-  checkFirstName = firstName => {
-    if (firstName === '') {
-      this.errors.firstname = 'Нужно указать имя';
-    } else if (firstName !== '' && firstName !== 'james') {
-      this.errors.firstname = 'Имя указано не верно';
-    } else if (firstName === 'james') {
-      this.errors.firstname = '';
+  checkFirstName = firstname => {
+    let error;
+    if (firstname === '') {
+      error = 'Нужно указать имя';
+    } else if (firstname !== '' && firstname !== 'james') {
+      error = 'Имя указано не верно';
+    } else if (firstname === 'james') {
+      error = '';
     }
+    return error;
   };
 
   checkLastName = lastName => {
+    let error;
     if (lastName === '') {
-      this.errors.lastname = 'Нужно указать фамилию';
+      error = 'Нужно указать фамилию';
     } else if (lastName !== '' && lastName !== 'bond') {
-      this.errors.lastname = 'Фамилия указана не верно';
+      error = 'Фамилия указана не верно';
     } else if (lastName === 'bond') {
-      this.errors.lastname = '';
+      error = '';
     }
+    return error;
   };
 
   checkPassword = password => {
+    let error;
     if (password === '') {
-      this.errors.password = 'Нужно указать пароль';
+      error = 'Нужно указать пароль';
     } else if (password !== '' && password !== '007') {
-      this.errors.password = 'Пароль указан не верно';
+      error = 'Пароль указан не верно';
     } else if (password === '007') {
-      this.errors.password = '';
+      error = '';
     }
-  };
-
-  checkValue = (firstName, lastName, password) => {
-    this.checkFirstName(firstName);
-    this.checkLastName(lastName);
-    this.checkPassword(password);
-
-    if (
-      !this.errors.firstname &&
-      !this.errors.lastname &&
-      !this.errors.password
-    ) {
-      return true;
-    }
-
-    return false;
+    return error;
   };
 
   handleSubmit = e => {
     e.preventDefault();
 
-    const firstName = e.target.firstname.value;
-    const lastName = e.target.lastname.value;
-    const password = e.target.password.value;
+    let isValid = false;
+    let errors = {};
 
-    if (this.checkValue(firstName, lastName, password)) {
-      this.isValid = true;
-    } else {
-      this.isValid = false;
-    }
+    errors.firstname = this.checkFirstName(this.state.firstname);
+    errors.lastname = this.checkLastName(this.state.lastname);
+    errors.password = this.checkPassword(this.state.password);
+
+    if (!errors.firstname && !errors.lastname && !errors.password)
+      isValid = true;
 
     this.setState({
-      isValid: this.isValid,
+      isValid: isValid,
       errors: {
-        firstname: this.errors.firstname,
-        lastname: this.errors.lastname,
-        password: this.errors.password
+        firstname: errors.firstname,
+        lastname: errors.lastname,
+        password: errors.password
       }
     });
   };
@@ -127,7 +109,7 @@ class Form extends React.Component {
               type="text"
               name="firstname"
               onChange={this.changeInput}
-              value={this.state.firstnameInput}
+              value={this.state.firstname}
             />
             <span className="field__error field-error t-error-firstname">
               {this.state.errors.firstname}
@@ -142,7 +124,7 @@ class Form extends React.Component {
               type="text"
               name="lastname"
               onChange={this.changeInput}
-              value={this.state.lastnameInput}
+              value={this.state.lastname}
             />
             <span className="field__error field-error t-error-lastname">
               {this.state.errors.lastname}
@@ -157,7 +139,7 @@ class Form extends React.Component {
               type="text"
               name="password"
               onChange={this.changeInput}
-              value={this.state.passwordInput}
+              value={this.state.password}
             />
             <span className="field__error field-error t-error-password">
               {this.state.errors.password}

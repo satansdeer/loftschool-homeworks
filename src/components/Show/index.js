@@ -5,6 +5,13 @@ import './Show.css';
 class Show extends Component {
   state = { showId: ``, data: `` };
 
+  static getDerivedStateFromProps(props, prevState) {
+    if (props.showId !== prevState.showId) {
+      return prevState;
+    }
+    return null;
+  }
+
   async componentDidUpdate() {
     const selectedShow = this.props.showId;
     console.log(1);

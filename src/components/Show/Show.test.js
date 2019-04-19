@@ -2,7 +2,7 @@ import React from 'react';
 import Show from './Show';
 import { shallow } from 'enzyme';
 
-jest.mock('../../api.js')
+jest.mock('./api.js');
 
 describe('Приложение написано с использованием gDSFP', () => {
   const wrapper = shallow(<Show showId="" />);

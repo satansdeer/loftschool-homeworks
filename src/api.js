@@ -4,7 +4,7 @@ const showUrls = {
   bigBang: ' http://api.tvmaze.com/shows/66'
 };
 
-export const getShowInfo = showName => {
+const getShowInfo = showName => {
   const serialUrl = showUrls[showName];
   if (serialUrl == null) {
     throw new Error(
@@ -14,9 +14,11 @@ export const getShowInfo = showName => {
 
   return fetch(serialUrl).then(response => {
     if (response.status !== 200) {
-      return response
+      return response;
     } else {
-      return response.json()
+      return response.json();
     }
   });
 };
+
+export default getShowInfo;

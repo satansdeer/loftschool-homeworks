@@ -1,64 +1,79 @@
 import React from 'react';
 import './Form.css';
+import bondImage from './assets/bond_approve.jpg';
+
+const data = {
+  firstName: 'james',
+  lastName: 'bond',
+  password: '007',
+  errors: {
+    firstName: 'Имя указано не верно',
+    lastName: 'Фамилия указана не верно',
+    password: 'Пароль указан не верно',
+    firstNameEmpty: 'Нужно указать имя',
+    lastNameEmpty: 'Нужно указать фамилию',
+    passwordEmpty: 'Нужно указать пароль'
+  }
+};
 
 class Form extends React.Component {
-  constructor() {
-    super();
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.state = {
-      firstName: '',
-      lastName: '',
-      password: '',
-      error: [],
-      isShowForm: true
-    };
-  }
+  state = {
+    firstName: '',
+    lastName: '',
+    password: '',
+    isShowForm: true,
+    firstNameError: '',
+    lastNameError: '',
+    passwordError: ''
+  };
+  handleSubmit = event => {
+    event.preventDefault();
+    this.handleValid();
+  };
   handleInput = event => {
-    const name = event.target.name;
-    const value = event.target.value;
-    this.setState({ [name]: value });
+    // const { firstNameError, lastNameError, passwordError } = this.state;
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value,
+      firstNameError: '',
+      lastNameError: '',
+      passwordError: ''
+    });
+    console.log(this.state);
   };
   handleValid() {
     const {
       firstName,
       lastName,
       password,
-      firstNameValid,
-      lastNameValid,
-      passwordValid
+      firstNameValid = firstName.toLowerCase() === data.firstName,
+      lastNameValid = lastName.toLowerCase() === data.lastName,
+      passwordValid = password.toLowerCase() === data.password
     } = this.state;
     this.setState({
       firstNameError:
         firstName.length === 0
-          ? 'Нужно указать имя'
-          : firstName !== 'james'
-          ? 'Имя указано не верно'
+          ? data.errors.firstNameEmpty
+          : firstName !== data.firstName
+          ? data.errors.firstName
           : '',
-      firstNameValid: firstName === 'james',
       lastNameError:
         lastName.length === 0
-          ? 'Нужно указать фамилию'
-          : lastName !== 'bond'
-          ? 'Фамилия указана не верно'
+          ? data.errors.lastNameEmpty
+          : lastName !== data.lastName
+          ? data.errors.lastName
           : '',
-      lastNameValid: lastName !== 'bond',
       passwordError:
         password.length === 0
-          ? 'Нужно указать пароль'
-          : password !== '007'
-          ? 'Пароль указан не верно'
+          ? data.errors.passwordEmpty
+          : password !== data.password
+          ? data.errors.password
           : '',
-      passwordValid: password !== '007',
       isShowForm:
         firstNameValid && lastNameValid && passwordValid ? false : true
     });
-    console.log(this.state);
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    this.handleValid();
-  }
   render() {
     return this.state.isShowForm ? (
       <div className="app-container">
@@ -117,7 +132,7 @@ class Form extends React.Component {
     ) : (
       <div className="app-container">
         <div className="t-bond-image">
-          <img src="Form/assets/bond_approve.jpg" alt="bond approve" />
+          <img src={bondImage} alt="bond approve" />
         </div>
       </div>
     );

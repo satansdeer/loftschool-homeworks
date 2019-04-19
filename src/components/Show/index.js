@@ -3,25 +3,23 @@ import getShowInfo from '../../api';
 import './Show.css';
 
 class Show extends Component {
-  state = { showId: `` };
-
-  static getDerivedStateFromProps(props, prevState) {
-    if (props.showId !== prevState.showId) {
-      return { showId: props.showId };
-    }
-    return null;
-  }
-
-  data = ``;
+  state = { showId: ``, data: `` };
 
   async componentDidUpdate() {
-    const selectedShow = this.state.showId;
-    this.data = await getShowInfo(selectedShow);
+    const selectedShow = this.props.showId;
+    console.log(1);
+    if (selectedShow !== this.state.showId) {
+      const data = await getShowInfo(selectedShow);
+      this.setState({
+        data: data,
+        showId: selectedShow
+      });
+    }
   }
 
   render() {
-    const data = this.data;
-    const showId = this.state.showId;
+    const data = this.state.data;
+    const showId = this.props.showId;
     if (!data && !showId)
       return <div className="t-show-info">Шоу не выбрано</div>;
     if (!data)

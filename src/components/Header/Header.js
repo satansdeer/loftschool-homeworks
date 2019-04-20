@@ -5,8 +5,25 @@ import './Header.css';
 
 class Header extends PureComponent {
   render() {
-    const { children } = this.props;
-    return <header className="header">{children}</header>;
+    return (
+      <AuthConsumer>
+        {state => {
+          return state.isAuthorized ? (
+            <div className="header-menu">
+              <p className="header-menu__email header-email t-header-email">
+                {state.email}
+              </p>
+              <Button
+                className="header-menu__button t-logout"
+                onClick={state.logout}
+              >
+                Выйти
+              </Button>
+            </div>
+          ) : null;
+        }}
+      </AuthConsumer>
+    );
   }
 }
 

@@ -6,7 +6,7 @@ class AuthProvider extends PureComponent {
   state = {
     isAuthorized: false,
     authorizeError: '',
-    authedEmail: '',
+    email: '',
     authorize: (email, password) => {
       if (email !== 'stu@dent.com' || password !== '123') {
         this.setState({ authorizeError: 'Email или пароль введён не верно' });
@@ -14,7 +14,7 @@ class AuthProvider extends PureComponent {
         this.setState({
           authorizeError: '',
           isAuthorized: true,
-          authedEmail: email
+          email: email
         });
       }
     },

@@ -1,0 +1,9 @@
+import React from 'react';
+
+class FormButton extends React.Component {
+  render() {
+    return oops;
+  }
+}
+
+export default FormButton;

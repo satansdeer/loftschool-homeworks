@@ -12,6 +12,7 @@
     "build": "react-scripts build",
     "lint": "eslint src/**/*.js",
     "test": "react-scripts test --env=jsdom",
+    "test:run": "react-scripts test -u",
     "eject": "react-scripts eject",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run"

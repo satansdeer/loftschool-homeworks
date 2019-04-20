@@ -1,10 +1,11 @@
 import React, { PureComponent } from 'react';
 import './Show.css';
 
-const apiUrl = {
-  house: 'http://api.tvmaze.com/shows/118',
-  santaBarbara: 'http://api.tvmaze.com/shows/5909',
-  bigBang: 'http://api.tvmaze.com/shows/66'
+const apiData = {
+  url: 'http://api.tvmaze.com/shows/',
+  house: '118',
+  santaBarbara: '5909',
+  bigBang: '66'
 };
 
 class Show extends PureComponent {
@@ -16,7 +17,7 @@ class Show extends PureComponent {
     if (showId !== prevProps.showId) {
       this.setState({ showId: showId, data: '' });
 
-      const response = await fetch(apiUrl[showId]);
+      const response = await fetch(`${apiData.url + apiData[showId]}`);
       const data = await response.json();
 
       this.setState({ showId: showId, data: data });
@@ -28,14 +29,17 @@ class Show extends PureComponent {
   };
 
   render() {
-    const { name, summary, genres, image } = this.state.data;
-    const { showId } = this.state;
+    const {
+      showId,
+      data,
+      data: { name, summary, genres, image }
+    } = this.state;
 
     function createMarkup() {
       return { __html: summary };
     }
 
-    if (this.state.data) {
+    if (data) {
       return (
         <div className="show">
           <img className="show-image" src={image.original} alt={name} />
@@ -50,16 +54,14 @@ class Show extends PureComponent {
           />
         </div>
       );
+    } else if (showId) {
+      return (
+        <p className="show-inforation t-show-info">
+          Загрузка шоу с id {showId}
+        </p>
+      );
     } else {
-      if (showId) {
-        return (
-          <p className="show-inforation t-show-info">
-            Загрузка шоу с id {showId}
-          </p>
-        );
-      } else {
-        return <p className="show-inforation t-show-info">Шоу не выбрано</p>;
-      }
+      return <p className="show-inforation t-show-info">Шоу не выбрано</p>;
     }
   }
 }

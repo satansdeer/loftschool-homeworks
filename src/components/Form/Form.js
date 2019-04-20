@@ -1,32 +1,35 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './Form.css';
 import Field from '../Field';
 import FormButton from '../FormButton';
 import logo from './assets/bond_approve.jpg';
 
-const data = {
-  firstname: 'James',
-  lastname: 'Bond',
-  password: '007'
-};
+// const data = {
+//   firstname: 'James',
+//   lastname: 'Bond',
+//   password: '007'
+// };
 
-class Form extends React.Component {
+export default class Form extends Component {
   state = {
     isAuth: false,
     fields: [
       {
         name: 'firstname',
         label: 'Имя',
+        value: '',
         errorText: ''
       },
       {
         name: 'lastname',
         label: 'Фамилия',
+        value: '',
         errorText: ''
       },
       {
         name: 'password',
         label: 'Пароль',
+        value: '',
         errorText: ''
       }
     ]
@@ -46,10 +49,20 @@ class Form extends React.Component {
         <div className="app-container">
           <form className="form">
             <h1>Введите свои данные, агент</h1>
-            <p className="field">
-              <label htmlFor="lastname" className="field__label">
-                <span className="feild-label">Фамилия</span>
-              </label>
+            {fields.map(({ name, label, value, errorText }) => {
+              return (
+                <Field
+                  name={name}
+                  label={label}
+                  value={value}
+                  errorText={errorText}
+                  key={name}
+                />
+              );
+            })}
+
+            {/* <p className="field">
+              <Field />
               <input
                 type="text"
                 className="field__input field-input t-input-lastname"
@@ -68,7 +81,7 @@ class Form extends React.Component {
                 name="password"
               />
               <span className="field__error field-error t-error-firstname" />
-            </p>
+            </p> */}
             <FormButton />
           </form>
         </div>
@@ -76,5 +89,3 @@ class Form extends React.Component {
     }
   }
 }
-
-export default Form;

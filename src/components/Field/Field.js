@@ -5,6 +5,7 @@ class Field extends React.Component {
   render() {
     return (
       <p className="field">
+        {/* <FieldLabel name={name} label={label} /> */}
         <FieldLabel />
         <input
           type="text"

@@ -29,7 +29,7 @@ describe('Лэйаут без пропсов header и footer', () => {
 describe('Лэйаут c пропсом header', () => {
   const Header = () => <header />;
   const wrapper = shallow(<Layout header={Header} />);
-
+  console.log('wrapper.find', wrapper.find('.header').length);
   it('Выводит хедер', () => expect(wrapper.find('.header').length).toBe(1));
   it('Не выводит футер', () => expect(wrapper.find('.footer').length).toBe(0));
   it('Класс тега main содержит main--with-header', () => {

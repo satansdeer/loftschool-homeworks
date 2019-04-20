@@ -6,7 +6,6 @@ import './Header.css';
 class Header extends PureComponent {
   render() {
     return (
-      <div className="header__content">
         <AuthConsumer>
           {({ email, isAuthorized, logout }) =>
             isAuthorized ? (
@@ -24,7 +23,6 @@ class Header extends PureComponent {
             ) : null
           }
         </AuthConsumer>
-      </div>
     );
   }
 }

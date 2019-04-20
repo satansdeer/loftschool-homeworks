@@ -1,0 +1,14 @@
+.header-menu {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    width: 100%;
+    padding-right: 20px;
+}
+
+.header-menu__email {
+    padding-right: 10px;
+}

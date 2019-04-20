@@ -1,0 +1,28 @@
+.footer {
+    border: 3px dashed #49C4E1;
+    display: flex;
+    height: 100px;
+}
+
+.footer-message {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    color: #876725;
+}
+
+.section-title {
+    align-self: center;
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 26px;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.header__title {
+    padding-left: 5px;
+    padding-right: 20px;
+}

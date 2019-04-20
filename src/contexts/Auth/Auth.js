@@ -19,35 +19,27 @@ class AuthProvider extends PureComponent {
     userData.email === email && userData.password === password
       ? this.setState({
           email: email,
-          password: password,
           isAuthorized: true,
           authorizeError: ''
         })
       : this.setState({ authorizeError: 'Email или пароль введён не верно' });
   };
 
-  handleLogout = () => {
+  logout = () => {
     this.setState({ isAuthorized: false });
+  };
+
+  getProviderValue = () => {
+    return {
+      ...this.state,
+      authorize: this.authorize,
+      logout: this.logout
+    };
   };
 
   render() {
     const { children } = this.props;
-    const { email, isAuthorized, authorizeError } = this.state;
-
-    return (
-      <Provider
-        // eslint-disable-next-line react-perf/jsx-no-new-object-as-prop
-        value={{
-          email,
-          isAuthorized,
-          authorizeError,
-          authorize: this.authorize,
-          logout: this.handleLogout
-        }}
-      >
-        {children}
-      </Provider>
-    );
+    return <Provider value={this.getProviderValue()}>{children}</Provider>;
   }
 }
 

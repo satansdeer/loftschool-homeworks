@@ -25,14 +25,16 @@ class Layout extends PureComponent {
 
   render() {
     const { header, footer, children } = this.props;
+    const withHeader = header ? 'main--with-header' : '';
+    const withFooter = footer ? 'main--with-footer' : '';
     return (
       <Fragment>
-        {this.renderHeader(header)}
-        <main className="main main--with-header main--with-footer">
+        {header && this.renderHeader(header)}
+        <main className={`main ${withHeader} ${withFooter}`}>
           <SectionTitle className="main__title">Main</SectionTitle>
           {children}
         </main>
-        {this.renderFooter(footer)}
+        {footer && this.renderFooter(footer)}
       </Fragment>
     );
   }

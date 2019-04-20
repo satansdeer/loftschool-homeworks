@@ -1,8 +1,21 @@
 import React from 'react';
 
 class FormButton extends React.Component {
+  ButtonClick = event => {
+    event.nativeEvent.preventDefault();
+  };
+
   render() {
-    return oops;
+    return (
+      <div className="form__buttons">
+        <input
+          type="submit"
+          className="button t-submit"
+          value="Проверить"
+          onClick={this.ButtonClick}
+        />
+      </div>
+    );
   }
 }
 

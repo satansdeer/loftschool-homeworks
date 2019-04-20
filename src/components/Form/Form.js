@@ -57,10 +57,6 @@ class Form extends React.Component {
             />
             <span className="field__error field-error t-error-firstname" />
           </p>
-
-          <div className="form__buttons">
-            <input type="submit" class="button t-submit" value="Проверить" />
-          </div>
         </form>
       </div>
     );

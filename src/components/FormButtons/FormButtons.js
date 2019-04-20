@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-class FormButton extends React.Component {
-  ButtonClick = event => {
+class FormButtons extends Component {
+  buttonClick = event => {
     event.nativeEvent.preventDefault();
   };
 
@@ -12,11 +12,11 @@ class FormButton extends React.Component {
           type="submit"
           className="button t-submit"
           value="Проверить"
-          onClick={this.ButtonClick}
+          onClick={this.buttonClick}
         />
       </div>
     );
   }
 }
 
-export default FormButton;
+export default FormButtons;

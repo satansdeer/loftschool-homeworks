@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Form.css';
 import Field from '../Field';
-import FormButton from '../FormButton';
+import FormButtons from '../FormButtons';
 import logo from './assets/bond_approve.jpg';
 
 // const data = {
@@ -82,7 +82,7 @@ export default class Form extends Component {
               />
               <span className="field__error field-error t-error-firstname" />
             </p> */}
-            <FormButton />
+            <FormButtons />
           </form>
         </div>
       );

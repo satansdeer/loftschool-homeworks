@@ -5,11 +5,11 @@ import './Chat.css';
 class Chat extends React.Component {
   state = { messages: [], messageInput: '' };
 
-  update = event => {
+  changeInputMessage = event => {
     this.setState({ messageInput: event.target.value });
   };
 
-  handleSubmit = event => {
+  sendMessageOnEnter = event => {
     const { messageInput } = this.state;
 
     if (event.key !== 'Enter' || messageInput === '') {
@@ -38,8 +38,8 @@ class Chat extends React.Component {
           className="input-message"
           type="text"
           value={messageInput}
-          onChange={this.update}
-          onKeyPress={this.handleSubmit}
+          onChange={this.changeInputMessage}
+          onKeyPress={this.sendMessageOnEnter}
         />
       </div>
     );

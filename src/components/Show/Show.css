@@ -11,3 +11,18 @@
   float: left;
   padding-right: 20px;
 }
+
+.show-inforation {
+  background-color: #cfc;
+  text-align: center;
+  padding: 20px;
+}
+
+.radio-group {
+  margin-top: 10px;
+}
+
+span.radio-label {
+  margin-top: 10px;
+  font-weight: bold;
+}

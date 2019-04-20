@@ -10,28 +10,34 @@ class Chat extends React.Component {
   };
 
   handleSubmit = event => {
-    const {messageInput} = this.state;
+    const { messageInput } = this.state;
 
-    if (event.key !== 'Enter' || this.state.messageInput === '') {
-      retern;
+    if (event.key !== 'Enter' || messageInput === '') {
+      return;
     }
-      this.setState(({messages, messageInput}) => {
-      return (
-        messages: [...messages, messageInput],
+    this.setState(({ messages, messageInput }) => {
+      return {
+        messages: [...messages, { text: messageInput }],
         messageInput: ''
-      );
-      });
+      };
+    });
   };
- 
+
   render() {
+    const { messages, messageInput } = this.state;
     return (
       <div className="chat">
-        <Message />
-
+        <div className="message-list">
+          <div className="messages">
+            {messages.map((message, index) => (
+              <Message text={message.text} key={index} />
+            ))}
+          </div>
+        </div>
         <input
           className="input-message"
           type="text"
-          value={this.state.messageInput}
+          value={messageInput}
           onChange={this.update}
           onKeyPress={this.handleSubmit}
         />

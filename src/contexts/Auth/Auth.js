@@ -41,7 +41,7 @@ class AuthProvider extends PureComponent {
           email,
           isAuthorized,
           authorizeError,
-          login: this.authorize,
+          authorize: this.authorize,
           logout: this.handleLogout
         }}
       >

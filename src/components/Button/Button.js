@@ -1,7 +1,7 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import './Button.css';
 
-class Button extends PureComponent {
+class Button extends Component {
   render() {
     const { className, children, ...rest } = this.props;
     return (

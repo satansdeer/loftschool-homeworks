@@ -5,8 +5,8 @@ import FormButtons from '../FormButtons';
 import logo from './assets/bond_approve.jpg';
 
 // const data = {
-//   firstname: 'James',
-//   lastname: 'Bond',
+//   firstname: 'james',
+//   lastname: 'bond',
 //   password: '007'
 // };
 
@@ -18,19 +18,22 @@ export default class Form extends Component {
         name: 'firstname',
         label: 'Имя',
         value: '',
-        errorText: ''
+        errorText: '',
+        validValue: 'james'
       },
       {
         name: 'lastname',
         label: 'Фамилия',
         value: '',
-        errorText: ''
+        errorText: '',
+        validValue: 'bond'
       },
       {
         name: 'password',
         label: 'Пароль',
         value: '',
-        errorText: ''
+        errorText: '',
+        validValue: '007'
       }
     ]
   };

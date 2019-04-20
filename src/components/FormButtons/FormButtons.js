@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 
 class FormButtons extends Component {
-  buttonClick = event => {
-    event.nativeEvent.preventDefault();
+  handlerButton = event => {
+    event.preventDefault();
+    // validate();
   };
 
   render() {
@@ -12,7 +13,7 @@ class FormButtons extends Component {
           type="submit"
           className="button t-submit"
           value="Проверить"
-          onClick={this.buttonClick}
+          onClick={this.handlerButton}
         />
       </div>
     );

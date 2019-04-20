@@ -16,7 +16,7 @@ describe("Футер c контекстом { isAuthorized: true, email: 'test@t
   });
 });
 
-describe("Футер c контекстом { isAuthorized: false }", () => {
+describe('Футер c контекстом { isAuthorized: false }', () => {
   const context = { isAuthorized: false };
   const wrapper = mount(
     <TestProvider value={context}>

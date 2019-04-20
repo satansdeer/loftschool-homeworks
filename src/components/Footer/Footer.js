@@ -4,7 +4,8 @@ import './Footer.css';
 
 class Footer extends PureComponent {
   render() {
-    return 'empty';
+    const { children } = this.props;
+    return <footer className="footer">{children}</footer>;
   }
 }
 

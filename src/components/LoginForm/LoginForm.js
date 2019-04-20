@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import './LoginForm.css';
-import Button from '../Button'
+import Button from '../Button';
 
 const fields = [
   {
@@ -34,8 +34,8 @@ class LoginForm extends PureComponent {
     const {
       values: { email, password }
     } = this.state;
-    const { authorize } = this.props;
 
+    const { authorize } = this.props;
     authorize(email, password);
   };
 
@@ -46,7 +46,6 @@ class LoginForm extends PureComponent {
     return (
       <div className="login-form">
         <h1 className="login-form-title">Авторизация</h1>
-
         {fields.map(({ id, label, type }) => (
           <p key={id} className="field">
             <label className="field__label" htmlFor={id}>

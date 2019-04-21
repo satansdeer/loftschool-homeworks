@@ -7,7 +7,7 @@ class Form extends React.Component {
     super(props);
     this.state = {
       check: false,
-      inputs: {},
+      inputs: { firstName: '', lastName: '', password: '' },
       validations: {}
     };
   }
@@ -16,22 +16,22 @@ class Form extends React.Component {
     let inputs = this.state.inputs;
     let validations = {};
 
-    if (inputs['firstName'] !== 'james' && inputs['firstName'] !== undefined)
+    if (inputs['firstName'] !== 'james' && inputs['firstName'] !== '')
       validations['firstName'] = 'Имя указано не верно';
-    if (inputs['lastName'] !== 'bond' && inputs['lastName'] !== undefined)
+    if (inputs['lastName'] !== 'bond' && inputs['lastName'] !== '')
       validations['lastName'] = 'Фамилия указана не верно';
-    if (inputs['password'] !== '007' && inputs['password'] !== undefined)
+    if (inputs['password'] !== '007' && inputs['password'] !== '')
       validations['password'] = 'Пароль указан не верно';
     this.setState({ validations: validations });
     return validations;
   };
   handleValidationEmpty = validations => {
     let inputs = this.state.inputs;
-    if (inputs['firstName'] === undefined)
+    if (inputs['firstName'] === '')
       validations['firstName'] = 'Нужно указать имя';
-    if (inputs['lastName'] === undefined)
+    if (inputs['lastName'] === '')
       validations['lastName'] = 'Нужно указать фамилию';
-    if (inputs['password'] === undefined)
+    if (inputs['password'] === '')
       validations['password'] = 'Нужно указать пароль';
     this.setState({ validations: validations });
     return validations;
@@ -50,7 +50,6 @@ class Form extends React.Component {
         : true;
 
     this.setState({ check: check });
-    console.log(check);
   };
 
   componentDidMount = () => {};
@@ -58,8 +57,7 @@ class Form extends React.Component {
   inputOnChange = event => {
     let inputs = this.state.inputs;
     inputs[event.target.name] = event.target.value;
-    this.setState({ inputs });
-    this.setState({ validations: {} });
+    this.setState({ inputs: inputs, validations: {} });
   };
 
   render() {
@@ -77,9 +75,7 @@ class Form extends React.Component {
               <input
                 className="field__input field-input t-input-firstname"
                 value={this.state.inputs['firstName']}
-                onChange={e => {
-                  this.inputOnChange(e);
-                }}
+                onChange={this.inputOnChange}
                 type="text"
                 name="firstName"
               />
@@ -94,9 +90,7 @@ class Form extends React.Component {
               <input
                 className="field__input field-input t-input-lastname"
                 value={this.state.inputs['lastName']}
-                onChange={e => {
-                  this.inputOnChange(e);
-                }}
+                onChange={this.inputOnChange}
                 type="text"
                 name="lastName"
               />
@@ -113,9 +107,7 @@ class Form extends React.Component {
               <input
                 className="field__input field-input t-input-password"
                 value={this.state.inputs['password']}
-                onChange={e => {
-                  this.inputOnChange(e);
-                }}
+                onChange={this.inputOnChange}
                 type="password"
                 name="password"
               />

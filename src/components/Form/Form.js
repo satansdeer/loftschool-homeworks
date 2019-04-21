@@ -26,7 +26,7 @@ export default class Form extends Component {
       {
         name: 'lastname',
         label: 'Фамилия',
-        labelGenitive: 'фамилия',
+        labelGenitive: 'фамилию',
         labelPointer: 'указана',
         value: '',
         errorText: ''
@@ -44,7 +44,9 @@ export default class Form extends Component {
     ]
   };
 
+  //   const array = this.state.fields;
   updateFields = array => {
+    // debugger;
     const { fields } = this.state;
     let newFields = [];
     fields.forEach(elField => {
@@ -82,6 +84,8 @@ export default class Form extends Component {
     let updateArray = [];
     var valid = true;
     fields.forEach(el => {
+      //   debugger;
+
       if (el.value === '') {
         updateArray.push({
           name: el.name,

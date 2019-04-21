@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class FormButton extends Component {
+export default class FormButton extends Component {
   handleButton = event => {
     event.preventDefault();
     const { checkData } = this.props;
@@ -21,5 +21,3 @@ class FormButton extends Component {
     );
   }
 }
-
-export default FormButton;

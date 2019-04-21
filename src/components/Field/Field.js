@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import FieldLabel from '../FieldLabel';
 
-class Field extends Component {
+export default class Field extends Component {
   render() {
-    const { name, label, textError } = this.props;
+    const { name, label, errorText } = this.props;
 
     return (
       <p className="field">
@@ -13,11 +13,10 @@ class Field extends Component {
           className={`field__input field-input t-input-${name}`}
           name={name}
         />
-        <span className={`field__error field-error t-error-${name}`} />
-        {textError}
+        <span className={`field__error field-error t-error-${name}`}>
+          {errorText}
+        </span>
       </p>
     );
   }
 }
-
-export default Field;

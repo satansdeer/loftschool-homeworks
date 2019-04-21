@@ -4,7 +4,7 @@
   flex-direction: column;
   height: 100%;
   justify-content: center;
-  background: radial-gradient(circle, #36383F, #202125);
+  background: radial-gradient(circle, rgb(255, 255, 255), #ffffff);
   color: rgb(181, 181, 181);
 }
 

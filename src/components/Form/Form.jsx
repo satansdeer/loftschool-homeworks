@@ -22,7 +22,6 @@ class Form extends React.Component {
       validations['lastName'] = 'Фамилия указана не верно';
     if (inputs['password'] !== '007' && inputs['password'] !== '')
       validations['password'] = 'Пароль указан не верно';
-    this.setState({ validations: validations });
     return validations;
   };
   handleValidationEmpty = validations => {
@@ -33,7 +32,6 @@ class Form extends React.Component {
       validations['lastName'] = 'Нужно указать фамилию';
     if (inputs['password'] === '')
       validations['password'] = 'Нужно указать пароль';
-    this.setState({ validations: validations });
     return validations;
   };
 
@@ -49,7 +47,7 @@ class Form extends React.Component {
         ? false
         : true;
 
-    this.setState({ check: check });
+    this.setState({ check, validations });
   };
 
   componentDidMount = () => {};

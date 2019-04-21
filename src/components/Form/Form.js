@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import './Form.css';
 import Field from '../Field';
-import FormButtons from '../FormButtons';
-import logo from './assets/bond_approve.jpg';
+import FormButton from '../FormButton';
+import avatar from './assets/bond_approve.jpg';
 
-// const data = {
-//   firstname: 'james',
-//   lastname: 'bond',
-//   password: '007'
-// };
+const data = {
+  firstname: 'james',
+  lastname: 'bond',
+  password: '007'
+};
 
 export default class Form extends Component {
   state = {
@@ -17,25 +17,92 @@ export default class Form extends Component {
       {
         name: 'firstname',
         label: 'Имя',
+        labelGenitive: 'имя',
+        labelPointer: 'указано',
         value: '',
-        errorText: '',
-        validValue: 'james'
+        errorText: ''
+        // validValue: 'james'
       },
       {
         name: 'lastname',
         label: 'Фамилия',
+        labelGenitive: 'фамилия',
+        labelPointer: 'указана',
         value: '',
-        errorText: '',
-        validValue: 'bond'
+        errorText: ''
+        // validValue: 'bond'
       },
       {
         name: 'password',
         label: 'Пароль',
+        labelGenitive: 'пароль',
+        labelPointer: 'указан',
         value: '',
-        errorText: '',
-        validValue: '007'
+        errorText: ''
+        // validValue: '007'
       }
     ]
+  };
+
+  updateFields = array => {
+    const { fields } = this.state;
+    let newFields = [];
+    fields.forEach(elField => {
+      var valid = false;
+      array.forEach(elForm => {
+        if (elField.name === elForm.name) {
+          newFields.push({
+            name: elForm.name,
+            label: elField.label,
+            labelGenitive: elField.labelGenitive,
+            labelPointer: elField.labelPointer,
+            value: elForm.value,
+            errorText: elForm.errorText
+          });
+          valid = true;
+        }
+      });
+
+      if (!valid) {
+        newFields.push({
+          name: elField.name,
+          label: elField.label,
+          labelGenitive: elField.labelGenitive,
+          labelPointer: elField.labelPointer,
+          value: elField.value,
+          errorText: ''
+        });
+      }
+    });
+    this.setState({ fields: newFields });
+  };
+
+  checkData = () => {
+    const { fields } = this.state;
+    let updateArray = [];
+    var valid = true;
+    fields.forEach(el => {
+      if (el.value === '') {
+        updateArray.push({
+          name: el.name,
+          value: el.value,
+          errorText: `Нужно указать ${el.labelGenitive}`
+        });
+        valid = false;
+      } else if (data[el.name] !== el.value) {
+        updateArray.push({
+          name: el.name,
+          value: el.value,
+          errorText: `${el.label} ${el.labelPointer} не верно`
+        });
+        valid = false;
+      }
+    });
+    if (!valid) {
+      this.updateFields(updateArray);
+    } else {
+      this.setState({ isAuth: true });
+    }
   };
 
   render() {
@@ -44,7 +111,7 @@ export default class Form extends Component {
     if (isAuth) {
       return (
         <div className="app-container">
-          <img src={logo} alt="I\'m James Bond" className="t-bond-image" />
+          <img src={avatar} alt="I\'m James Bond" className="t-bond-image" />
         </div>
       );
     } else {
@@ -60,32 +127,11 @@ export default class Form extends Component {
                   value={value}
                   errorText={errorText}
                   key={name}
+                  updateFields={this.updateFields}
                 />
               );
             })}
-
-            {/* <p className="field">
-              <Field />
-              <input
-                type="text"
-                className="field__input field-input t-input-lastname"
-                name="lastname"
-              />
-              <span className="field__error field-error t-error-lastname" />
-            </p>
-
-            <p className="field">
-              <label htmlFor="password" className="field__label">
-                <span className="feild-label">Пароль</span>
-              </label>
-              <input
-                type="text"
-                className="field__input field-input t-input-password"
-                name="password"
-              />
-              <span className="field__error field-error t-error-firstname" />
-            </p> */}
-            <FormButtons />
+            <FormButton fillds={fields} checkData={this.checkData} />
           </form>
         </div>
       );

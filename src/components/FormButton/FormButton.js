@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 
-class FormButtons extends Component {
-  handlerButton = event => {
+class FormButton extends Component {
+  handleButton = event => {
     event.preventDefault();
-    // validate();
+    const { checkData } = this.props;
+
+    checkData();
   };
 
   render() {
@@ -13,11 +15,11 @@ class FormButtons extends Component {
           type="submit"
           className="button t-submit"
           value="Проверить"
-          onClick={this.handlerButton}
+          onClick={this.handleButton}
         />
       </div>
     );
   }
 }
 
-export default FormButtons;
+export default FormButton;

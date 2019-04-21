@@ -8,19 +8,21 @@ export default class Show extends Component {
     data: ''
   };
 
-  static getDerivedStateFromProps(props, state) {
-    if (props.id !== state.prevId) {
+  static getDerivedStateFromProps = (props, state) => {
+    if (props.showId !== state.showId) {
       return {
-        data: null,
-        prevId: props.id
+        showId: props.showId,
+        data: ''
       };
     }
-    return null;
-  }
 
-  componentDidUpdate(prevProps) {
-    const { showId } = this.props;
-    if (showId !== prevProps.showId) {
+    return null;
+  };
+
+  componentDidUpdate() {
+    const { showId } = this.state;
+
+    if (showId) {
       getShowInfo(showId).then(show => {
         this.setState({
           showId,

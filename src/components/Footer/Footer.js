@@ -9,7 +9,7 @@ class Footer extends PureComponent {
         {state => {
           return state.isAuthorized ? (
             <p className="footer-message t-footer">{`Вы вошли как ${
-              state.authedEmail
+              state.email
             }`}</p>
           ) : (
             <p className="footer-message t-footer">Вы гость в этой системе</p>

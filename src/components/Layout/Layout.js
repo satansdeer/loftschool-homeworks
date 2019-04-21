@@ -7,13 +7,23 @@ class Layout extends PureComponent {
     return 'empty';
   }
 
-  renderHeader(HeaderChild) {
-    return 'empty';
-  }
+  renderHeader = HeaderChild => {
+    return HeaderChild ? (
+      <header className="header">
+        <SectionTitle className="header__title">Header</SectionTitle>
+        <div className="header__content">{HeaderChild}</div>
+      </header>
+    ) : null;
+  };
 
-  renderFooter(FooterChild) {
-    return 'empty';
-  }
+  renderFooter = FooterChild => {
+    return FooterChild ? (
+      <footer className="footer">
+        <SectionTitle className="header__title">Footer</SectionTitle>
+        {FooterChild}
+      </footer>
+    ) : null;
+  };
 }
 
 export default Layout;

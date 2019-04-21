@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 
 const { Provider, Consumer: AuthConsumer } = React.createContext('');
 
+const ValidData
+
 class AuthProvider extends PureComponent {
   render() {
     const { children } = this.props;

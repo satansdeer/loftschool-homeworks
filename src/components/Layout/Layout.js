@@ -5,9 +5,11 @@ import './Layout.css';
 class Layout extends PureComponent {
   render() {
     return (
-      <SectionTitle className="header__title section-title">
-        Header
-      </SectionTitle>
+      <Fragment>
+        <SectionTitle className="header__title section-title">
+          Header
+        </SectionTitle>
+      </Fragment>
     );
   }
 
@@ -23,9 +25,11 @@ class Layout extends PureComponent {
 
   renderFooter(FooterChild) {
     return (
-      <SectionTitle className="header__title section-title">
-        Footer
-      </SectionTitle>
+      <Fragment>
+        <SectionTitle className="header__title section-title">
+          Footer
+        </SectionTitle>
+      </Fragment>
     );
   }
 }

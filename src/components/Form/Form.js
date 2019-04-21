@@ -21,7 +21,6 @@ export default class Form extends Component {
         labelPointer: 'указано',
         value: '',
         errorText: ''
-        // validValue: 'james'
       },
       {
         name: 'lastname',
@@ -30,7 +29,6 @@ export default class Form extends Component {
         labelPointer: 'указана',
         value: '',
         errorText: ''
-        // validValue: 'bond'
       },
       {
         name: 'password',
@@ -39,14 +37,11 @@ export default class Form extends Component {
         labelPointer: 'указан',
         value: '',
         errorText: ''
-        // validValue: '007'
       }
     ]
   };
 
-  //   const array = this.state.fields;
   updateFields = array => {
-    // debugger;
     const { fields } = this.state;
     let newFields = [];
     fields.forEach(elField => {
@@ -84,8 +79,6 @@ export default class Form extends Component {
     let updateArray = [];
     var valid = true;
     fields.forEach(el => {
-      //   debugger;
-
       if (el.value === '') {
         updateArray.push({
           name: el.name,

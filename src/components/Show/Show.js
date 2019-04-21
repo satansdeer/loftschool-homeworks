@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import './Show.css';
+import { getShowInfo } from '../../api';
 
 class Show extends PureComponent {
   constructor(props) {
@@ -11,26 +12,24 @@ class Show extends PureComponent {
     };
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     const { showId } = this.props;
-    const url = 'http://api.tvmaze.com/shows/' + this.getId(showId);
 
-    fetch(url).then(response => {
-      response.json().then(data => {
-        this.setState({ showId, data });
-      });
+    if (prevProps.showId === showId) {
+      return;
+    }
+
+    this.setState({showId, data: null});
+
+    getShowInfo(showId).then(data => {
+      this.setState({ data });
     });
   }
 
-  getId(showId) {
-    const data = { house: 118, santaBarbara: 5909, bigBang: 66 };
-    return data[showId];
-  }
-
   render() {
-    const { data, showId } = this.state;
+    const { data } = this.state;
 
-    if (!showId) {
+    if (!data) {
       return <p className="show-inforation t-show-info">Шоу не выбрано</p>;
     }
 

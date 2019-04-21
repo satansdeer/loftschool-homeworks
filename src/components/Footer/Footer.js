@@ -7,7 +7,11 @@ class Footer extends PureComponent {
     return (
       <AuthConsumer>
         {({ isAuthorized, email, logout }) =>
-          isAuthorized && `Вы вошли как ${email}`
+          isAuthorized ? (
+            <p className="t-footer">Вы вошли как {email}</p>
+          ) : (
+            <p className="t-footer">Вы гость в этой системе</p>
+          )
         }
       </AuthConsumer>
     );

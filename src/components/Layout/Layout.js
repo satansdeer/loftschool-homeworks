@@ -9,13 +9,10 @@ class Layout extends PureComponent {
     return (
       <Fragment>
         {header && this.renderHeader(header)}
-        <div className="main">
-          <div className="main--with-header main--with-footer">
-            <div className="main__title section-title">main</div>
-            {children}
-          </div>
-        </div>
-
+        <main className="main main--with-header main--with-footer">
+          <div className="main__title section-title">main</div>
+          {children}
+        </main>
         {footer && this.renderFooter(footer)}
       </Fragment>
     );

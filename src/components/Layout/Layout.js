@@ -4,15 +4,15 @@ import './Layout.css';
 
 class Layout extends PureComponent {
   render() {
-    return 'empty';
+    return 'emptyLayout';
   }
 
   renderHeader(HeaderChild) {
-    return 'empty';
+    return 'emptyHeader';
   }
 
   renderFooter(FooterChild) {
-    return 'empty';
+    return 'emptyFooter';
   }
 }
 

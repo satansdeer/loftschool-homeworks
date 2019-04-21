@@ -4,15 +4,29 @@ import './Layout.css';
 
 class Layout extends PureComponent {
   render() {
-    return 'emptyLayout';
+    return (
+      <SectionTitle className="header__title section-title">
+        Header
+      </SectionTitle>
+    );
   }
 
   renderHeader(HeaderChild) {
-    return 'emptyHeader';
+    return (
+      <Fragment>
+        <SectionTitle className="header__title section-title">
+          Main
+        </SectionTitle>
+      </Fragment>
+    );
   }
 
   renderFooter(FooterChild) {
-    return 'emptyFooter';
+    return (
+      <SectionTitle className="header__title section-title">
+        Footer
+      </SectionTitle>
+    );
   }
 }
 

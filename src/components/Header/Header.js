@@ -6,19 +6,21 @@ import './Header.css';
 class Header extends PureComponent {
   render() {
     return (
-      <header className="header">
-        <p className="header__title section-title">Header</p>
-        <div className="header__content">
-          {/* <Consumer> */}
-          <div className="header-menu">
-            <div className="header-menu__email header-email t-header-email">
-              test@test.com
+      <AuthConsumer>
+        {({ isAuth, email }) =>
+          isAuth ? (
+            <div className="header-menu">
+              <div className="header-menu__email header-email t-header-email">
+                {email}
+              </div>
+              <Button />
             </div>
-          </div>
-          {/* </Consumer> */}
-        </div>
-        <Button />
-      </header>
+          ) : (
+            <p>ничего</p>
+          )
+        }
+        }
+      </AuthConsumer>
     );
   }
 }

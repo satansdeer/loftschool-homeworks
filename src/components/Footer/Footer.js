@@ -5,10 +5,15 @@ import './Footer.css';
 class Footer extends PureComponent {
   render() {
     return (
-      <footer className="footer">
-        <p className="header__title section-title">Footer</p>
-        <p className="footer-message t-footer">Вы вошли как траляля@com</p>
-      </footer>
+      <AuthConsumer>
+        {({ isAuth, email }) =>
+          isAuth ? (
+            <p className="footer-message t-footer">{email}</p>
+          ) : (
+            <p className="footer-message t-footer">Вы гость в этой системе.</p>
+          )
+        }
+      </AuthConsumer>
     );
   }
 }

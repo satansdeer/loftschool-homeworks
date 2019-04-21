@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 
-const { Provider, Consumer: AuthConsumer } = React.createContext('');
+const { Provider, Consumer: AuthConsumer } = React.createContext({background:"green"});
 
 class AuthProvider extends PureComponent {
   render() {

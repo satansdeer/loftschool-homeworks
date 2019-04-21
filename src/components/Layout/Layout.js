@@ -1,10 +1,21 @@
 import React, { Fragment, PureComponent } from 'react';
 import SectionTitle from '../SectionTitle';
 import './Layout.css';
+import Button from '../Button';
+
+const Au = ({ children }) => <div>{children}</div>
 
 class Layout extends PureComponent {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
-    return 'empty';
+    return (
+      <div>
+        {this.props.children.AuthConsumer}                
+      </div>
+    );
   }
 
   renderHeader(HeaderChild) {

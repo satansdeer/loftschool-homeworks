@@ -105,7 +105,7 @@ export default class Form extends Component {
               onChange={this.submitName}
               errorName={errorPassword}
               classError="field__error field-error t-error-password"
-              classInput="field__input field-input t-input-lastname"
+              classInput="field__input field-input t-input-password"
               type="password"
             />
 

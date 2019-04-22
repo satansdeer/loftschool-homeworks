@@ -3,9 +3,9 @@ import './CheckDoneButton.css';
 
 const getStatus = parameter => (parameter ? '[x]' : '[ ]');
 
-export const CheckDoneButton = ({ handleClick, isChecked }) => (
-  <span className="todo-item__flag t-todo-complete-flag">
-    {getStatus(isChecked)}
+export const CheckDoneButton = ({ handleClick, done }) => (
+  <span className="todo-item__flag t-todo-complete-flag" onClick={handleClick}>
+    {getStatus(done)}
   </span>
 );
 

@@ -3,9 +3,9 @@ import { load, save } from '../../localstorage';
 
 const loadData = () => {
   console.log('localStorage.items', localStorage.items);
-  if (localStorage.items) {
+  if (localStorage.items && localStorage.items !== 'undefined') {
     console.log('check');
-    return localStorage.items;
+    return JSON.parse(localStorage.items);
   }
   return [];
 };
@@ -16,7 +16,7 @@ const saveData = data => {
 };
 
 const WithLocalstorage = ({ component: WrappedComponent }) => (
-  <WrappedComponent saveData={saveData} savedData={loadData()} />
+  <WrappedComponent saveData={saveData} loadData={loadData} />
 );
 
 export default WithLocalstorage;

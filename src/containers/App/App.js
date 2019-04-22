@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import Todo from '../Todo';
-import WithLocalstorage from '../../containers/WithLocalstorage';
+import Todo from '../../components/organisms/Todo';
+import WithLocalstorage from '../WithLocalstorage';
 
 const App = () => (
   <main className="main">

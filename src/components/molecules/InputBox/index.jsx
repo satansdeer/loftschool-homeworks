@@ -1,6 +1,6 @@
 import React from 'react';
-import InputComponent from '../InputComponent';
-import PlusButton from './../PlusButton/index';
+import InputComponent from '../../atoms/InputComponent';
+import PlusButton from '../../atoms/PlusButton/index';
 import './InputBox.css';
 
 const InputBox = ({ value, handleChange, saveData }) => (

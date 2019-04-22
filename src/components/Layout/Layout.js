@@ -3,10 +3,6 @@ import SectionTitle from '../SectionTitle';
 import './Layout.css';
 
 class Layout extends PureComponent {
-  render() {
-    return 'empty';
-  }
-
   renderHeader = HeaderChild => {
     return HeaderChild ? (
       <header className="header">
@@ -24,6 +20,23 @@ class Layout extends PureComponent {
       </footer>
     ) : null;
   };
+
+  render() {
+    const { header, footer, children } = this.props;
+    const withHeader = header ? 'main--with-header' : header;
+    const withFooter = footer ? 'main--with-footer' : footer;
+
+    return (
+      <Fragment>
+        {this.renderHeader(header)}
+        <main className={`main ${withHeader} ${withFooter}`}>
+          <SectionTitle className="main__title">Main</SectionTitle>
+          {children}
+        </main>
+        {this.renderFooter(footer)}
+      </Fragment>
+    );
+  }
 }
 
 export default Layout;

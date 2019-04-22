@@ -14,30 +14,41 @@ class Layout extends PureComponent {
     footer: undefined,
   }
 
-  renderMain = () => {
-    const {header, footer, children} = this.props;
-    return <main className={`main ${header && 'main--with-header'} ${footer && 'main--with-footer'}`}>
+  renderMain = (mainClassName) => {
+    const {children} = this.props;
+    return <main className={mainClassName}>
       <SectionTitle className="main__title">Main</SectionTitle>
       {children}
     </main>
   }
 
   render() {
+    const {header, footer} = this.props;
+    const mainClassName = `main ${header && 'main--with-header'} ${footer && 'main--with-footer'}`;
+
     return <Fragment>
-      {this.renderHeader()}
-      {this.renderMain()}
-      {this.renderFooter()}
+      {this.renderHeader(header)}
+      {this.renderMain(mainClassName)}
+      {this.renderFooter(footer)}
     </Fragment>
   }
 
   renderHeader = (HeaderChild) => {
-    const {header} = this.props
-    return header ? React.createElement(header) : null;
+    return HeaderChild ? (
+      <header className="header">
+        <SectionTitle className="header__title section-title">Header</SectionTitle>
+        <div className="header__content">{HeaderChild}</div>
+      </header>
+    ) : null;
   }
 
   renderFooter = (FooterChild) => {
-    const {footer} = this.props;
-    return footer ? React.createElement(footer) : null;
+    return FooterChild ? (
+      <footer className="footer">
+        <SectionTitle className="header__title section-title">Footer</SectionTitle>
+          {FooterChild}
+        </footer>
+    ) : null;
   }
 }
 

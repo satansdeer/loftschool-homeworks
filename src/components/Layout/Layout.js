@@ -3,42 +3,42 @@ import SectionTitle from '../SectionTitle';
 import './Layout.css';
 
 class Layout extends PureComponent {
-  renderHeader(HeaderChild) {
-    return (
+  renderHeader = HeaderChild => {
+    return HeaderChild ? (
       <header className="header">
         <SectionTitle className="header__title">Header</SectionTitle>
+        <div className="header__content">{HeaderChild}</div>
         <div className="header__content">
-          <HeaderChild />
+          {React.createElement(HeaderChild)}
         </div>
       </header>
-    );
-  }
+    ) : null;
+  };
 
-  renderFooter(FooterChild) {
-    return (
+  renderFooter = FooterChild => {
+    return FooterChild ? (
       <footer className="footer">
-        <SectionTitle className="footer__title">Footer</SectionTitle>
-        <div className="footer-message">
-          <FooterChild />
-        </div>
+        <SectionTitle className="header__title">Footer</SectionTitle>
+        {FooterChild}
+        {React.createElement(FooterChild)}
       </footer>
-    );
-  }
+    ) : null;
+  };
 
   render() {
     const { header, footer, children } = this.props;
-    const mainWithHeader = header ? 'main--with-header' : '';
-    const mainWithFooter = footer ? 'main--with-footer' : '';
+    const withHeader = header ? 'main--with-header' : header;
+    const withFooter = footer ? 'main--with-footer' : footer;
     return (
       <Fragment>
-        {header}
-        <main className={`main ${mainWithHeader} ${mainWithFooter}`}>
-          <SectionTitle className="header__title section-title">
-            Main
-          </SectionTitle>
+        {/* {this.renderHeader(header)} */}
+        {/* Без строчки редера хэдера и футера -- отлично рендерится MAIN. 
+        Но с ними выходит ошибка: render is not a function */}
+        <main className={`main ${withHeader} ${withFooter}`}>
+          <SectionTitle className="main__title">Main</SectionTitle>
           {children}
         </main>
-        {footer}
+        {/* {this.renderFooter(footer)} */}
       </Fragment>
     );
   }

@@ -29,16 +29,15 @@ class Layout extends PureComponent {
     const { header, footer, children } = this.props;
     const withHeader = header ? 'main--with-header' : header;
     const withFooter = footer ? 'main--with-footer' : footer;
+    //   const headerRend = this.renderHeader(header);
     return (
       <Fragment>
-        {/* {this.renderHeader(header)} */}
-        {/* Без строчки редера хэдера и футера -- отлично рендерится MAIN. 
-        Но с ними выходит ошибка: render is not a function */}
+        {this.renderHeader(header)}
         <main className={`main ${withHeader} ${withFooter}`}>
           <SectionTitle className="main__title">Main</SectionTitle>
           {children}
         </main>
-        {/* {this.renderFooter(footer)} */}
+        {this.renderFooter(footer)}
       </Fragment>
     );
   }

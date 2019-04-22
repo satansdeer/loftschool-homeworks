@@ -2,20 +2,26 @@ import React, { PureComponent } from 'react';
 import { AuthConsumer } from '../../contexts/Auth';
 import './Footer.css';
 
-class Footer extends PureComponent {
+export default class Footer extends PureComponent {
+  renderGuestFooter = () => {
+    return 'Вы гость в этой системе';
+  };
+
+  renderAuthFooter = email => {
+    return `Вы вошли как ${email}`;
+  };
+
   render() {
     return (
       <AuthConsumer>
-        {({ isAuth, email }) =>
-          isAuth ? (
-            <p className="footer-message t-footer">{email}</p>
-          ) : (
-            <p className="footer-message t-footer">Вы гость в этой системе.</p>
-          )
-        }
+        {({ isAuthorized, email }) => (
+          <p className="footer-message t-footer">
+            {isAuthorized
+              ? this.renderAuthFooter(email)
+              : this.renderGuestFooter()}
+          </p>
+        )}
       </AuthConsumer>
     );
   }
 }
-
-export default Footer;

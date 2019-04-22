@@ -3,29 +3,31 @@ import { AuthConsumer } from '../../contexts/Auth';
 import Button from '../Button';
 import './Header.css';
 
-class Header extends PureComponent {
+export default class Header extends PureComponent {
+  renderAuthHeader = (email, logout) => {
+    return (
+      <div className="header-menu">
+        <p className="header-menu__email header-email t-header-email">
+          {email}
+        </p>
+        <Button
+          className="header-menu__button t-logout button"
+          onClick={logout}
+          type="button"
+        >
+          Выйти
+        </Button>
+      </div>
+    );
+  };
+
   render() {
     return (
       <AuthConsumer>
-        {({ isAuth, email, logout }) =>
-          isAuth ? (
-            <div className="header-menu">
-              <div className="header-menu__email header-email t-header-email">
-                {email}
-              </div>
-              <Button
-                className="header-menu__button t-logout"
-                onClick={logout}
-              />
-            </div>
-          ) : (
-            <p>ничего</p>
-          )
-        }
+        {({ isAuthorized, email, logout }) =>
+          isAuthorized ? this.renderAuthHeader(email, logout) : null
         }
       </AuthConsumer>
     );
   }
 }
-
-export default Header;

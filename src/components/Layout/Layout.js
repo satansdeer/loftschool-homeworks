@@ -13,7 +13,7 @@ class Layout extends PureComponent {
   render() {
     return (
       <div>
-        {this.props.children.AuthConsumer}                
+        {this.props.children}                
       </div>
     );
   }

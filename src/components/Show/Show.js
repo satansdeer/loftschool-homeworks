@@ -7,10 +7,8 @@ export default class Show extends PureComponent {
     showId: '',
     data: ''
   };
-  //   showId: '';
-  //   data: '';
 
-  static getDerivedStateFromProps() {
+  static getDerivedStateFromProps(props, state) {
     if (props.showId !== state.showId) {
       return {
         showId: props.showId,
@@ -33,13 +31,14 @@ export default class Show extends PureComponent {
 
   render() {
     const { data } = this.state;
+    const { image, genres, summary, name } = data;
     if (!data) {
-      return <p className="show-inforation t-show-info">Шоу не выбрано</p>;
+      return <p className="show-information t-show-info">Шоу не выбрано</p>;
     }
-    const { image, name, genres, summary } = data;
+
     return (
       <div className="show">
-        <img className="show-image" src={image.medium} alt={name} />
+        <img className="show-image" src={image} alt={name} />
         <h2 className="show-label t-show-name">{name}</h2>
         <p className="show-text t-show-genre">
           <b>Жанр: </b>

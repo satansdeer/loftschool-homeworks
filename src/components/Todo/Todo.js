@@ -1,12 +1,28 @@
 import React, { PureComponent } from 'react';
 import Card from '../Card';
 import './Todo.css';
-import withLocalstorage from '../../HOCs/withLocalstorage';
+import withLocalstorage from '../../containers/WithLocalstorage';
+import ToDoItem from '../ToDoItem';
+import InputBox from '../InputBox';
 
 class Todo extends PureComponent {
-  state = {
-    inputValue: ''
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      inputValue: ''
+    };
+
+    this.loadedItems = props.savedData;
+  }
+
+  componentDidMount() {
+    console.log('App mounted', localStorage.items);
+  }
+
+  componentDidUpdate() {
+    console.log('App Updated', localStorage.items);
+  }
 
   getId() {
     const { savedData } = this.props;
@@ -14,25 +30,47 @@ class Todo extends PureComponent {
     return biggest + 1;
   }
 
-  handleChange = event => {};
+  handleChange = inputValue => this.setState({ ...this.state, inputValue });
 
-  createNewRecordByEnter = event => {};
+  getListOfTasks = listOfItems => (
+    <div>
+      <ToDoItem />
+      <ToDoItem />
+      <ToDoItem />
+    </div>
+  );
 
-  toggleRecordComplete = event => {};
+  saveData = () => {
+    console.log(this.loadedItems);
+    // const { inputValue } = this.state;
+    // const { saveData } = this.props;
+    // const { getId } = this;
 
-  createNewRecord = () => {};
+    // saveData({ value: inputValue, id: getId() });
+  };
+
+  getInputBlock = () => {
+    return (
+      <InputBox
+        handleChange={this.handleChange}
+        value={this.state.inputValue}
+        saveData={this.saveData}
+      />
+    );
+  };
 
   render() {
-    return;
-  }
+    const { SaveData } = this.props;
 
-  renderEmptyRecord() {
-    return;
+    return (
+      <Card title="Список">
+        <div className="todo t-todo-list">
+          {this.getInputBlock()}
+          {this.getListOfTasks(SaveData)}
+        </div>
+      </Card>
+    );
   }
-
-  renderRecord = record => {
-    return;
-  };
 }
 
-export default withLocalstorage('todo-app', [])(Todo);
+export default Todo;

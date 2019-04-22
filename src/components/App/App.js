@@ -1,17 +1,14 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import './App.css';
 import Todo from '../Todo';
+import WithLocalstorage from '../../containers/WithLocalstorage';
 
-class App extends PureComponent {
-  render() {
-    return (
-      <main className="main">
-        <div className="main__cell">
-          <Todo />
-        </div>
-      </main>
-    );
-  }
-}
+const App = () => (
+  <main className="main">
+    <div className="main__cell">
+      <WithLocalstorage component={Todo} />
+    </div>
+  </main>
+);
 
 export default App;

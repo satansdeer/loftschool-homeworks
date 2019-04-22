@@ -1,7 +1,7 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import './Card.css';
 
-class Card extends PureComponent {
+class Card extends Component {
   render() {
     const { children, title } = this.props;
     return (

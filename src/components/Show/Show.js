@@ -26,7 +26,7 @@ export default class Show extends React.Component {
     const { image, name, genres, summary } = data;
     return (
       <div className="show">
-        <img className="show-image" src={image.medium} alt="House" />
+        <img className="show-image" src={image.medium} alt={name} />
         <h2 className="show-label t-show-name">{name}</h2>
         <p className="show-text t-show-genre">
           <b>Жанр: </b>

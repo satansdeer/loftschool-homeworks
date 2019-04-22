@@ -1,19 +1,46 @@
 import React, { Fragment, PureComponent } from 'react';
 import SectionTitle from '../SectionTitle';
 import './Layout.css';
+import Header from '../Header';
 
 class Layout extends PureComponent {
+  renderHeader = HeaderChild => {
+    return HeaderChild ? (
+      <header className="header">
+        <SectionTitle className="header__title">Header</SectionTitle>
+        <div className="header__content">
+          <HeaderChild />
+        </div>
+      </header>
+    ) : null;
+  }
+
+  renderFooter = FooterChild => {
+    return FooterChild ? (
+      <footer className="footer">
+        <SectionTitle className="footer__title">Footer</SectionTitle>
+        <FooterChild />
+      </footer>
+    ) : null;
+  }
+
   render() {
-    return 'empty';
+    const { header, footer, children } = this.props;
+    const withHeader = header ? 'main--with-header' : '';
+    const withFooter = footer ? 'main--with-footer' : '';
+
+    return (
+      <Fragment>
+        {this.renderHeader(header)}
+        <main className={`main ${withHeader} ${withFooter}`}>
+          <SectionTitle className="main__title">Main</SectionTitle>
+          {children}
+        </main>
+        {this.renderFooter(footer)}
+      </Fragment>
+    );
   }
 
-  renderHeader(HeaderChild) {
-    return 'empty';
-  }
-
-  renderFooter(FooterChild) {
-    return 'empty';
-  }
 }
 
 export default Layout;

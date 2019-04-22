@@ -4,15 +4,16 @@ import { getShowInfo } from '../../api';
 
 export default class Show extends React.Component {
   state = {
-    showId: undefined,
-    data: undefined
+    showId: '',
+    data: ''
   };
+
   componentDidUpdate(prevProps) {
+    const { showId } = this.props;
     if (prevProps.showId === showId) {
       return;
     }
     this.setState({ showId, data: null });
-
     getShowInfo(showId).then(data => {
       this.setState({ data });
     });

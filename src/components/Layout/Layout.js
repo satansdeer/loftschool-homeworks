@@ -2,6 +2,7 @@ import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import SectionTitle from '../SectionTitle';
 import './Layout.css';
+import Footer from '../Footer/Footer';
 
 class Layout extends PureComponent {
   static propTypes = {
@@ -37,7 +38,7 @@ class Layout extends PureComponent {
     return HeaderChild ? (
       <header className="header">
         <SectionTitle className="header__title section-title">Header</SectionTitle>
-        <div className="header__content">{HeaderChild}</div>
+        <div className="header__content">{React.createElement(HeaderChild)}</div>
       </header>
     ) : null;
   }
@@ -46,7 +47,7 @@ class Layout extends PureComponent {
     return FooterChild ? (
       <footer className="footer">
         <SectionTitle className="header__title section-title">Footer</SectionTitle>
-          {FooterChild}
+          {React.createElement(Footer)}
         </footer>
     ) : null;
   }

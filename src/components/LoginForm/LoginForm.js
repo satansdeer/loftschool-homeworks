@@ -35,11 +35,11 @@ class LoginForm extends PureComponent {
       values: { email, password }
     } = this.state;
     const { authorize } = this.props;
-
     authorize(email, password);
   };
 
   render() {
+    // console.log(this.state);
     const { values } = this.state;
     const { authorizeError } = this.props;
 

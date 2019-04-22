@@ -1,29 +1,47 @@
-import React, { Fragment, PureComponent } from 'react';
-import SectionTitle from '../SectionTitle';
+import React, { PureComponent } from 'react';
+// import SectionTitle from '../SectionTitle';
 import './Layout.css';
-import Button from '../Button';
-
-const Au = ({ children }) => <div>{children}</div>
+// import Button from '../Button';
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 
 class Layout extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
+  // state = this.context
 
-  render() {
+  // constructor(props){
+  //   super(props);
+    
+  //   // state = this.context.state;
+  //   // console.log('State', this.state.context);  
+  // }
+  render() {    
+    
+    console.log('ProvState', this.props.value);
     return (
+
       <div>
-        {this.props.children.AuthConsumer}                
+        
+        {this.renderHeader()}
+        <main className="main">          
+          {this.props.children}
+        </main>
+        {this.renderFooter()}
       </div>
     );
   }
 
-  renderHeader(HeaderChild) {
-    return 'empty';
+  componentDidUpdate(){
+    console.log(this.props);
+  }
+
+  renderHeader(HeaderChild) {    
+    console.log('HeaderInfo', HeaderChild);
+    return <Header />;
   }
 
   renderFooter(FooterChild) {
-    return 'empty';
+    console.log('FooterInfo', FooterChild);
+    return <Footer/>;
   }
 }
 

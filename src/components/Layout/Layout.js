@@ -29,7 +29,6 @@ class Layout extends PureComponent {
     const { header, footer, children } = this.props;
     const withHeader = header ? 'main--with-header' : header;
     const withFooter = footer ? 'main--with-footer' : footer;
-    //   const headerRend = this.renderHeader(header);
     return (
       <Fragment>
         {this.renderHeader(header)}

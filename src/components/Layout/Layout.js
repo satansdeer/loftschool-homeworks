@@ -7,7 +7,9 @@ class Layout extends PureComponent {
     return HeaderChild ? (
       <header className="header">
         <SectionTitle className="header__title">Header</SectionTitle>
-        <div className="header__content">{HeaderChild}</div>
+        <div className="header__content">
+          {React.createElement(HeaderChild)}
+        </div>
       </header>
     ) : null;
   };
@@ -16,7 +18,7 @@ class Layout extends PureComponent {
     return FooterChild ? (
       <footer className="footer">
         <SectionTitle className="header__title">Footer</SectionTitle>
-        {FooterChild}
+        {React.createElement(FooterChild)}
       </footer>
     ) : null;
   };

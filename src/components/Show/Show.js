@@ -10,7 +10,7 @@ export default class Show extends React.Component {
 
   componentDidUpdate(prevProps) {
     const { showId } = this.props;
-    if (showId !== prevProps) {
+    if (showId !== prevProps.showId) {
       getShowInfo(showId).then(show => {
         this.setState({
           showId,

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import bond_approve from './assets/bond_approve.jpg';
 import './Form.css';
 
@@ -7,7 +6,8 @@ class Form extends Component {
   state = {
     inputFirstname: '',
     inputLastname: '',
-    inputPassword: ''
+    inputPassword: '',
+    isAuthorized: false
   };
 
   inputFirstnameChanged = e => {
@@ -37,12 +37,7 @@ class Form extends Component {
     let isFormValid = this.isFormValid();
 
     if (isFormValid) {
-      ReactDOM.render(
-        <div className="app-container">
-          <img className="t-bond-image" alt="bond approve" src={bond_approve} />
-        </div>,
-        document.getElementById('root')
-      );
+      this.setState({ isAuthorized: true });
     }
   };
 
@@ -101,61 +96,75 @@ class Form extends Component {
     return flag;
   }
 
-  render() {
+  renderForm() {
     let { inputFirstname, inputLastname, inputPassword } = this.state;
 
     return (
+      <form className="form">
+        <h1>Введите свои данные, агент</h1>
+        <p className="field">
+          <label className="field__label" htmlFor="firstname">
+            <span className="field-label">Имя</span>
+          </label>
+          <input
+            className="field__input field-input t-input-firstname"
+            type="text"
+            name="firstname"
+            value={inputFirstname}
+            onChange={this.inputFirstnameChanged}
+          />
+          <span className="field__error field-error t-error-firstname" />
+        </p>
+        <p className="field">
+          <label className="field__label" htmlFor="lastname">
+            <span className="field-label">Фамилия</span>
+          </label>
+          <input
+            className="field__input field-input t-input-lastname"
+            type="text"
+            name="lastname"
+            value={inputLastname}
+            onChange={this.inputLastnameChanged}
+          />
+          <span className="field__error field-error t-error-lastname" />
+        </p>
+        <p className="field">
+          <label className="field__label" htmlFor="password">
+            <span className="field-label">Пароль</span>
+          </label>
+          <input
+            className="field__input field-input t-input-password"
+            type="password"
+            name="password"
+            value={inputPassword}
+            onChange={this.inputPasswordChanged}
+          />
+          <span className="field__error field-error t-error-password" />
+        </p>
+        <div className="form__buttons">
+          <input
+            type="submit"
+            className="button t-submit"
+            value="Проверить"
+            onClick={this.inputButtonClicked}
+          />
+        </div>
+      </form>
+    );
+  }
+
+  renderImage() {
+    return (
+      <img className="t-bond-image" alt="bond approve" src={bond_approve} />
+    );
+  }
+
+  render() {
+    let { isAuthorized } = this.state;
+
+    return (
       <div className="app-container">
-        <form className="form">
-          <h1>Введите свои данные, агент</h1>
-          <p className="field">
-            <label className="field__label" htmlFor="firstname">
-              <span className="field-label">Имя</span>
-            </label>
-            <input
-              className="field__input field-input t-input-firstname"
-              type="text"
-              name="firstname"
-              value={inputFirstname}
-              onChange={this.inputFirstnameChanged}
-            />
-            <span className="field__error field-error t-error-firstname" />
-          </p>
-          <p className="field">
-            <label className="field__label" htmlFor="lastname">
-              <span className="field-label">Фамилия</span>
-            </label>
-            <input
-              className="field__input field-input t-input-lastname"
-              type="text"
-              name="lastname"
-              value={inputLastname}
-              onChange={this.inputLastnameChanged}
-            />
-            <span className="field__error field-error t-error-lastname" />
-          </p>
-          <p className="field">
-            <label className="field__label" htmlFor="password">
-              <span className="field-label">Пароль</span>
-            </label>
-            <input
-              className="field__input field-input t-input-password"
-              type="password"
-              name="password"
-              value={inputPassword}
-              onChange={this.inputPasswordChanged}
-            />
-            <span className="field__error field-error t-error-password" />
-          </p>
-          <div className="form__buttons">
-            <input
-              type="submit"
-              className="button t-submit"
-              value="Проверить"
-              onClick={this.inputButtonClicked}
-            />
-          </div>
-        </form>
+        {!isAuthorized ? this.renderForm() : this.renderImage()}
       </div>
     );
   }

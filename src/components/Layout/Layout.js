@@ -6,42 +6,29 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 
 class Layout extends PureComponent {
-  // state = this.context
-
-  // constructor(props){
-  //   super(props);
-    
-  //   // state = this.context.state;
-  //   // console.log('State', this.state.context);  
-  // }
   render() {    
+    const {header, footer, children, layout} = this.props;
     
     console.log('ProvState', this.props.value);
     return (
 
       <div>
         
-        {this.renderHeader()}
+        {this.renderHeader(header)}
         <main className="main">          
           {this.props.children}
         </main>
-        {this.renderFooter()}
+        {this.renderFooter(footer)}
       </div>
     );
   }
 
-  componentDidUpdate(){
-    console.log(this.props);
-  }
-
   renderHeader(HeaderChild) {    
-    console.log('HeaderInfo', HeaderChild);
-    return <Header />;
+    return <HeaderChild/>    
   }
 
-  renderFooter(FooterChild) {
-    console.log('FooterInfo', FooterChild);
-    return <Footer/>;
+  renderFooter(FooterChild) {    
+    return <FooterChild/>;
   }
 }
 

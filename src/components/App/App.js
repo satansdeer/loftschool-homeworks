@@ -11,10 +11,10 @@ class App extends PureComponent {
   render() {
     return (
       <AuthProvider>
-        <Layout header={Header} footer={Footer}>
+        <Layout header={Header} footer={Footer} layout={Layout}>
           <AuthConsumer>
             {({ isAuthorized, authorize, authorizeError }) =>
-              isAuthorized ? (
+              isAuthorized ? (                
                 <Congratulations />
               ) : (
                   < LoginForm
@@ -23,12 +23,6 @@ class App extends PureComponent {
                   />
                 )
             }
-            {/* {
-              ({background, logout}) =>{
-                console.log('E', background);
-                return (<button style={{...background}} onClick={logout}>Test</button>);
-              }
-            } */}
           </AuthConsumer>
         </Layout>
       </AuthProvider>

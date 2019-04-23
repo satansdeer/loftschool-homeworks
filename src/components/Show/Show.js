@@ -15,10 +15,9 @@ class Show extends PureComponent {
     return null;
   }
 
-  async componentDidUpdate(prevProps) {
-    const { showId } = this.props;
-
-    if (showId !== prevProps.showId) {
+  async componentDidUpdate(prevState) {
+    const { showId } = this.state;
+    if (showId !== prevState.showId) {
       const data = await getShowInfo(showId);
       this.setState({ data: data });
     }

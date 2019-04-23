@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Todo from '../../components/organisms/Todo';
+import Todo from '../Todo';
 
 const App = () => (
   <main className="main">

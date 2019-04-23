@@ -7,13 +7,9 @@ import './Todo.css';
 
 const ENTER_KEY_CODE = 13;
 class Todo extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      inputValue: ''
-    };
-  }
+  state = {
+    inputValue: ''
+  };
 
   getId = () => {
     const { savedData } = this.props;
@@ -28,9 +24,10 @@ class Todo extends Component {
     if (inputValue) {
       const { saveData, savedData } = this.props;
       const { getId } = this;
+      const listItems = savedData();
       const newItems = [
         { value: inputValue, id: getId(), done: false },
-        ...savedData()
+        ...listItems
       ];
 
       saveData(newItems);
@@ -40,7 +37,8 @@ class Todo extends Component {
 
   changeStatus = (value, id) => {
     const { saveData, savedData } = this.props;
-    const newItems = [...savedData()];
+    const listItems = savedData();
+    const newItems = [...listItems];
     newItems.forEach(item => {
       if (item.id === id) {
         item.done = value;
@@ -58,6 +56,7 @@ class Todo extends Component {
     const { inputValue } = this.state;
     const { savedData } = this.props;
     const { handleChange, saveItem, handleKeyDown } = this;
+    const listItems = savedData();
 
     return (
       <Card title="Список">
@@ -69,7 +68,7 @@ class Todo extends Component {
             handleKeyDown={handleKeyDown}
           />
           <ListOfTasks
-            listOfItems={savedData()}
+            listOfItems={listItems}
             handleChangeStatus={this.changeStatus}
             ref={this.listContainer}
           />

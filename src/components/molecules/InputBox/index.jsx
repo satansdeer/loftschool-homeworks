@@ -3,9 +3,13 @@ import InputComponent from '../../atoms/InputComponent';
 import PlusButton from '../../atoms/PlusButton/index';
 import './InputBox.css';
 
-const InputBox = ({ value, handleChange, saveData }) => (
+const InputBox = ({ value, handleChange, saveData, handleKeyDown }) => (
   <div className="todo-item todo-item-new">
-    <InputComponent handleChange={handleChange} value={value} />
+    <InputComponent
+      handleChange={handleChange}
+      value={value}
+      handleKeyDown={handleKeyDown}
+    />
     <PlusButton handleClick={saveData} />
   </div>
 );

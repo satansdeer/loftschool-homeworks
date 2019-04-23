@@ -22,7 +22,7 @@ export default class ToDoItem extends Component {
 
   render() {
     const { isDone } = this.state;
-    const { value, handleClick, handleChangeStatus, id } = this.props;
+    const { value } = this.props;
     return (
       <div className="todo-item t-todo">
         <ItemValue value={value} />

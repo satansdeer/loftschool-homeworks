@@ -2,7 +2,6 @@ import React from 'react';
 import ToDoItem from '../../molecules/ToDoItem';
 
 const ListOfTasks = ({ listOfItems, handleChangeStatus }) => {
-  console.log('check listOfItems', listOfItems);
   return (
     <div>
       {listOfItems &&

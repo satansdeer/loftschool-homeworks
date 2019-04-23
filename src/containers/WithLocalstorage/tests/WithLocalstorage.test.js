@@ -1,12 +1,14 @@
 import React from 'react';
-import WithLocalstorage from './WithLocalstorage';
 import { mount } from 'enzyme';
-import * as localstorage from '../../localstorage';
+import withLocalstorage from '../WithLocalstorage';
+import * as localstorage from '../../../localstorage';
 
-jest.mock('../../localstorage');
+jest.mock('../../../localstorage');
 
 const TestComponent = () => React.createElement('p', null, 'test');
-const wrapper = mount(React.createElement(WithLocalstorage(TestComponent)));
+const wrapper = mount(
+  React.createElement(withLocalstorage('asd', [])(TestComponent))
+);
 const testComponent = wrapper.find('TestComponent');
 
 it('У обернутого компонента появляются props: savedData и saveData', () => {

@@ -1,19 +1,23 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import Card from '../../molecules/Card';
-import './Todo.css';
 import withLocalstorage from '../../../containers/WithLocalstorage';
-import ToDoItem from '../../molecules/ToDoItem';
 import InputBox from '../../molecules/InputBox';
 import ListOfTasks from './../../molecules/ListOfTasks/index';
+import './Todo.css';
 
-class Todo extends PureComponent {
-  state = {
-    inputValue: ''
-  };
+const ENTER_KEY_CODE = 13;
+class Todo extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      inputValue: ''
+    };
+  }
 
   getId = () => {
-    const { loadData } = this.props;
-    const biggest = loadData().reduce((acc, el) => Math.max(acc, el.id), 0);
+    const { savedData } = this.props;
+    const biggest = savedData().reduce((acc, el) => Math.max(acc, el.id), 0);
     return biggest + 1;
   };
 
@@ -22,11 +26,11 @@ class Todo extends PureComponent {
   saveItem = () => {
     const { inputValue } = this.state;
     if (inputValue) {
-      const { saveData, loadData } = this.props;
+      const { saveData, savedData } = this.props;
       const { getId } = this;
       const newItems = [
-        ...loadData(),
-        { value: inputValue, id: getId(), done: false }
+        { value: inputValue, id: getId(), done: false },
+        ...savedData()
       ];
 
       saveData(newItems);
@@ -35,8 +39,8 @@ class Todo extends PureComponent {
   };
 
   changeStatus = (value, id) => {
-    const { saveData, loadData } = this.props;
-    const newItems = [...loadData()];
+    const { saveData, savedData } = this.props;
+    const newItems = [...savedData()];
     newItems.forEach(item => {
       if (item.id === id) {
         item.done = value;
@@ -46,26 +50,28 @@ class Todo extends PureComponent {
     saveData(newItems);
   };
 
-  getInputBlock = () => {
-    return (
-      <InputBox
-        handleChange={this.handleChange}
-        value={this.state.inputValue}
-        saveData={this.saveItem}
-      />
-    );
+  handleKeyDown = keyCode => {
+    keyCode === ENTER_KEY_CODE && this.saveItem();
   };
 
   render() {
-    const { saveData, loadData } = this.props;
+    const { inputValue } = this.state;
+    const { savedData } = this.props;
+    const { handleChange, saveItem, handleKeyDown } = this;
 
     return (
       <Card title="Список">
         <div className="todo t-todo-list">
-          {this.getInputBlock()}
+          <InputBox
+            handleChange={handleChange}
+            value={inputValue}
+            saveData={saveItem}
+            handleKeyDown={handleKeyDown}
+          />
           <ListOfTasks
-            listOfItems={loadData()}
+            listOfItems={savedData()}
             handleChangeStatus={this.changeStatus}
+            ref={this.listContainer}
           />
         </div>
       </Card>
@@ -73,4 +79,4 @@ class Todo extends PureComponent {
   }
 }
 
-export default Todo;
+export default withLocalstorage()(Todo);

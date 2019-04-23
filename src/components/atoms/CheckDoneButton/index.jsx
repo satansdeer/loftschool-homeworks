@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import './CheckDoneButton.css';
 
 const getStatus = parameter => (parameter ? '[x]' : '[ ]');

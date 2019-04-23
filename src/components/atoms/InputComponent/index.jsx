@@ -6,6 +6,7 @@ const InputComponent = props => {
     type,
     autocompleteOff,
     handleChange,
+    handleKeyDown,
     value,
     dragOff,
     placeholder
@@ -19,6 +20,7 @@ const InputComponent = props => {
       autoComplete={autocompleteOff && 'off'}
       onDrop={dragOff ? event => event.preventDefault() : null}
       value={value}
+      onKeyDown={({ keyCode }) => handleKeyDown(keyCode)}
     />
   );
 };
@@ -27,6 +29,7 @@ InputComponent.defaultProps = {
   type: 'text',
   autocompleteOff: true,
   handleChange: () => console.log('check'),
+  handleKeyDown: () => console.log('check'),
   value: 'default value',
   dragOff: true,
   placeholder: 'Введите задачу'

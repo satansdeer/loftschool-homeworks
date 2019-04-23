@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import './App.css';
+import Card from '../Card';
 import Todo from '../Todo';
 
 class App extends PureComponent {
@@ -7,7 +8,9 @@ class App extends PureComponent {
     return (
       <main className="main">
         <div className="main__cell">
-          <Todo />
+          <Card title="Список дел">
+            <Todo />
+          </Card>
         </div>
       </main>
     );

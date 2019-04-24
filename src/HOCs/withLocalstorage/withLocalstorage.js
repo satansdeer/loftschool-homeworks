@@ -19,6 +19,7 @@ const withLocalstorage = (
         <WrappedComponent
           savedData={this.savedData()}
           saveData={this.saveData}
+          {...this.props}
         />
       );
     }

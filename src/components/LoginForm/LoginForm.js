@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import './LoginForm.css';
-import Button from '../Button'
+import Button from '../Button';
 
 const fields = [
   {
@@ -23,7 +23,7 @@ class LoginForm extends PureComponent {
     }
   };
 
-  handleChange = event => {
+  handleChange = (event) => {
     const { values } = this.state;
     this.setState({
       values: { ...values, [event.target.name]: event.target.value }
@@ -31,11 +31,8 @@ class LoginForm extends PureComponent {
   };
 
   handleSubmit = () => {
-    const {
-      values: { email, password }
-    } = this.state;
+    const { values: { email, password } } = this.state;
     const { authorize } = this.props;
-
     authorize(email, password);
   };
 
@@ -63,9 +60,7 @@ class LoginForm extends PureComponent {
           </p>
         ))}
 
-        {authorizeError !== '' && (
-          <p className="login-form-error t-login-error">{authorizeError}</p>
-        )}
+        {authorizeError !== '' && <p className="login-form-error t-login-error">{authorizeError}</p>}
 
         <div className="login-form__buttons">
           <Button onClick={this.handleSubmit} className="t-login">

@@ -1,5 +1,26 @@
-// Реализуйте компонент OutboxMail по примеру InboxMail.
-// Он должен показывать выбранное письмо на отправку.
-// Используйте HOC withData из `/context/Data` чтобы получить данные.
+import React, { PureComponent } from 'react';
+import { withData } from '../../context/Data';
+import Mail from '../Mail';
 
-// Этот компонент должен использовать компонент Mail для отображения данных.
+class OutboxMail extends PureComponent {
+  render() {
+    const { data, location } = this.props;
+    const { outbox } = data;
+
+    return outbox.map(record => {
+      return location.pathname.indexOf(record.id) > 0 ? (
+        <Mail
+          className="t-mail-to"
+          body={record.body}
+          toFromLabel="To"
+          toFrom={record.to}
+          key={record.id}
+        />
+      ) : (
+        ''
+      );
+    });
+  }
+}
+
+export default withData(OutboxMail);

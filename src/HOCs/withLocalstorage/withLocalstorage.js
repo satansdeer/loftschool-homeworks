@@ -3,12 +3,15 @@ import { load, save } from '../../localstorage';
 
 const withLocalstorage = (key, data) => ChildComponent => {
   return class extends Component {
-    savedData(key) {
+    savedData() {
       return load(key);
     }
-    saveData(key, data) {
-      let loaded = load(key) !== null ? load(key) : {};
-      save(key, [...loaded, data]);
+    saveData(data) {
+      if (load(key) !== null && load(key) !== undefined) {
+        return save(key, [...load(key), data]);
+      } else {
+        return save(key, [data]);
+      }
     }
     render() {
       return (

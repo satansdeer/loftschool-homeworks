@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import Card from '../Card';
 import './Todo.css';
 import withLocalstorage from '../../HOCs/withLocalstorage';
 
@@ -14,24 +13,85 @@ class Todo extends PureComponent {
     return biggest + 1;
   }
 
-  handleChange = event => {};
+  handleChange = e => {
+    const { value } = e.target;
+    this.setState({ inputValue: value });
+  };
 
-  createNewRecordByEnter = event => {};
+  createNewRecordByEnter = e => {
+    if (e.key === 'Enter') {
+      this.createNewRecord();
+    }
+  };
 
-  toggleRecordComplete = event => {};
+  toggleRecordComplete = e => {
+    const { todoId } = e.target.dataset;
+    const { saveData, savedData } = this.props;
 
-  createNewRecord = () => {};
+    saveData(
+      savedData.map(el =>
+        el.id === +todoId ? { ...el, isComplete: !el.isComplete } : el
+      )
+    );
+  };
+
+  createNewRecord = () => {
+    const { inputValue } = this.state;
+    const { savedData, saveData } = this.props;
+
+    if (inputValue) {
+      saveData([
+        ...savedData,
+        { id: this.getId(), isComplete: false, text: inputValue }
+      ]);
+    }
+  };
 
   render() {
-    return;
+    const { savedData } = this.props;
+
+    return (
+      <div className="todo t-todo-list">
+        {this.renderEmptyRecord()}
+        {savedData.map(el => this.renderRecord(el))}
+      </div>
+    );
   }
 
   renderEmptyRecord() {
-    return;
+    const { inputValue } = this.state;
+
+    return (
+      <div className="todo-item todo-item-new">
+        <input
+          className="todo-input t-input"
+          placeholder="Введите задачу"
+          value={inputValue}
+          onChange={this.handleChange}
+          onKeyPress={this.createNewRecordByEnter}
+        />
+        <span className="plus t-plus" onClick={this.createNewRecord}>
+          +
+        </span>
+      </div>
+    );
   }
 
   renderRecord = record => {
-    return;
+    const { id, text, isComplete } = record;
+
+    return (
+      <div className="todo-item t-todo">
+        <p className="todo-item__text">{text}</p>
+        <span
+          className="todo-item__flag t-todo-complete-flag"
+          data-todo-id={id}
+          onClick={this.toggleRecordComplete}
+        >
+          [{isComplete ? 'x' : '  '}]
+        </span>
+      </div>
+    );
   };
 }
 

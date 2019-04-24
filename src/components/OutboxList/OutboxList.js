@@ -5,15 +5,20 @@
 import React, { PureComponent } from 'react';
 import { withData } from '../../context/Data';
 import MailList from '../MailList';
+import truncate from 'lodash/truncate';
 class OutboxList extends PureComponent {
   render() {
-    const {data} = this.props;
-    const {outbox} = data; 
+    const { data } = this.props;
+    const { outbox } = data;
 
     return (
-      <div className="t-outbox-list">
-        <MailList className='outbox' data= {outbox}/>
-      </div>
+      <MailList
+        className="t-inbox-list"
+        mails={outbox.map(({ id, body }) => ({
+          title: truncate(body, { length: 55 }),
+          link: `/app/outbox/${id}`
+        }))}
+      />
     );
   }
 }

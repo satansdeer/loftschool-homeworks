@@ -32,6 +32,7 @@ class AppRouter extends PureComponent {
             <ul className={cn(styles.navList, 't-nav-list')}>
               <li className={styles.navElement}>
                 <NavLink
+                  exact
                   activeClassName='active'
                   className={cn(styles.link, 't-link-home')}
                   aria-current="page"
@@ -42,6 +43,7 @@ class AppRouter extends PureComponent {
               </li>
               <li className={styles.navElement}>
                 <NavLink
+                  exact
                   activeClassName='active'
                   className={cn(styles.link, 't-link-inbox')}
                   to="/app/inbox"
@@ -51,6 +53,7 @@ class AppRouter extends PureComponent {
               </li>
               <li className={styles.navElement}>
                 <NavLink
+                  exact
                   activeClassName='active'
                   className={cn(styles.link, 't-link-outbox')}
                   to="/app/outbox"
@@ -72,8 +75,8 @@ class AppRouter extends PureComponent {
               <Route exact path="/app" component={Home} />
               <Route exact path="/app/inbox" component={InboxList} />
               <Route exact path="/app/outbox" component={OutboxList} />
-              <Route path={`/app/inbox/`} component={InboxMail} />
-              <Route path={`/app/outbox/`} component={OutboxMail} />
+              <Route path="/app/inbox/:id" component={InboxMail} />
+              <Route path="/app/outbox/:id" component={OutboxMail} />
             </Switch>
           </div>
         </div>

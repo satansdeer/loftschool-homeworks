@@ -8,20 +8,14 @@ import { Link } from 'react-router-dom';
 
 class MailList extends PureComponent {
   render() {
-    const { data, className } = this.props;
-    console.log(data);
+    const { mails, className } = this.props;
     return (
-      <div className={cn(styles.container, `t-${className}-list`)}>
-        {data.map(record => {
-          return (
-            <Link
-              key={record.id}
-              className={styles.link}
-              to={`/app/${className}/${record.id}`}
-              children={record.body}
-            />
-          );
-        })}
+      <div className={cn(styles.container, className)}>
+        {mails.map(({ title, link }) => (
+          <Link className={styles.link} key={link} to={link}>
+            {title}
+          </Link>
+        ))}
       </div>
     );
   }

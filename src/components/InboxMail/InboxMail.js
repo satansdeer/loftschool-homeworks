@@ -4,22 +4,22 @@ import Mail from '../Mail';
 
 class InboxMail extends PureComponent {
   render() {
-    const { data, location } = this.props;
-    const { inbox } = data;
-
-    return inbox.map(record => {
-      return location.pathname.indexOf(record.id) > 0 ? (
-        <Mail
-          className="t-mail-from"
-          body={record.body}
-          toFromLabel="From"
-          toFrom={record.from}
-          key={record.id}
-        />
-      ) : (
-        ''
-      );
-    });
+    const {
+      match: {
+        params: { id }
+      },
+      data
+    } = this.props;
+    const mail = data.inbox.find(mail => mail.id === id);
+    return (
+      <Mail
+        className="t-mail-from"
+        body={mail.body}
+        toFromLabel="From"
+        toFrom={mail.from}
+        key={mail.id}
+      />
+    );
   }
 }
 

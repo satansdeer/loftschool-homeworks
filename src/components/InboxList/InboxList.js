@@ -6,16 +6,21 @@
 import React, { PureComponent } from 'react';
 import { withData } from '../../context/Data';
 import MailList from '../MailList';
-class OutboxList extends PureComponent {
+import truncate from 'lodash/truncate';
+class InboxList extends PureComponent {
   render() {
-    const {data} = this.props;
-    const {inbox} = data; 
+    const { data } = this.props;
+    const { inbox } = data;
     return (
-      <div className="t-inbox-list">
-        <MailList className='inbox'  data= {inbox}/>
-      </div>
+      <MailList
+        className="t-inbox-list"
+        mails={inbox.map(({ id, body }) => ({
+          title: truncate(body, { length: 55 }),
+          link: `/app/inbox/${id}`
+        }))}
+      />
     );
   }
 }
 
-export default withData(OutboxList);
+export default withData(InboxList);

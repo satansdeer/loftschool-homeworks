@@ -1,35 +1,52 @@
-import React, { PureComponent } from 'react';
-// import SectionTitle from '../SectionTitle';
+import React, {PureComponent} from 'react';
 import './Layout.css';
-// import Button from '../Button';
-import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
+import {AuthConsumer} from "../../contexts/Auth";
+import Congratulations from "../Congratulations";
+import LoginForm from "../LoginForm";
 
 class Layout extends PureComponent {
-  render() {    
-    const {header, footer, children, layout} = this.props;
-    
-    console.log('ProvState', this.props.value);
-    return (
 
-      <div>
-        
-        {this.renderHeader(header)}
-        <main className="main">          
-          {this.props.children}
-        </main>
-        {this.renderFooter(footer)}
-      </div>
-    );
-  }
+    render() {
+        const {header, footer, children} = this.props;
 
-  renderHeader(HeaderChild) {    
-    return <HeaderChild/>    
-  }
+        return (
+            <div>
+                <AuthConsumer>
+                    {({isAuthorized, authInfo}) =>
+                        this.renderHeader(header, isAuthorized, authInfo)
+                    }
+                </AuthConsumer>
+                <div className="main">
+                    <AuthConsumer>
+                        {({isAuthorized, authorize, authorizeError}) =>
+                            isAuthorized ? (
+                                <Congratulations/>
+                            ) : (
+                                < LoginForm
+                                    authorize={authorize}
+                                    authorizeError={authorizeError}
+                                />
+                            )
+                        }
+                    </AuthConsumer>
+                </div>
+                <AuthConsumer>
+                    {({isAuthorized, authInfo}) =>
+                        this.renderFooter(footer, isAuthorized, authInfo)
+                    }
+                </AuthConsumer>
 
-  renderFooter(FooterChild) {    
-    return <FooterChild/>;
-  }
+            </div>
+        )
+    }
+
+    renderHeader(HeaderChild, isAuthorized, authInfo) {
+        return <HeaderChild auth={{isAuthorized, authInfo}}/>
+    }
+
+    renderFooter(FooterChild, isAuthorized, authInfo) {
+        return <FooterChild auth={{isAuthorized, authInfo}}/>;
+    }
 }
 
 export default Layout;

@@ -17,6 +17,11 @@ export default () => (
     <AuthProvider>
       <BrowserRouter>
         <Switch>
+          <Route path="/login" component={LoginForm} />
+          <Route path="/app" component={PrivateRoute} />
+          <Route path="/app" component={AppRouter} />
+          <Redirect from="/" to="/login" />
+
           {/*
             Добавьте роуты /app и /login.
             Роут /app должен быть доступен 

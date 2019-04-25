@@ -5,13 +5,12 @@ import withLocalstorage from '../../HOCs/withLocalstorage';
 
 class Todo extends PureComponent {
   state = {
-    inputValue: '',
-    savedData: this.props.savedData()
+    inputValue: ''
   };
 
   getId() {
     const { savedData } = this.props;
-    const biggest = savedData().reduce((acc, el) => Math.max(acc, el.id), 0);
+    const biggest = savedData.reduce((acc, el) => Math.max(acc, el.id), 0);
     return biggest + 1;
   }
 
@@ -26,8 +25,7 @@ class Todo extends PureComponent {
   };
 
   toggleRecordComplete = event => {
-    const { savedData } = this.state;
-    const { saveData } = this.props;
+    const { saveData, savedData } = this.props;
     let result = savedData.map(el => {
       if (String(el.id) === event.target.dataset.todoId) {
         return {
@@ -40,7 +38,6 @@ class Todo extends PureComponent {
       }
     });
     saveData(result);
-    this.setState({ savedData: result });
   };
 
   createNewRecord = () => {
@@ -48,16 +45,14 @@ class Todo extends PureComponent {
     const { saveData, savedData } = this.props;
 
     if (inputValue.length) {
-      let newArr = [
-        ...savedData(),
+      saveData([
+        ...savedData,
         {
           text: inputValue,
           id: this.getId(),
           checked: false
         }
-      ];
-      saveData(newArr);
-      this.setState({ inputValue: '', savedData: newArr });
+      ]);
     }
   };
 
@@ -94,7 +89,7 @@ class Todo extends PureComponent {
               +
             </span>
           </div>
-          {savedData().map(this.renderRecord)}
+          {savedData.map(this.renderRecord)}
         </div>
       </Card>
     );

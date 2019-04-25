@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 import { load, save } from '../../localstorage';
 
-const withLocalstorage = (key, data) => ChildComponent => {
+const withLocalstorage = (key, defaultValue) => ChildComponent => {
   return class extends Component {
     savedData() {
-      return load(key);
+      if (load(key) !== null) {
+        return load(key);
+      } else {
+        return defaultValue;
+      }
     }
     saveData(data) {
-      if (load(key) !== null && load(key) !== undefined) {
-        return save(key, [...load(key), data]);
-      } else {
-        return save(key, [data]);
-      }
+      save(key, data);
     }
     render() {
       return (
-        <ChildComponent savedData={this.savedData} saveData={this.saveData} />
+        <ChildComponent saveData={this.saveData} savedData={this.savedData} />
       );
     }
   };

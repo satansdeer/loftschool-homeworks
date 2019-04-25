@@ -5,17 +5,13 @@ import withLocalstorage from '../../HOCs/withLocalstorage';
 
 class Todo extends PureComponent {
   state = {
-    inputValue: ''
+    inputValue: '',
+    savedData: this.props.savedData()
   };
 
   getId() {
     const { savedData } = this.props;
-    let biggest = 0;
-    if (savedData() !== null) {
-      biggest = savedData().reduce((acc, el) => {
-        return Math.max(acc, el.id);
-      }, 0);
-    }
+    const biggest = savedData().reduce((acc, el) => Math.max(acc, el.id), 0);
     return biggest + 1;
   }
 
@@ -30,25 +26,54 @@ class Todo extends PureComponent {
   };
 
   toggleRecordComplete = event => {
-    if (event.target.textContent === '[]') {
-      event.target.textContent = '[x]';
-    } else {
-      event.target.textContent = '[]';
-    }
+    const { savedData } = this.state;
+    const { saveData } = this.props;
+    let result = savedData.map(el => {
+      if (String(el.id) === event.target.dataset.todoId) {
+        return {
+          text: el.text,
+          id: el.id,
+          checked: !el.checked
+        };
+      } else {
+        return el;
+      }
+    });
+    saveData(result);
+    this.setState({ savedData: result });
   };
 
   createNewRecord = () => {
     const { inputValue } = this.state;
-    const { saveData } = this.props;
-    if (inputValue.length) {
-      saveData({
-        text: inputValue,
-        id: this.getId(),
-        checked: false
-      });
-    }
+    const { saveData, savedData } = this.props;
 
-    this.setState({ inputValue: '' });
+    if (inputValue.length) {
+      let newArr = [
+        ...savedData(),
+        {
+          text: inputValue,
+          id: this.getId(),
+          checked: false
+        }
+      ];
+      saveData(newArr);
+      this.setState({ inputValue: '', savedData: newArr });
+    }
+  };
+
+  renderRecord = record => {
+    return (
+      <div key={record.id} className="todo-item t-todo">
+        <p className="todo-item__text">{record.text}</p>
+        <span
+          className="todo-item__flag t-todo-complete-flag"
+          data-todo-id={record.id}
+          onClick={this.toggleRecordComplete}
+        >
+          {record.checked ? '[x]' : '[]'}
+        </span>
+      </div>
+    );
   };
 
   render() {
@@ -69,34 +94,11 @@ class Todo extends PureComponent {
               +
             </span>
           </div>
-          {savedData()
-            ? savedData().map(el => {
-                return this.renderRecord(el);
-              })
-            : null}
+          {savedData().map(this.renderRecord)}
         </div>
       </Card>
     );
   }
-
-  renderEmptyRecord() {
-    return;
-  }
-
-  renderRecord = record => {
-    return (
-      <div key={record.id} className="todo-item t-todo">
-        <p className="todo-item__text">{record.text}</p>
-        <span
-          className="todo-item__flag t-todo-complete-flag"
-          data-todo-id={record.id}
-          onClick={this.toggleRecordComplete}
-        >
-          []
-        </span>
-      </div>
-    );
-  };
 }
 
 export default withLocalstorage('todo-app', [])(Todo);

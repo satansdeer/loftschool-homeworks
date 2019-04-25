@@ -30,13 +30,12 @@ class Todo extends PureComponent {
     const elId = el.dataset.todoId;
     const { savedData, saveData } = this.props;
 
-    savedData.forEach(data => {
-      if(data.id === +elId){
-        data.isComplete = data.isComplete ? false : true;
+    let data = savedData.map(el => {
+        return el.id === +elId ? {...el, isComplete: !el.isComplete} : el;
       }      
-    });
+    );
     
-    saveData(savedData);
+    saveData(data);
   };
 
   createNewRecord = () => {

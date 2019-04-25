@@ -6,6 +6,7 @@ const withLocalstorage = (localStorageKey, defaultValue) => WrappedComponent => 
 
         saveData = data => {
             save(localStorageKey, data);
+            this.forceUpdate();
         }
 
         savedData = () => {

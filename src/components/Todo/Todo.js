@@ -28,24 +28,26 @@ class Todo extends PureComponent {
     const { saveData, savedData } = this.props;
     const id = event.target.dataset.todoId;
 
-    let tempData = savedData.map(record => {
-      record.id === id ? { ...record, isComplete: !record.isComplete } : record;
-    });
-
-    saveData(tempData);
+    saveData(
+      savedData.map(record => {
+        return record.id === id
+          ? { ...record, isCompleted: !record.isCompleted }
+          : record;
+      })
+    );
   };
 
   createNewRecord = () => {
     const { inputValue } = this.state;
     const { savedData, saveData } = this.props;
 
-    if (inputValue) {
+    if (inputValue !== '') {
       let newRecord = [
         ...savedData,
         {
           id: this.getId(),
           text: inputValue,
-          isComplete: false
+          isCompleted: false
         }
       ];
       saveData(newRecord);
@@ -55,9 +57,10 @@ class Todo extends PureComponent {
 
   render() {
     const { savedData } = this.props;
-    console.log(savedData);
+    const title = 'Список дел';
+
     return (
-      <Card title="Список дел">
+      <Card title={title}>
         <div className="todo t-todo-list">
           {this.renderEmptyRecord()}
           {savedData.map(this.renderRecord)}
@@ -68,11 +71,13 @@ class Todo extends PureComponent {
 
   renderEmptyRecord() {
     const { inputValue } = this.state;
+    const placeholder = 'Введите задачу';
+
     return (
       <div className="todo-item todo-item-new">
         <input
           className="todo-input t-input"
-          placeholder="Введите задачу"
+          placeholder={placeholder}
           value={inputValue}
           onChange={this.handleChange}
           onKeyPress={this.createNewRecordByEnter}
@@ -85,7 +90,6 @@ class Todo extends PureComponent {
   }
 
   renderRecord = record => {
-    console.log(record);
     return (
       <div className="todo-item t-todo" key={record.id}>
         <p className="todo-item__text">{record.text}</p>
@@ -94,7 +98,7 @@ class Todo extends PureComponent {
           data-todo-id={record.id}
           onClick={this.toggleRecordComplete}
         >
-          {record.isComplete ? '[x]' : '[]'}
+          {record.isCompleted ? '[x]' : '[]'}
         </span>
       </div>
     );

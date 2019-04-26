@@ -4,8 +4,7 @@ import { load, save } from '../../localstorage';
 const withLocalstorage = (localStorageKey, defaultData) => WrappedComponent => {
   return class extends Component {
     state = {
-      savedData:
-        load(localStorageKey) !== null ? load(localStorageKey) : defaultData
+      savedData: !!load(localStorageKey) ? load(localStorageKey) : defaultData
     };
 
     saveData = data => {

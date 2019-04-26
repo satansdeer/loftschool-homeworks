@@ -1,19 +1,16 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { withData } from '../../context/Data';
 import Mail from '../Mail';
 
-class InboxMail extends PureComponent {
-  render() {
-    const {
-      match: {
-        params: { id }
-      },
-      data
-    } = this.props;
-    const mail = data.inbox.find(mail => mail.id === id);
+const InboxMail = props => {
+  const {
+    match: {
+      params: { id }
+    },
+    data: { inbox }
+  } = props;
 
-    return <Mail {...mail} />;
-  }
-}
+  return <Mail classes="t-mail-from" {...inbox.find(mail => mail.id === id)} />;
+};
 
 export default withData(InboxMail);

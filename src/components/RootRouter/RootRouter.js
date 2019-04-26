@@ -17,6 +17,7 @@ export default () => (
     <AuthProvider>
       <BrowserRouter>
         <Switch>
+          <Route path="login" component={LoginForm}/>
           {/*
             Добавьте роуты /app и /login.
             Роут /app должен быть доступен 

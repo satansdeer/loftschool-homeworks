@@ -26,7 +26,7 @@ class Todo extends PureComponent {
 
   toggleRecordComplete = event => {
     const { saveData, savedData } = this.props;
-    const id = event.target.dataset.todoId;
+    const id = parseInt(event.target.dataset.todoId, 10);
 
     saveData(
       savedData.map(record => {

@@ -9,13 +9,13 @@ import styles from './AppRouter.module.css';
 import classNames from 'classnames';
 
 class AppRouter extends Component {
-  //   state = {
-  //     pageTitle: 'Home'
-  //   };
+  state = {
+    pageTitle: 'Home'
+  };
 
-  //   setActivePage = event => {
-  //     this.setState({ pageTitle: event.target.innerHTML });
-  //   };
+  setActivePage = event => {
+    this.setState({ pageTitle: event.target.innerHTML });
+  };
 
   render() {
     // const { pageTitle } = this.state;

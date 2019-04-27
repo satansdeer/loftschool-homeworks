@@ -48,7 +48,7 @@ class LoginForm extends PureComponent {
           <div className={styles.buttons}>
             <button
               className={classNames(styles.button, 't-login')}
-              onClick={this.handleSubmit}
+              onClick={this.handleEnter}
             >
               Войти
             </button>

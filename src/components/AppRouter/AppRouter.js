@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, Link } from 'react-router-dom';
+import { Switch, Route, NavLink } from 'react-router-dom';
 import classNames from 'classnames';
 import Home from '../Home';
 import InboxList from '../InboxList';
@@ -9,45 +9,50 @@ import OutboxMail from '../OutboxMail';
 import styles from './AppRouter.module.css';
 
 export default props => {
+  const { pathname } = props.location;
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
         <nav className={styles.nav}>
           <ul className={classNames(styles.navList, 't-nav-list')}>
             <li className={styles.navElement}>
-              <Link
+              <NavLink
+                exact
                 to="/app"
-                className={classNames(styles.link, 't-link-home', {
-                  active: props.location.pathname === '/app'
-                })}
+                activeClassName="active"
+                className={classNames(styles.link, 't-link-home')}
               >
                 Home
-              </Link>
+              </NavLink>
             </li>
             <li className={styles.navElement}>
-              <Link
+              <NavLink
                 to="/app/inbox"
-                className={classNames(styles.link, 't-link-inbox', {
-                  active: props.location.pathname === '/app/inbox'
-                })}
+                activeClassName="active"
+                className={classNames(styles.link, 't-link-inbox')}
               >
                 Inbox
-              </Link>
+              </NavLink>
             </li>
             <li className={styles.navElement}>
-              <Link
+              <NavLink
                 to="/app/outbox"
-                className={classNames(styles.link, 't-link-outbox', {
-                  active: props.location.pathname === '/app/outbox'
-                })}
+                activeClassName="active"
+                className={classNames(styles.link, 't-link-outbox')}
               >
                 Outbox
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </nav>
         <div className={styles.content}>
-          <h3 className={styles.title}>Home</h3>
+          <h3 className={styles.title}>
+            {pathname === '/app'
+              ? 'Home'
+              : pathname === '/app/inbox'
+              ? 'Inbox'
+              : 'Outbox'}
+          </h3>
           <Switch>
             <Route exact path="/app" component={Home} />
             <Route exact path="/app/inbox" component={InboxList} />

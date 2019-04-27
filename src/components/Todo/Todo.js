@@ -72,7 +72,10 @@ class Todo extends PureComponent {
   };
 
   render() {
-    const {taskList} = this.state;
+    let {taskList} = this.state
+    if (taskList == null){
+      taskList = [];
+    }
     return (
       <div className="main__cell">
         <div className="card">

@@ -2,14 +2,14 @@ import React from 'react';
 import { withData } from '../../context/Data';
 import Mail from '../Mail';
 
-const InboxMail = props => {
-  const {
-    match: {
-      params: { id }
-    },
-    data: { inbox }
-  } = props;
-  return <Mail classes="t-mail-from" {...inbox.find(mail => mail.id === id)} />;
+const InboxMail = ({
+  match: {
+    params: { id }
+  },
+  data
+}) => {
+  const mail = data.inbox.find(mail => mail.id === id);
+  return <Mail {...mail} />;
 };
 
 export default withData(InboxMail);

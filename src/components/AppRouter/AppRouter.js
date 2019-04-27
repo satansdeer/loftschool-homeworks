@@ -1,70 +1,79 @@
-import React, { PureComponent } from 'react';
-import { Redirect } from 'react-router-dom';
-import { withAuth } from '../../context/Auth';
-import cx from 'classnames';
-import classes from './AppRouter.module.css';
-const fields = [
-  {
-    name: 'email',
-    label: 'Почта',
-    type: 'text'
-  },
-  {
-    name: 'password',
-    label: 'Пароль',
-    type: 'password'
-  }
-];
-class LoginForm extends PureComponent {
+import React, { Component } from 'react';
+import { Route, NavLink, Switch } from 'react-router-dom';
+import Home from '../Home';
+import InboxList from '../InboxList';
+import InboxMail from '../InboxMail';
+import OutboxList from '../OutboxList';
+import OutboxMail from '../OutboxMail';
+import styles from './AppRouter.module.css';
+import classNames from 'classnames';
+
+class AppRouter extends Component {
   state = {
-    email: '',
-    password: ''
+    pageTitle: 'Home'
   };
-  renderForm() {
-    const { authError } = this.props;
-    const values = this.state;
+
+  setActivePage = event => {
+    this.setState({ pageTitle: event.target.innerHTML });
+  };
+
+  render() {
+    const { pageTitle } = this.state;
+
     return (
-      <div className={classes.bg}>
-        <div className={cx(classes.form, 't-form')}>
-          {fields.map(({ name, label, type }) => (
-            <p key={name} className={classes.field}>
-              <label htmlFor={name} className={classes.label}>
-                <span className={classes.labelText}>{label}</span>
-              </label>
-              <input
-                type={type}
-                name={name}
-                className={cx(classes.input, `t-input-${name}`)}
-                onChange={this.handleChange}
-                value={values[name]}
-              />
-            </p>
-          ))}
-          {authError !== '' && <p className={classes.error}>{authError}</p>}
-          <div className={classes.buttons}>
-            <button
-              className={cx(classes.button, 't-login')}
-              onClick={this.handleEnter}
-            >
-              Войти
-            </button>
+      <div className={styles.wrapper}>
+        <div className={styles.container}>
+          <nav className={styles.nav}>
+            <ul className={classNames(styles.navList, 't-nav-list')}>
+              <li className={styles.navElement}>
+                <NavLink
+                  to="/app"
+                  exact
+                  activeClassName="active"
+                  className={classNames(styles.link, 't-link-home')}
+                  onClick={this.setActivePage}
+                >
+                  Home
+                </NavLink>
+              </li>
+              <li className={styles.navElement}>
+                <NavLink
+                  to="/app/inbox"
+                  exact
+                  activeClassName="active"
+                  className={classNames(styles.link, 't-link-inbox')}
+                  onClick={this.setActivePage}
+                >
+                  Inbox
+                </NavLink>
+              </li>
+              <li className={styles.navElement}>
+                <NavLink
+                  to="/app/outbox"
+                  exact
+                  activeClassName="active"
+                  className={classNames(styles.link, 't-link-outbox')}
+                  onClick={this.setActivePage}
+                >
+                  Outbox
+                </NavLink>
+              </li>
+            </ul>
+          </nav>
+          <div className={styles.content}>
+            <h3 className={styles.title}>{pageTitle}</h3>
+            <Switch>
+              <Route path="/app" exact component={Home} />
+              <Route path="/app/inbox" exact component={InboxList} />
+              <Route path="/app/outbox" exact component={OutboxList} />
+              <Route path="/app/inbox/:id" component={InboxMail} />
+              <Route path="/app/outbox/:id" component={OutboxMail} />
+            </Switch>
           </div>
         </div>
       </div>
     );
   }
-  render() {
-    const { isAuthorized } = this.props;
-    if (isAuthorized) return <Redirect to="/app" />;
-    else return this.renderForm();
-  }
-  handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
-  handleEnter = () => {
-    const { authorize } = this.props;
-    const { email, password } = this.state;
-    authorize(email, password);
-  };
 }
-export default withAuth(LoginForm);
+
+export default AppRouter;

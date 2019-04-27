@@ -6,15 +6,16 @@ import { withData } from '../../context/Data';
 import Mail from '../Mail';
 
 // Этот компонент должен использовать компонент Mail для отображения данных.
-const OutboxMail = props => {
-  const {
-    match: {
-      params: { id }
-    },
-    data: { outbox }
-  } = props;
 
-  return <Mail classes="t-mail-to" {...outbox.find(mail => mail.id === id)} />;
+const OutboxMail = ({
+  match: {
+    params: { id }
+  },
+  data
+}) => {
+  const mail = data.outbox.find(mail => mail.id === id);
+
+  return <Mail {...mail} />;
 };
 
 export default withData(OutboxMail);

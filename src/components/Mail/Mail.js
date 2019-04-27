@@ -3,13 +3,15 @@ import styles from './Mail.module.css';
 
 // Изучите файл `/cypress/integration/homework.spec.js`, чтобы понять,
 // какие классы должен использовать компонент.
-const Mail = ({ classes, to, from, body }) => {
-  const { container } = styles;
+
+const Mail = ({ to, from, body }) => {
+  const mailType = from ? 'from' : 'to';
 
   return (
-    <div className={container}>
-      <p className={classes}>
-        {from ? 'From' : 'To'}: <b>{from || to}</b>
+    <div className={styles.container}>
+      <p className={`t-mail-${mailType}`}>
+        {mailType === 'from' ? 'From: ' : 'To: '}
+        <strong>{from || to}</strong>
       </p>
       <p className="t-mail-body">{body}</p>
     </div>

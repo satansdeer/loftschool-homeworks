@@ -1,51 +1,54 @@
 import React, { PureComponent } from 'react';
 import { Redirect } from 'react-router-dom';
 import { withAuth } from '../../context/Auth';
-import cx from 'classnames';
-import classes from './LoginForm.module.css';
+import classNames from 'classnames';
+import styles from './LoginForm.module.css';
 
-const fields = [
-  {
-    name: 'email',
-    label: 'Почта',
-    type: 'text'
-  },
-  {
-    name: 'password',
-    label: 'Пароль',
-    type: 'password'
-  }
-];
 class LoginForm extends PureComponent {
   state = {
     email: '',
     password: ''
   };
-  renderForm() {
-    const { authError } = this.props;
-    const values = this.state;
-    return (
-      <div className={classes.bg}>
-        <div className={cx(classes.form, 't-form')}>
-          {fields.map(({ name, label, type }) => (
-            <p key={name} className={classes.field}>
-              <label htmlFor={name} className={classes.label}>
-                <span className={classes.labelText}>{label}</span>
-              </label>
-              <input
-                type={type}
-                name={name}
-                className={cx(classes.input, `t-input-${name}`)}
-                onChange={this.handleChange}
-                value={values[name]}
-              />
-            </p>
-          ))}
-          {authError !== '' && <p className={classes.error}>{authError}</p>}
-          <div className={classes.buttons}>
+  render() {
+    const { email, password } = this.state;
+    const { isAuthorized, authError } = this.props;
+
+    return isAuthorized ? (
+      <Redirect to="/app" />
+    ) : (
+      <div className={styles.bg}>
+        <div className={classNames(styles.form, 't-form')}>
+          <p>
+            <label htmlFor="email">
+              <span className={styles.labelText}>Почта</span>
+            </label>
+            <input
+              className={classNames(styles.input, 't-input-email')}
+              type="text"
+              name="email"
+              value={email}
+              onChange={this.handleChange}
+            />
+          </p>
+          <p>
+            <label htmlFor="password">
+              <span className={styles.labelText}>Пароль</span>
+            </label>
+            <input
+              className={classNames(styles.input, 't-input-password')}
+              type="password"
+              name="password"
+              value={password}
+              onChange={this.handleChange}
+            />
+          </p>
+
+          {authError ? <p className={styles.error}>{authError}</p> : null}
+
+          <div className={styles.buttons}>
             <button
-              className={cx(classes.button, 't-login')}
-              onClick={this.handleEnter}
+              className={classNames(styles.button, 't-login')}
+              onClick={this.handleSubmit}
             >
               Войти
             </button>
@@ -54,13 +57,9 @@ class LoginForm extends PureComponent {
       </div>
     );
   }
-  render() {
-    const { isAuthorized } = this.props;
-    if (isAuthorized) return <Redirect to="/app" />;
-    else return this.renderForm();
-  }
   handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
   };
   handleEnter = () => {
     const { authorize } = this.props;
@@ -68,4 +67,5 @@ class LoginForm extends PureComponent {
     authorize(email, password);
   };
 }
+
 export default withAuth(LoginForm);

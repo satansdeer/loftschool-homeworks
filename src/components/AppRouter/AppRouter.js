@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, NavLink, Switch } from 'react-router-dom';
+import { Route, NavLink, Switch, Redirect, withRouter } from 'react-router-dom';
 import Home from '../Home';
 import InboxList from '../InboxList';
 import InboxMail from '../InboxMail';
@@ -9,16 +9,16 @@ import styles from './AppRouter.module.css';
 import classNames from 'classnames';
 
 class AppRouter extends Component {
-  state = {
-    pageTitle: 'Home'
-  };
+  //   state = {
+  //     pageTitle: 'Home'
+  //   };
 
-  setActivePage = event => {
-    this.setState({ pageTitle: event.target.innerHTML });
-  };
+  //   setActivePage = event => {
+  //     this.setState({ pageTitle: event.target.innerHTML });
+  //   };
 
   render() {
-    const { pageTitle } = this.state;
+    // const { pageTitle } = this.state;
 
     return (
       <div className={styles.wrapper}>
@@ -61,19 +61,29 @@ class AppRouter extends Component {
             </ul>
           </nav>
           <div className={styles.content}>
-            <h3 className={styles.title}>{pageTitle}</h3>
+            <h3 className={styles.title}>
+              <Switch>
+                <Route path="/app" exact component={this.renderHomeTitle} />
+                <Route path="/app/outbox" component={this.renderOutboxTitle} />
+                <Route path="/app/inbox" component={this.renderInboxTitle} />
+              </Switch>
+            </h3>
             <Switch>
               <Route path="/app" exact component={Home} />
-              <Route path="/app/inbox" exact component={InboxList} />
               <Route path="/app/outbox" exact component={OutboxList} />
-              <Route path="/app/inbox/:id" component={InboxMail} />
+              <Route path="/app/inbox" exact component={InboxList} />
               <Route path="/app/outbox/:id" component={OutboxMail} />
+              <Route path="/app/inbox/:id" component={InboxMail} />
+              <Redirect to="/app" />
             </Switch>
           </div>
         </div>
       </div>
     );
   }
+  renderHomeTitle = () => 'Home';
+  renderOutboxTitle = () => 'Outbox';
+  renderInboxTitle = () => 'Inbox';
 }
 
-export default AppRouter;
+export default withRouter(AppRouter);

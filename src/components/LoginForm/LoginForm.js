@@ -9,6 +9,17 @@ class LoginForm extends PureComponent {
     email: '',
     password: ''
   };
+
+  handleChange = event => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  };
+  handleEnter = () => {
+    const { authorize } = this.props;
+    const { email, password } = this.state;
+    authorize(email, password);
+  };
+
   render() {
     const { email, password } = this.state;
     const { isAuthorized, authError } = this.props;
@@ -57,15 +68,6 @@ class LoginForm extends PureComponent {
       </div>
     );
   }
-  handleChange = event => {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
-  };
-  handleEnter = () => {
-    const { authorize } = this.props;
-    const { email, password } = this.state;
-    authorize(email, password);
-  };
 }
 
 export default withAuth(LoginForm);

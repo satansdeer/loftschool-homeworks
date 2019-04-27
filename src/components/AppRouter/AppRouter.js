@@ -9,17 +9,15 @@ import styles from './AppRouter.module.css';
 import classNames from 'classnames';
 
 class AppRouter extends Component {
-  state = {
-    pageTitle: 'Home'
-  };
-
   setActivePage = event => {
     this.setState({ pageTitle: event.target.innerHTML });
   };
 
-  render() {
-    // const { pageTitle } = this.state;
+  renderHomeTitle = () => 'Home';
+  renderOutboxTitle = () => 'Outbox';
+  renderInboxTitle = () => 'Inbox';
 
+  render() {
     return (
       <div className={styles.wrapper}>
         <div className={styles.container}>
@@ -81,9 +79,6 @@ class AppRouter extends Component {
       </div>
     );
   }
-  renderHomeTitle = () => 'Home';
-  renderOutboxTitle = () => 'Outbox';
-  renderInboxTitle = () => 'Inbox';
 }
 
 export default withRouter(AppRouter);

@@ -1,59 +1,71 @@
-import React, { useState } from 'react';
+import React, { PureComponent } from 'react';
 import { Redirect } from 'react-router-dom';
 import { withAuth } from '../../context/Auth';
-import styles from './LoginForm.module.css';
+import cx from 'classnames';
+import classes from './LoginForm.module.css';
 
-// Реализуйте компонент формы логина.
-// Используйте `/contexts/Auth` для получения метода authorize
-// и статуса isAuthorized.
-const LoginForm = ({ authorize, isAuthorized, authError }) => {
-  const { bg, labelText, button, buttons, error, form, input } = styles;
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const useAuthorize = () => authorize(email, password);
-
-  const onChangeEmail = e => setEmail(e.target.value);
-  const onChangePassword = e => setPassword(e.target.value);
-
-  return isAuthorized ? (
-    <Redirect to="/app" />
-  ) : (
-    <div className={bg}>
-      <div className={`${form} t-form`}>
-        <p>
-          <label htmlFor="email">
-            <span className={labelText}>Почта</span>
-          </label>
-          <input
-            className={`${input} t-input-email`}
-            type="text"
-            name="email"
-            value={email}
-            onChange={onChangeEmail}
-          />
-        </p>
-        <p>
-          <label htmlFor="password">
-            <span className={labelText}>Пароль</span>
-          </label>
-          <input
-            className={`${input} t-input-password`}
-            type="password"
-            name="password"
-            value={password}
-            onChange={onChangePassword}
-          />
-        </p>
-        {isAuthorized ? '' : <p className={error}>{authError}</p>}
-        <div className={buttons}>
-          <button className={`${button} t-login`} onClick={useAuthorize}>
-            Войти
-          </button>
+const fields = [
+  {
+    name: 'email',
+    label: 'Почта',
+    type: 'text'
+  },
+  {
+    name: 'password',
+    label: 'Пароль',
+    type: 'password'
+  }
+];
+class LoginForm extends PureComponent {
+  state = {
+    email: '',
+    password: ''
+  };
+  renderForm() {
+    const { authError } = this.props;
+    const values = this.state;
+    return (
+      <div className={classes.bg}>
+        <div className={cx(classes.form, 't-form')}>
+          {fields.map(({ name, label, type }) => (
+            <p key={name} className={classes.field}>
+              <label htmlFor={name} className={classes.label}>
+                <span className={classes.labelText}>{label}</span>
+              </label>
+              <input
+                type={type}
+                name={name}
+                className={cx(classes.input, `t-input-${name}`)}
+                onChange={this.handleChange}
+                value={values[name]}
+              />
+            </p>
+          ))}
+          {authError !== '' && <p className={classes.error}>{authError}</p>}
+          <div className={classes.buttons}>
+            <button
+              className={cx(classes.button, 't-login')}
+              onClick={this.handleEnter}
+            >
+              Войти
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
-// Когда пользователь авторизован - перенаправьте его на роут /app
+    );
+  }
+  render() {
+    const { isAuthorized } = this.props;
+    if (isAuthorized) return <Redirect to="/app" />;
+    else return this.renderForm();
+  }
+  handleChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+  handleEnter = () => {
+    const { authorize } = this.props;
+    const { email, password } = this.state;
+    authorize(email, password);
+  };
+}
 export default withAuth(LoginForm);

@@ -1,90 +1,70 @@
-// Реализуйте роутер приложения.
-// Здесь должны быть обьявлены роуты,
-// которые будут доступны авторизованному пользователю.
-// - Home
-// - InboxList
-// - InboxMail
-// - OutboxList
-// - OutboxMail
-import React, { useState } from 'react';
-import { Route, NavLink } from 'react-router-dom';
-import Home from '../Home';
-import InboxList from '../InboxList';
-
-import OutboxList from '../OutboxList';
-import InboxMail from '../InboxMail';
-import OutboxMail from '../OutboxMail';
-import styles from './AppRouter.module.css';
-
-const AppRouter = () => {
-  const {
-    container,
-    content,
-    link,
-    nav,
-    navElement,
-    navList,
-    title,
-    wrapper
-  } = styles;
-
-  const [pageName, setPageName] = useState('Home');
-
-  const onClick = e => setPageName(e.target.innerText);
-
-  return (
-    <div className={wrapper}>
-      <div className={container}>
-        <nav className={nav}>
-          <ul className={`${navList} t-nav-list`}>
-            <li className={navElement}>
-              <NavLink
-                exact
-                className={`${link} t-link-home`}
-                activeClassName="active"
-                to="/app"
-                onClick={onClick}
-              >
-                Home
-              </NavLink>
-            </li>
-            <li className={navElement}>
-              <NavLink
-                exact
-                className={`${link} t-link-inbox`}
-                activeClassName="active"
-                to="/app/inbox"
-                onClick={onClick}
-              >
-                Inbox
-              </NavLink>
-            </li>
-            <li className={navElement}>
-              <NavLink
-                exact
-                className={`${link} t-link-outbox`}
-                activeClassName="active"
-                to="/app/outbox"
-                onClick={onClick}
-              >
-                Outbox
-              </NavLink>
-            </li>
-          </ul>
-        </nav>
-        <div className={content}>
-          <h3 className={title}>{pageName}</h3>
-          <Route exact path="/app" component={Home} />
-          <Route exact path="/app/inbox" component={InboxList} />
-          <Route exact path="/app/outbox" component={OutboxList} />
-          <Route path="/app/inbox/:id" component={InboxMail} />
-          <Route path="/app/outbox/:id" component={OutboxMail} />
+import React, { PureComponent } from 'react';
+import { Redirect } from 'react-router-dom';
+import { withAuth } from '../../context/Auth';
+import cx from 'classnames';
+import classes from './AppRouter.module.css';
+const fields = [
+  {
+    name: 'email',
+    label: 'Почта',
+    type: 'text'
+  },
+  {
+    name: 'password',
+    label: 'Пароль',
+    type: 'password'
+  }
+];
+class LoginForm extends PureComponent {
+  state = {
+    email: '',
+    password: ''
+  };
+  renderForm() {
+    const { authError } = this.props;
+    const values = this.state;
+    return (
+      <div className={classes.bg}>
+        <div className={cx(classes.form, 't-form')}>
+          {fields.map(({ name, label, type }) => (
+            <p key={name} className={classes.field}>
+              <label htmlFor={name} className={classes.label}>
+                <span className={classes.labelText}>{label}</span>
+              </label>
+              <input
+                type={type}
+                name={name}
+                className={cx(classes.input, `t-input-${name}`)}
+                onChange={this.handleChange}
+                value={values[name]}
+              />
+            </p>
+          ))}
+          {authError !== '' && <p className={classes.error}>{authError}</p>}
+          <div className={classes.buttons}>
+            <button
+              className={cx(classes.button, 't-login')}
+              onClick={this.handleEnter}
+            >
+              Войти
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
-// Так же в этом файле обьявите лейаут,
-// используйте стили из AppRouter.module.css
-
-export default AppRouter;
+    );
+  }
+  render() {
+    const { isAuthorized } = this.props;
+    if (isAuthorized) return <Redirect to="/app" />;
+    else return this.renderForm();
+  }
+  handleChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+  handleEnter = () => {
+    const { authorize } = this.props;
+    const { email, password } = this.state;
+    authorize(email, password);
+  };
+}
+export default withAuth(LoginForm);

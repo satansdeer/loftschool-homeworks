@@ -5,6 +5,7 @@
 // Этот компонент должен использовать компонент Mail для отображения данных.
 
 import React, { Component } from 'react';
+import { withData } from '../../context/Data';
 import Mail from '../Mail';
 
 class OutboxMail extends Component {
@@ -15,10 +16,11 @@ class OutboxMail extends Component {
       },
       data
     } = this.props;
+
     const mail = data.outbox.find(mail => mail.id === id);
 
     return <Mail {...mail} />;
   }
 }
 
-export default OutboxMail;
+export default withData(OutboxMail);

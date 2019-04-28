@@ -2,19 +2,10 @@ import React, { PureComponent } from 'react';
 import Card from '../Card';
 import './Todo.css';
 import withLocalstorage from '../../HOCs/withLocalstorage';
-import { save } from '../../localstorage.js';
 
 class Todo extends PureComponent {
   state = {
-    inputValue: '',
-    localStorageKey: 0,
-    list: [
-      {
-        id: '',
-        text: '',
-        isComplete: false
-      }
-    ]
+    inputValue: ''
   };
 
   getId() {
@@ -30,12 +21,9 @@ class Todo extends PureComponent {
   };
 
   createNewRecordByEnter = event => {
-    const { inputValue, localStorageKey } = this.state;
-    this.setState({
-      localStorageKey: localStorageKey + 1
-    });
-    console.log(localStorageKey);
-    save(1, { inputValue });
+    event.preventDefault();
+    const { inputValue } = this.state;
+    console.log(inputValue);
   };
 
   toggleRecordComplete = event => {};
@@ -43,25 +31,32 @@ class Todo extends PureComponent {
   createNewRecord = () => {};
 
   render() {
+    const { savedData } = this.props;
     return (
-      <div className="todo">
-        <div className="todo-item todo-item-new">
-          <input
-            type="text"
-            className="todo-input"
-            placeholder="Введите задачу"
-            onInput={this.handleChange}
-          />
-          <span className="plus" onClick={this.createNewRecordByEnter}>
-            +
-          </span>
+      <Card title="Список дел!!!">
+        <div className="todo t-odo-list">
+          {this.renderEmptyRecord()}
+          {/*{savedData.map(this.renderRecord)}*/}
         </div>
-      </div>
+      </Card>
     );
   }
 
   renderEmptyRecord() {
-    return;
+    const { inputValue } = this.state;
+    return (
+      <div className="todo-item todo-item-new">
+        <input
+          type="text"
+          className="todo-input t-input"
+          onInput={this.handleChange}
+          value={inputValue}
+        />
+        <span className="plus t-plus" onClick={this.createNewRecordByEnter}>
+          +
+        </span>
+      </div>
+    );
   }
 
   renderRecord = record => {

@@ -31,3 +31,6 @@ cypress/screenshots
 
 plopfile.js
 /plop-templates
+
+package-lock.json
+yarn.lock

@@ -8,7 +8,28 @@ import { ADD_INGREDIENT } from '../actions/ingredients';
 // Он поможет понять, какие значения должен возвращать редьюсер.
 
 export default (state = [], action) => {
-  switch (action.type) {
+  const { type, payload } = action;
+
+  let currentOrder = null;
+  let index = null;
+
+  switch (type) {
+    case CREATE_NEW_ORDER:
+      return [
+        ...state,
+        {
+          id: payload.id,
+          recipe: payload.recipe,
+          ingredients: [],
+          position: 'clients'
+        }
+      ];
+    case MOVE_ORDER_NEXT:
+      return;
+    case MOVE_ORDER_BACK:
+      return;
+    case ADD_INGREDIENT:
+      return;
     default:
       return state;
   }

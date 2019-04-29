@@ -8,7 +8,7 @@ class Statistic extends PureComponent {
   render() {
     const { orders } = this.props;
     return (
-      <Box title="Статистика" className='t-statistic'>
+      <Box title="Статистика" className="t-statistic">
         {pluralize(
           orders.length,
           'Создано 0 пицц',

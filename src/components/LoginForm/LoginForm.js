@@ -53,7 +53,7 @@ class LoginForm extends Component {
             <input
               type="password"
               name="password"
-              className={classNames(styles.input, 't-input-email')}
+              className={classNames(styles.input, 't-input-password')}
               value={password}
               onChange={this.onChange}
             />

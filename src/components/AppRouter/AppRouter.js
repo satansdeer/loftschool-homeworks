@@ -52,7 +52,7 @@ export default class AppRouter extends Component {
                   onClick={this.changeSection}
                   exact
                   activeClassName="active"
-                  className={classNames(styles.link, 't-link-home')}
+                  className={classNames(styles.link, 't-link-inbox')}
                 >
                   Inbox
                 </NavLink>
@@ -63,7 +63,7 @@ export default class AppRouter extends Component {
                   onClick={this.changeSection}
                   exact
                   activeClassName="active"
-                  className={classNames(styles.link, 't-link-home')}
+                  className={classNames(styles.link, 't-link-outbox')}
                 >
                   OutBox
                 </NavLink>

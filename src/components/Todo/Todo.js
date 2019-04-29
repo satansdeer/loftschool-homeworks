@@ -43,16 +43,16 @@ class Todo extends PureComponent {
   createNewRecord = () => {
     const { saveData, savedData } = this.props;
     const { inputValue } = this.state;
-    this.setState({ initialValue: '' });
     saveData([
       ...savedData,
       { id: this.getId(), text: inputValue, isComplete: false }
     ]);
+    this.setState({ inputValue: '' });
   };
 
   render() {
     const { savedData } = this.props;
-    const { initialValue } = this.state;
+    const { inputValue } = this.state;
     const todos = savedData;
     return (
       <Card title="Список дел">
@@ -64,7 +64,7 @@ class Todo extends PureComponent {
               placeholder="Введите задачу"
               onChange={this.handleChange}
               onKeyDown={this.createNewRecordByEnter}
-              value={initialValue}
+              value={inputlValue}
             />
             <button className="plus t-plus" onClick={this.createNewRecord}>
               +

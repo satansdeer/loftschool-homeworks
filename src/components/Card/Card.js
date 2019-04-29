@@ -7,7 +7,9 @@ class Card extends PureComponent {
     return (
       <div className="card">
         <h3 className="card__title card-title">{title}</h3>
-        <div className="card-scrollable-content">{children}</div>
+        <div className="card-scrollable-content">
+          {children}
+        </div>
       </div>
     );
   }

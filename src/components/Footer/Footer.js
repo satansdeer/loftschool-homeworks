@@ -3,9 +3,20 @@ import { AuthConsumer } from '../../contexts/Auth';
 import './Footer.css';
 
 class Footer extends PureComponent {
-  render() {
-    return 'empty';
-  }
+	render() {
+		return (
+			<div className="footer-message t-footer">
+				<AuthConsumer>
+					{({ email, isAuthorized }) =>
+						isAuthorized ? (
+							<p className="footer-message t-footer">Вы вошли как {email}</p>
+						) : (
+							<p className="footer-message t-footer">Вы гость в этой системе</p>
+						)}
+				</AuthConsumer>
+			</div>
+		);
+	}
 }
 
 export default Footer;

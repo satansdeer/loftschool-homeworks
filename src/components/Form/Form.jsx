@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
-// import Img from './assets/bond_approve.jbg';
+import './Form.css';
+// import bond from './assets/bond_approve.jbg';
 // const { Provider, Consumer } = React.createContext();
 
 class Form extends Component {
   state = {
-    name: false,
-    last: false,
-    pass: false,
+    name: '',
+    last: '',
+    pass: '',
     auth: false,
-    nameErr: true,
-    lastErr: true,
-    passErr: true
+    nameErr: '',
+    lastErr: '',
+    passErr: ''
   };
 
   handleSubmit = event => {
@@ -37,27 +38,26 @@ class Form extends Component {
     //        } else {
     //          this.setState({ passErr: true });
     //        }
-
   };
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <lable>
-          First name:
-          <input type="text" value={this.state.name} />
-        </lable>
-        <lable>
-          Last name:
-          <input type="text" value={this.state.last} />
-        </lable>
-        <lable>
-          Password:
-          <input type="text" value={this.state.pass} />
-        </lable>
-        <input type="submit" value="Submit" />
-      </form>
+      <div className="app-container">
+        <h3 className="field">Введите свои данные агент:</h3>
+        <form className="form__buttons" onSubmit={this.handleSubmit}>
+          <lable className="field__label,field-label">First name:</lable>
+          <input className="field-input" type="text" value={this.state.name} />
+
+          <lable className="field__label,field-label">Last name:</lable>
+          <input className="field-input" type="text" value={this.state.last} />
+
+          <lable className="field__label,field-label">Password:</lable>
+          <input className="field-input" type="text" value={this.state.pass} />
+
+          <input className="button" type="submit" value="Submit" />
+        </form>
+      </div>
     );
   }
 }
- export default
+export default Form;

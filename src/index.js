@@ -16,8 +16,3 @@ ReactDOM.render(
   </BrowserRouter>,
   document.getElementById('root')
 );
-
-// Failed to compile.
-
-// ./src/index.js
-// Module not found: Can't resolve 'react - redux' in ' / Users / silver / Work // / 2019REACT / 2019 - loftschool - React / 01 - loftschool - homeworks / // //// loftschool - homeworks / src'

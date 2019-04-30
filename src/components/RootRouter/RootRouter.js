@@ -1,10 +1,9 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import PrivateRoute from '../PrivateRoute';
-import LoginForm from '../LoginForm';
-import AppRouter from '../AppRouter';
-import { AuthProvider } from '../../context/Auth';
-import { DataProvider } from '../../context/Data';
+import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import {AuthProvider} from '../../context/Auth';
+import {DataProvider} from '../../context/Data';
+import LoginForm from "../LoginForm";
+import Home from "../Home/Home"
 
 // Мы оборачиваем наши роуты в несколько провайдеров
 // DataProvider - предоставляет обьект data с имейлами.
@@ -17,7 +16,9 @@ export default () => (
     <AuthProvider>
       <BrowserRouter>
         <Switch>
-          <Route path="login" component={LoginForm}/>
+        <Route path="/" component={LoginForm} exact/>
+          <Route path="/login" component={LoginForm}/>
+          <Route path="/app" component={Home}/>
           {/*
             Добавьте роуты /app и /login.
             Роут /app должен быть доступен 

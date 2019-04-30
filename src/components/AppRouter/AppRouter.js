@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
-import Search from '../Search';
 import ShowPage from '../ShowPage';
+import Search from '../Search';
 import './AppRouter.css';
 
 class AppRouter extends Component {

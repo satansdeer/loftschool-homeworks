@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment } from './node_modules/react';
 import ShowPreview from '../ShowPreview';
-import { connect } from 'react-redux';
+import { connect } from './node_modules/react-redux';
 import styles from './Search.module.css';
 import {
   getIsLoading,

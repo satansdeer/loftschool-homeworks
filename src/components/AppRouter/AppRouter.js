@@ -19,6 +19,3 @@ class AppRouter extends Component {
 }
 
 export default withRouter(AppRouter);
-// Реализуйте роутер
-// Вам нужно определить корневой роут, который будет вести на страницу поиска.
-// Роут шоу должен принимать id в параметрах.

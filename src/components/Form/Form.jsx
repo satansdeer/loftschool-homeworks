@@ -41,15 +41,21 @@ class Form extends Component {
   errorInput(first, last, pass) {
     first === ''
       ? this.setState({ firstErr: 'Нужно указать имя' })
-      : this.setState({ firstErr: 'Имя указано не верно' });
+      : first !== 'james'
+      ? this.setState({ firstErr: 'Имя указано не верно' })
+      : this.setState({ firstErr: '' });
 
     last === ''
       ? this.setState({ lastErr: 'Нужно указать фамилию' })
-      : this.setState({ lastErr: 'Фамилия указана не верно' });
+      : last !== 'bond'
+      ? this.setState({ lastErr: 'Фамилия указано не верно' })
+      : this.setState({ lastErr: '' });
 
     pass === ''
       ? this.setState({ passErr: 'Нужно указать пароль' })
-      : this.setState({ passErr: 'Пароль указан не верно' });
+      : pass !== '007'
+      ? this.setState({ passErr: 'Пароль указано не верно' })
+      : this.setState({ passErr: '' });
   }
 
   render() {
@@ -72,7 +78,7 @@ class Form extends Component {
                 value={first}
                 name="first"
               />
-              <span className="field__error t-error-firstname t-error-firstname">
+              <span className="field__error t-error-firstname field-error">
                 {firstErr}
               </span>
             </p>
@@ -88,7 +94,7 @@ class Form extends Component {
                 value={last}
                 name="last"
               />
-              <span className="field__error t-error-lastname t-error-lastname">
+              <span className="field__error t-error-lastname field-error">
                 {lastErr}
               </span>
             </p>
@@ -104,7 +110,7 @@ class Form extends Component {
                 value={pass}
                 name="pass"
               />
-              <span className="field__error t-error-password t-error-password">
+              <span className="field__error t-error-password field-error">
                 {passErr}
               </span>
             </p>

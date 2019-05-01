@@ -25,10 +25,7 @@ export default (state = [], action) => {
         order.id === payload
           ? {
               ...order,
-              position: getNewPositionNext(
-                order.position,
-                order.ingredients.length
-              )
+              position: getNewPositionNext(order)
             }
           : order
       );
@@ -59,7 +56,8 @@ export const getOrdersFor = (state, position) => {
   return state.orders.filter(order => order.position === position);
 };
 
-const getNewPositionNext = (position, countIngredients) => {
+const getNewPositionNext = order => {
+  const { position, ingredients, recipe } = order;
   switch (position) {
     case 'clients':
       return 'conveyor_1';
@@ -70,7 +68,11 @@ const getNewPositionNext = (position, countIngredients) => {
     case 'conveyor_3':
       return 'conveyor_4';
     case 'conveyor_4':
-      return countIngredients ? 'finish' : 'conveyor_4';
+      const isEveryIngredientsPresent = recipe.every(i =>
+        ingredients.includes(i)
+      );
+      if (isEveryIngredientsPresent) return 'finish';
+      else return 'conveyor_4';
     default:
       return 'conveyor_1';
   }

@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from './node_modules/react';
+import React, { Component, Fragment } from 'react';
 import ShowPreview from '../ShowPreview';
-import { connect } from './node_modules/react-redux';
+import { connect } from 'react-redux';
 import styles from './Search.module.css';
 import {
   getIsLoading,
@@ -81,8 +81,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Search);
-// Реализуйте страницу поиска.
-
-// Используйте метод connect и mapStateToProps, mapDispatchToProps,
-// чтобы получить ссылку на поле search вашего стейта
-// и экшн searchRequest.

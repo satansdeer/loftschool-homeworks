@@ -41,20 +41,15 @@ export default (state = [], action) => {
       );
 
     case ADD_INGREDIENT:
-      return state.map(order => {
-        const ingredient = payload.ingredient;
-        if (order.position === payload.from) {
-          let ingredients = order.ingredients;
-          for (let i = 0; i < order.recipe.length; i++) {
-            if (order.recipe[i] === ingredient) {
-              ingredients.push(ingredient);
+      return state.map(order =>
+        order.position === payload.from &&
+        order.recipe.includes(payload.ingredient)
+          ? {
+              ...order,
+              ingredients: [...order.ingredients, payload.ingredient]
             }
-          }
-          return { ...order, ingredients };
-        } else {
-          return order;
-        }
-      });
+          : order
+      );
     default:
       return state;
   }

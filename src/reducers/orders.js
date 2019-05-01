@@ -8,8 +8,10 @@ import { ADD_INGREDIENT } from '../actions/ingredients';
 // Он поможет понять, какие значения должен возвращать редьюсер.
 
 const returnNextPos = ({ position, ingredients, recipe }) => {
-  if (position !== 'clients' && position !== 'conveyor_4') {
-    return `conveyor_${Number(position.substr(position.length - 1, 1)) + 1}`;
+  if (position === 'clients') {
+    return 'conveyor_1';
+  } else if (position !== 'conveyor_4') {
+    return getConveyorNumber(position, 'next');
   } else if (ingredients.length === recipe.length) {
     return 'finish';
   } else {
@@ -18,9 +20,17 @@ const returnNextPos = ({ position, ingredients, recipe }) => {
 };
 const returnBackPos = ({ position }) => {
   if (position !== 'conveyor_1') {
-    return `conveyor_${Number(position.substr(position.length - 1, 1)) - 1}`;
+    return getConveyorNumber(position, 'back');
   } else {
     return position;
+  }
+};
+
+const getConveyorNumber = (position, direction) => {
+  if (direction === 'next') {
+    return `conveyor_${Number(position.substr(position.length - 1, 1)) + 1}`;
+  } else {
+    return `conveyor_${Number(position.substr(position.length - 1, 1)) - 1}`;
   }
 };
 
@@ -28,7 +38,11 @@ export default (state = [], action) => {
   switch (action.type) {
     case ADD_INGREDIENT:
       return state.map(el => {
-        if (el.position === action.payload.from) {
+        if (
+          el.position === action.payload.from &&
+          !el.ingredients.includes(action.payload.ingredient) &&
+          el.recipe.includes(action.payload.ingredient)
+        ) {
           return {
             ...el,
             ingredients: [...el.ingredients, action.payload.ingredient]
@@ -42,8 +56,7 @@ export default (state = [], action) => {
         if (el.id === action.payload) {
           return {
             ...el,
-            position:
-              el.position === 'clients' ? `conveyor_${1}` : returnNextPos(el)
+            position: returnNextPos(el)
           };
         } else {
           return el;

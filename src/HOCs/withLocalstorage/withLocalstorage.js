@@ -3,36 +3,26 @@ import { load, save } from '../../localstorage';
 
 const withLocalstorage = (localstorageKey, initValue) => WrappedComponent => {
   return class extends Component {
-    state = {
-      SavedData: [],
-      SaveData: {
-        id: '',
-        isComplete: false,
-        text: ''
-      }
-    };
-    componentDidMount() {
-      this.get();
+    constructor(props) {
+      super(props);
+      const data = load(localstorageKey) || initValue;
+      this.state = { data };
     }
-    get = () => {
-      const { SavedData } = this.state;
-      this.setState({ SavedData: load(localstorageKey) });
-      console.log(SavedData);
-    };
 
-    create = () => {
-      const { SaveData } = this.state;
-      save(localstorageKey, SaveData);
-      console.log(SaveData);
+    saveData = data => {
+      save(localstorageKey, data);
+      this.setState({
+        data
+      });
     };
 
     render() {
-      const { SavedData, SaveData } = this.state;
+      const { data } = this.state;
+
       return (
         <WrappedComponent
-          savedData={SavedData}
-          saveData={SaveData}
-          create={this.create}
+          data={data}
+          saveData={this.saveData}
           {...this.props}
         />
       );

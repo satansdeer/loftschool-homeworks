@@ -75,6 +75,5 @@ export default (state = [], action) => {
   }
 };
 
-export const getOrdersFor = (state, position) => {
-  return state.orders.filter(order => order.position === position);
-};
+export const getOrdersFor = (state, position) =>
+  state.orders.filter(order => order.position === position);

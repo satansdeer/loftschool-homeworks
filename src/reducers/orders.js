@@ -22,8 +22,7 @@ const createNewOrderInList = (state, { id, recipe }) => {
   ];
 };
 
-const moveNextItemBackwards = item => {
-  const positionOfMovedItem = item.position;
+const moveNextItemBackwards = ({ position: positionOfMovedItem }) => {
   const conveyersArray = positionsMap.conveyers;
 
   if (positionOfMovedItem !== conveyersArray[0]) {
@@ -37,12 +36,14 @@ const moveNextItemBackwards = item => {
   return positionOfMovedItem;
 };
 
-const moveNextItemForwards = item => {
-  const positionOfMovedItem = item.position;
+const moveNextItemForwards = ({
+  position: positionOfMovedItem,
+  ingredients: itemIngredients,
+  recipe
+}) => {
   const conveyersArray = positionsMap.conveyers;
   const conveyersLength = conveyersArray.length;
-  const itemIngredients = item.ingredients;
-  const itemRecipeLength = item.recipe.length;
+  const itemRecipeLength = recipe.length;
 
   if (positionOfMovedItem === positionsMap.initial) {
     return conveyersArray[0];
@@ -67,14 +68,15 @@ const moveNextItemForwards = item => {
   return positionOfMovedItem;
 };
 
-const addIngredientIntoItem = (item, { from, ingredient }) => {
-  const itemRecipe = item.recipe;
-
+const addIngredientIntoItem = (
+  { recipe: itemRecipe, ingredients },
+  { from, ingredient }
+) => {
   if (itemRecipe.includes(ingredient)) {
-    return [...item.ingredients, ingredient];
+    return [...ingredients, ingredient];
   }
 
-  return [...item.ingredients];
+  return [...ingredients];
 };
 
 export default (state = [], action) => {

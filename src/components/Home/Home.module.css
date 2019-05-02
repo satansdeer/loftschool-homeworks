@@ -1,8 +1,32 @@
-.container {
-  display: flex;
+.wrapper{
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center;
 }
+
+.container {
+  border: 1px solid;
+    width: 600px;
+    min-height: 300px;
+    display: flex;
+}
+
+.nav__container{
+  border-right: 1px solid;
+    padding-right: 20px;
+}
+
+.header{
+  width:100%;
+}
+
+.title{
+  margin: 0;
+  text-align: center;
+  border-bottom: 1px solid;
+  padding: 4px 0;
+}
+

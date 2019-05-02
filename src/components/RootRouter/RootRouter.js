@@ -6,12 +6,6 @@ import AppRouter from '../AppRouter';
 import { AuthProvider } from '../../context/Auth';
 import { DataProvider } from '../../context/Data';
 
-// Мы оборачиваем наши роуты в несколько провайдеров
-// DataProvider - предоставляет обьект data с имейлами.
-// AuthProvider - предоставляет метод авторизации authorize
-//                и текущий статус isAuthorized
-// BrowserRouter - провайдер react-router-dom.
-
 export default () => (
   <DataProvider>
     <AuthProvider>

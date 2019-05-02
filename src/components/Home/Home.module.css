@@ -7,12 +7,12 @@
   justify-content: center;
 }
 
-.container {
-  border: 1px solid;
-    width: 600px;
-    min-height: 300px;
-    display: flex;
-}
+/*.container {*/
+  /*border: 1px solid;*/
+    /*width: 600px;*/
+    /*min-height: 300px;*/
+    /*display: flex;*/
+/*}*/
 
 .nav__container{
   border-right: 1px solid;

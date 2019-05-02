@@ -1,17 +1,24 @@
-import React, { Component } from "react";
-import withData from "../../context/Data/Data"
-import InboxMail from "../InboxMail/InboxMail";
+import React, { PureComponent } from 'react';
+import { withData } from '../../context/Data';
+import MailList from '../MailList';
+import truncate from 'lodash/truncate';
 
-// Реализуйте компонент InboxList
-// Он должен показывать список входящих писем.
-// Используйте HOC withData из `/context/Data` чтобы получить данные.
-
-// Этот компонент должен использовать MailList для отображения данных.
-
-
-export default class InboxList extends Component {
+class InboxList extends PureComponent {
   render() {
-    const TempComponent = withData(InboxMail)
-    return <TempComponent/>
+    const {
+      data: { inbox }
+    } = this.props;
+
+    return (
+      <MailList
+        className="t-inbox-list"
+        mails={inbox.map(({ id, body }) => ({
+          title: truncate(body, { length: 55 }),
+          link: `/app/inbox/${id}`
+        }))}
+      />
+    );
   }
 }
+
+export default withData(InboxList);

@@ -11,4 +11,3 @@ it('renders without crashing', () => {
   ReactDOM.render(<Order />, div);
   ReactDOM.unmountComponentAtNode(div);
 });
-

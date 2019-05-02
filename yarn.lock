@@ -751,12 +751,12 @@
   dependencies:
     regenerator-runtime "^0.12.0"
 
-"@babel/runtime@^7.0.0":
-  version "7.1.2"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.1.2.tgz#81c89935f4647706fc54541145e6b4ecfef4b8e3"
-  integrity sha512-Y3SCjmhSupzFB6wcv1KmmFucH6gDVnI30WjOcicV10ju0cZjak3Jcs67YLIXBrmZYw1xCrVeJPbycFwrqNyxpg==
+"@babel/runtime@^7.4.0":
+  version "7.4.4"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.4.4.tgz#dc2e34982eb236803aa27a07fea6857af1b9171d"
+  integrity sha512-w0+uT71b6Yi7i5SE0co4NioIpSYS6lLiXvCzWzGSKvpK5vdQtCbICHMj+gbAKAOtxiV6HsVh/MBdaF9EQ6faSg==
   dependencies:
-    regenerator-runtime "^0.12.0"
+    regenerator-runtime "^0.13.2"
 
 "@babel/template@7.0.0-beta.44":
   version "7.0.0-beta.44"
@@ -4541,11 +4541,6 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.6:
   version "4.1.11"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.11.tgz#0e8bdfe4d1ddb8854d64e04ea7c00e2a026e5658"
   integrity sha1-Dovf5NHduIVNZOBOp8AOKgJuVlg=
-
-grapheme-splitter@^1.0.3:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/grapheme-splitter/-/grapheme-splitter-1.0.4.tgz#9cf3a665c6247479896834af35cf1dbb4400767e"
-  integrity sha512-bzh50DW9kTPM00T8y4o8vQg89Di9oLJVLW/KaOGIXJWP/iqCN6WKYkbNOF04vFLJhwcpYUh9ydh/+5vpOqV4YQ==
 
 growly@^1.3.0:
   version "1.3.0"
@@ -8547,14 +8542,14 @@ react-dom@^16.5.2:
     prop-types "^15.6.2"
     schedule "^0.5.0"
 
-react-emoji-component@^4.0.5:
-  version "4.0.5"
-  resolved "https://registry.yarnpkg.com/react-emoji-component/-/react-emoji-component-4.0.5.tgz#c0c598a7d201ce8fcc8e71da93db00538df2bab5"
-  integrity sha512-xR2TybsrwOS3eGncU0uDhiqCvoKShjeudmLxk+1mkcwIRdJ2q8gRKURrhrOhMKysYTaAqoYY7ZwrxlAtyf8u1A==
+react-emoji-component@^4.1.6:
+  version "4.1.6"
+  resolved "https://registry.yarnpkg.com/react-emoji-component/-/react-emoji-component-4.1.6.tgz#90c8c02a6615e815a66f1b69b5d5a32f2e4d816e"
+  integrity sha512-sLPNn6GfeshRhWAwwf6qRNOoSyqcroqqCIBbxKKbUusfePlv/ZXn/ZSrxilz/nh91faA3TWFXvtIQ6MxEU9IRQ==
   dependencies:
-    "@babel/runtime" "^7.0.0"
+    "@babel/runtime" "^7.4.0"
     empty "^0.10.1"
-    grapheme-splitter "^1.0.3"
+    split-graphemes "^0.0.5"
 
 react-error-overlay@^5.0.4:
   version "5.0.4"
@@ -8779,6 +8774,11 @@ regenerator-runtime@^0.12.0:
   version "0.12.1"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.12.1.tgz#fa1a71544764c036f8c49b13a08b2594c9f8a0de"
   integrity sha512-odxIc1/vDlo4iZcfXqRYFj0vpXFNoGdKMAUieAlFYO6m/nl5e9KR/beGf41z4a1FI+aQgtjhuaSlDxQ0hmkrHg==
+
+regenerator-runtime@^0.13.2:
+  version "0.13.2"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.2.tgz#32e59c9a6fb9b1a4aff09b4930ca2d4477343447"
+  integrity sha512-S/TQAZJO+D3m9xeN1WTI8dLKBBiRgXBlTJvbWjCThHWZj9EvHK70Ff50/tYj2J/fvBY6JtFVwRuazHN2E7M9BA==
 
 regenerator-transform@^0.13.3:
   version "0.13.3"
@@ -9553,6 +9553,11 @@ spdy@^3.4.1:
     safe-buffer "^5.0.1"
     select-hose "^2.0.0"
     spdy-transport "^2.0.18"
+
+split-graphemes@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/split-graphemes/-/split-graphemes-0.0.5.tgz#b71acb73d8c56eb7aa0164373e04f7a0a393aff0"
+  integrity sha512-xbiuBV+R0gEydOFpcSrz+6sy1Qqh250yspqQiB21Zq0sRTLQ6R3kDwgZhe/gVbWPYL9kwarjmmwXZpEMCtylXQ==
 
 split-string@^3.0.1, split-string@^3.0.2:
   version "3.1.0"

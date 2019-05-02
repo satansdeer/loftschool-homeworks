@@ -9,8 +9,8 @@ class Todo extends PureComponent {
   };
 
   getId() {
-    const { data } = this.props;
-    const biggest = data.reduce((acc, el) => Math.max(acc, el.id), 0);
+    const { savedData } = this.props;
+    const biggest = savedData.reduce((acc, el) => Math.max(acc, el.id), 0);
     return biggest + 1;
   }
 
@@ -28,9 +28,9 @@ class Todo extends PureComponent {
 
   toggleRecordComplete = event => {
     const id = Number(event.target.dataset.id);
-    const { data, saveData } = this.props;
+    const { savedData, saveData } = this.props;
     saveData(
-      data.map(record => {
+      savedData.map(record => {
         return record.id === id
           ? { ...record, isCompleted: !record.isCompleted }
           : record;
@@ -40,12 +40,12 @@ class Todo extends PureComponent {
 
   createNewRecord = () => {
     const { inputValue } = this.state;
-    const { data, saveData } = this.props;
+    const { savedData, saveData } = this.props;
     if (inputValue === '') {
       return;
     }
     const newRecord = [
-      ...data,
+      ...savedData,
       { id: this.getId(), text: inputValue, isCompleted: false }
     ];
 
@@ -56,12 +56,12 @@ class Todo extends PureComponent {
   };
 
   render() {
-    const { data } = this.props;
+    const { savedData } = this.props;
     return (
       <Card title="Список дел!!!">
         <div className="todo t-odo-list">
           {this.renderEmptyRecord()}
-          {data.map(this.renderRecord)}
+          {savedData.map(this.renderRecord)}
         </div>
       </Card>
     );

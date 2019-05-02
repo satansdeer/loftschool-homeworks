@@ -7,12 +7,12 @@
     "lodash": "^4.17.11",
     "pluralize": "^7.0.0",
     "pluralize-ru": "^1.0.1",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
-    "react-emoji-component": "^4.0.5",
-    "react-redux": "^5.0.7",
-    "react-scripts": "2.0.4",
-    "redux": "^4.0.0"
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-emoji-component": "^4.1.6",
+    "react-redux": "^5.1.1",
+    "react-scripts": "^2.0.4",
+    "redux": "^4.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -20,19 +20,56 @@ export default (state = [], action) => {
         ...state,
         {
           id: payload.id,
-          recipe: payload.recipe,
+          recipe: [...payload.recipe],
           ingredients: [],
           position: 'clients'
         }
       ];
     case MOVE_ORDER_NEXT:
-      index = state.findIndex(order => order.id === payload);
-      currentOrder = changePosition(state, payload, 'next');
-      return state.map((order, key) => (key === index ? currentOrder : order));
+      return state.map(order => {
+        if (order.id === action.payload) {
+          switch (order.position) {
+            case 'clients':
+              return { ...order, position: 'conveyor_1' };
+            case 'conveyor_1':
+              return { ...order, position: 'conveyor_2' };
+            case 'conveyor_2':
+              return { ...order, position: 'conveyor_3' };
+            case 'conveyor_3':
+              return { ...order, position: 'conveyor_4' };
+            case 'conveyor_4':
+              const isEveryIngredientsPresent = order.recipe.every(i =>
+                order.ingredients.includes(i)
+              );
+              if (isEveryIngredientsPresent)
+                return { ...order, position: 'finish' };
+              else return order;
+            default:
+              return order;
+          }
+        } else {
+          return order;
+        }
+      });
+
     case MOVE_ORDER_BACK:
-      index = state.findIndex(order => order.id === payload);
-      currentOrder = changePosition(state, payload, 'back');
-      return state.map((order, key) => (key === index ? currentOrder : order));
+      return state.map(order => {
+        if (order.id === action.payload) {
+          switch (order.position) {
+            case 'conveyor_2':
+              return { ...order, position: 'conveyor_1' };
+            case 'conveyor_3':
+              return { ...order, position: 'conveyor_2' };
+            case 'conveyor_4':
+              return { ...order, position: 'conveyor_3' };
+            default:
+              return order;
+          }
+        } else {
+          return order;
+        }
+      });
+
     case ADD_INGREDIENT:
       if (state === []) return state;
       currentOrder = state.find(order => order.position === payload.from);

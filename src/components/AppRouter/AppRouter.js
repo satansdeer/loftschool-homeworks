@@ -13,9 +13,11 @@
 import React, { PureComponent } from 'react';
 import { Switch, NavLink, Route, Redirect, withRouter } from 'react-router-dom';
 import OutboxList from '../OutboxList';
+import InboxList from '../InboxList';
 import styles from './AppRouter.module.css';
 import Home from '../Home';
 import OutboxMail from '../OutboxMail';
+import InboxMail from '../InboxMail';
 import cx from 'classnames';
 
 class AppRouter extends PureComponent {
@@ -42,6 +44,14 @@ class AppRouter extends PureComponent {
                   Outbox
                 </NavLink>
               </li>
+              <li className={styles.navElement}>
+                <NavLink
+                  className={cx(styles.link, 't-link-inbox')}
+                  to="/app/inbox"
+                >
+                  Inbox
+                </NavLink>
+              </li>
             </ul>
           </nav>
 
@@ -50,13 +60,16 @@ class AppRouter extends PureComponent {
               <Switch>
                 <Route path="/app" exact component={this.renderHomeTitle} />
                 <Route path="/app/outbox" component={this.renderOutboxTitle} />
+                <Route path="/app/inbox" component={this.renderInboxTitle} />
               </Switch>
             </h3>
             <Switch>
               <Route path="/app" exact component={Home} />
               <Route path="/app/outbox" exact component={OutboxList} />
               <Route path="/app/outbox/:id" component={OutboxMail} />
-              <Redirect to="/app" />
+              <Route path="/app/inbox" exact component={InboxList} />
+              <Route path="/app/inbox/:id" component={InboxMail} />
+              {/*<Redirect to="/app" />*/}
             </Switch>
           </div>
         </div>
@@ -66,6 +79,7 @@ class AppRouter extends PureComponent {
 
   renderHomeTitle = () => 'Home';
   renderOutboxTitle = () => 'Outbox';
+  renderInboxTitle = () => 'Inbox';
 }
 
 export default withRouter(AppRouter);

@@ -76,6 +76,8 @@ export default (state = [], action) => {
             ...item,
             ingredients: [...item.ingredients, action.payload.ingredient]
           };
+        } else {
+          return item;
         }
       });
     default:

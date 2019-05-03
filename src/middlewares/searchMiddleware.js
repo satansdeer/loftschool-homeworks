@@ -12,7 +12,7 @@ import {
     searchRequest
 } from '.././actions';
 import { search } from '../api';
-export const searchMiddleware = store => next => action => {
+export default  store => next => action => {
     
   if (action.type === searchRequest.toString()) {
     search(action.payload)

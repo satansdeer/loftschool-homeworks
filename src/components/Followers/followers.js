@@ -1,23 +1,43 @@
-import React, { PureComponent } from 'react';
-import styles from './followers.module.css';
-import {} from '../../modules/Followers';
+import React from 'react';
 import { connect } from 'react-redux';
 import cx from 'classnames';
+import { getData, getIsLoading } from '../../modules/Followers';
+import styles from './followers.module.css';
 
-class Followers extends PureComponent {
-  render() {
-    // Покажите статус загрузки
-    // Если данные не были загружены - сообщите об этом пользователю
-    return (
-      <div className={cx(styles.root, 't-followers')}>
-        {/* 
+const Followers = props => {
+  // Покажите статус загрузки
+  // Если данные не были загружены - сообщите об этом пользователю
+  const { follower, followerImg, followerLogin, root } = styles;
+  const { isLoading, data } = props;
+
+  if (isLoading) return <p>Загрузка информации о подписчиках</p>;
+
+  return (
+    <>
+      {/*
         Отобразите список пользователей.
         Для каждого пользователя покажите имя и аватарку.
       */}
-      </div>
-    );
-  }
-}
+      {data === null ? (
+        <p>Нет информации о подписчиках</p>
+      ) : (
+        <div className={cx(styles.root, 't-followers')}>
+          <div className={cx(root, 't-followers')}>
+            {data.map(({ login, avatar_url }) => (
+              <div className={follower}>
+                <img className={followerImg} src={avatar_url} alt="" />
+                <p className={followerLogin}>{login}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
 
 // Используйте поля data, isLoading из стейта
-export default connect(state => ({}))(Followers);
+export default connect(state => ({
+  isLoading: getIsLoading(state),
+  data: getData(state)
+}))(Followers);

@@ -1,6 +1,6 @@
 function load(localStorageKey) {
   const stringData = window.localStorage.getItem(localStorageKey);
-  let data = null;
+  let data = [];
 
   try {
     data = JSON.parse(stringData);

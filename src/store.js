@@ -1,14 +1,13 @@
-import rootReducer from './reducers';
-import { createStore } from 'redux';
+import { createStore, compose, applyMiddleware } from 'redux';
+import createSagaMiddleware from 'redux-saga';
+import rootReducer, { rootSaga } from './modules';
 
-export default () => {
-  const store = createStore(
-    rootReducer,
-    undefined,
-    window.__REDUX_DEVTOOLS_EXTENSION__
-      ? window.__REDUX_DEVTOOLS_EXTENSION__()
-      : noop => noop
-  );
+// Создайте sagaMiddleware
 
-  return store;
+const createAppStore = () => {
+  // Подключите корневой редьюсер
+  // Скорее всего вы захотите подключить Redux DevTools
+  // Не забудьте подключить sagaMiddleware
 };
+
+export default createAppStore;

@@ -15,6 +15,7 @@ class InboxList extends Component {
     console.log({ data: data.inbox });
     return (
       <div>
+        {/* <MailList /> */}
         <ul>
           {data.inbox.map(({ id, from }) => (
             <MailList id={id} from={from} />

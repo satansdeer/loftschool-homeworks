@@ -14,7 +14,7 @@ export default (state = [], action) => {
       return [...state, { id, recipe, position: 'clients', ingredients: [] }];
     }
     case MOVE_ORDER_NEXT: {
-      const { id } = action.payload;
+      const id = action.payload;
       return state.map(order => {
         return order.id === id
           ? { ...order, position: getNextPosition(order) }
@@ -22,7 +22,7 @@ export default (state = [], action) => {
       });
     }
     case MOVE_ORDER_BACK: {
-      const { id } = action.payload;
+      const id = action.payload;
       return state.map(order => {
         return order.id === id
           ? { ...order, position: getBackPosition(order) }
@@ -69,7 +69,7 @@ function getBackPosition(order) {
 }
 function getPositionNumber(order) {
   var position = order.position.substring(order.position.length - 1);
-  return position;
+  return Number(position);
 }
 export const getOrdersFor = (state, position) =>
   state.orders.filter(order => order.position === position);

@@ -8,6 +8,7 @@ import Input from '../Input';
 class Login extends PureComponent {
   // на время разработки свой access token можно вставить сюда, чтобы
   // не вводить каждый раз
+  // f086675dc0d7eb667ee3a799683381768693f9a
   state = {
     key: ''
   };
@@ -55,7 +56,7 @@ class Login extends PureComponent {
           ref={this.input}
           value={key}
           placeholder="access token"
-          className='t-login-input'
+          className="t-login-input"
           onChange={this.handleChange}
           onKeyPress={this.handleKeyPress}
         />

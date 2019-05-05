@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './SearchPage.module.css';
 import Search from '../../Search';
 import ShowPreview from '../../ShowPreview/ShowPreview';
+import LoadingBox from '../../LoadingBox/LoadingBox';
 import { EMPTY_STRING } from '../../../constants';
 
 const normalLayout = ({ searchedShows = [], searchShows }) => {
@@ -27,7 +28,7 @@ const normalLayout = ({ searchedShows = [], searchShows }) => {
 
 const getSearchPageLayout = ({ searchedShows, searchShows, isLoading }) => {
   if (isLoading) {
-    return <p>LoadingBox</p>;
+    return <LoadingBox />;
   } else {
     return normalLayout({ searchedShows, searchShows });
   }

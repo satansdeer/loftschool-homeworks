@@ -1,11 +1,10 @@
-.container {
+.showPreviewWrapper {
   display: flex;
   flex-direction: column;
   max-width: 300px;
 }
 
-.containerTop {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.t-link {
+  color: #4cd0ff;
+  text-decoration-color: rgba(0, 210, 233, 0.5);
 }

@@ -3,14 +3,14 @@ import { NavLink } from 'react-router-dom';
 import styles from './ShowPreview.module.css';
 import { getUrlForShow } from '../../utils';
 
-const ShowPreview = ({ title, imageSrc, description, id }) => {
+const ShowPreview = ({ name, image, summary, id }) => {
   return (
     <div className={`t-preview ${styles.ShowPreview_container}`}>
       <NavLink exact to={getUrlForShow(id)} className="t-link">
-        {title}
+        {name}
       </NavLink>
-      {imageSrc && <img src={imageSrc} />}
-      <p dangerouslySetInnerHTML={{ __html: description }} />
+      {image && <img src={image} />}
+      <p dangerouslySetInnerHTML={{ __html: summary }} />
     </div>
   );
 };

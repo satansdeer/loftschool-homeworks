@@ -14,13 +14,13 @@ const normalLayout = ({ searchedShows = [], searchShows }) => {
         {searchedShows &&
           searchedShows.map(item => (
             <ShowPreview
-              imageSrc={
+              image={
                 item.image && item.image.medium
                   ? item.image.medium
                   : EMPTY_STRING
               }
-              description={item.summary}
-              title={item.name}
+              summary={item.summary}
+              name={item.name}
               id={item.id}
               key={item.id}
             />

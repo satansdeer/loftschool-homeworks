@@ -6,7 +6,7 @@ const ShowPage = props => {
   const {
     showData: { name, summary, cast }
   } = props;
-  console.log('ShowPage props', props);
+
   return (
     <>
       <p>{name}</p>

@@ -1,24 +1,25 @@
-import { REQUEST, SUCCESS, FAILURE } from './constants';
+import { handleActions } from 'redux-actions';
+import { combineReducers } from 'redux';
+import { showRequest, showSuccess, showFailure } from './actions';
 
-const initialState = {
-  show: {},
-  showLoading: false
-};
+const showElements = handleActions(
+  {
+    [showRequest]: () => [],
+    [showSuccess]: (_state, action) => action.payload
+  },
+  []
+);
 
-const showReducer = (state = initialState, { type, payload }) => {
-  switch (type) {
-    case REQUEST:
-      return { ...state, showLoading: true };
+const isLoading = handleActions(
+  {
+    [showRequest]: () => true,
+    [showSuccess]: () => false,
+    [showFailure]: () => false
+  },
+  false
+);
 
-    case SUCCESS:
-      return { ...state, show: payload, showLoading: false };
-
-    case FAILURE:
-      return { ...state, showLoading: false };
-
-    default:
-      return state;
-  }
-};
-
-export default showReducer;
+export default combineReducers({
+  showElements,
+  isLoading
+});

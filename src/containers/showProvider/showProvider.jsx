@@ -3,13 +3,12 @@ import { connect } from 'react-redux';
 import {
   getShowSelector,
   isLoadingShowSelector,
-  showMiddleware
+  showRequest
 } from '../../redux/modules/show';
 
 class WrappedContainer extends Component {
   downloadDataForShow = value => {
     const { downloadShow } = this.props;
-    console.log('check search value before to send', value);
     downloadShow(value);
   };
 
@@ -35,7 +34,7 @@ const mapStateToProps = store => {
 const mapDispatchToProps = dispatch => {
   return {
     downloadShow(id) {
-      dispatch(showMiddleware(id));
+      dispatch(showRequest(id));
     }
   };
 };

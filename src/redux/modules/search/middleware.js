@@ -1,18 +1,13 @@
+import { searchRequest, searchSuccess, searchFailure } from './actions';
 import { search } from '../../../api';
-import { searchSuccess, searchFailure, searchLoading } from './actions';
 
-export const searchMiddleware = query => dispatch => {
-  console.log('check');
-  dispatch(searchLoading());
-
-  search(query)
-    .then(data => {
-      console.log('get data', data);
-      return data;
-    })
-    .then(data => dispatch(searchSuccess(data)))
-    .catch(
-      error =>
-        console.log('error in searchAction', error) || dispatch(searchFailure())
-    );
+export const searchMiddleware = store => next => action => {
+  if (action.type === searchRequest.toString()) {
+    search(action.payload)
+      .then(data => {
+        store.dispatch(searchSuccess(data));
+      })
+      .catch(() => store.dispatch(searchFailure()));
+  }
+  return next(action);
 };

@@ -1,26 +1,14 @@
-// Реализуйте showMiddleware
-
-// Вам необходимо обработать showRequest
-// После получения данных с сервера - диспачте showSuccess
-// В случае ошибки showSuccess
-
-// На забудьте вызвать метод next.
-import { showFailure, showSuccess, showLoading } from './actions';
 import { show } from '../../../api';
+import { showRequest, showSuccess, showFailure } from './actions';
 
-export const showMiddleware = showId => dispatch => {
-  dispatch(showLoading());
+export const showMiddleware = store => next => action => {
+  if (action.type === showRequest.toString()) {
+    show(action.payload)
+      .then(data => {
+        store.dispatch(showSuccess(data));
+      })
+      .catch(() => store.dispatch(showFailure()));
+  }
 
-  show(showId)
-    .then(data => {
-      console.log('get data of show', data);
-      return data;
-    })
-    .then(({ name, summary, _embedded: { cast } }) =>
-      dispatch(showSuccess({ name, summary, cast }))
-    )
-    .catch(
-      error =>
-        console.log('error in searchAction', error) || dispatch(showFailure())
-    );
+  return next(action);
 };

@@ -1,7 +1,6 @@
+import { createAction } from 'redux-actions';
 import { REQUEST, SUCCESS, FAILURE } from './constants';
 
-export const searchSuccess = data => ({ type: SUCCESS, payload: data });
-
-export const searchLoading = () => ({ type: REQUEST });
-
-export const searchFailure = () => ({ type: FAILURE });
+export const searchRequest = createAction(REQUEST);
+export const searchSuccess = createAction(SUCCESS);
+export const searchFailure = createAction(FAILURE);

@@ -1,7 +1,6 @@
+import { createAction } from 'redux-actions';
 import { REQUEST, SUCCESS, FAILURE } from './constants';
 
-export const showSuccess = data => ({ type: SUCCESS, payload: data });
-
-export const showLoading = () => ({ type: REQUEST });
-
-export const showFailure = () => ({ type: FAILURE });
+export const showRequest = createAction(REQUEST);
+export const showSuccess = createAction(SUCCESS);
+export const showFailure = createAction(FAILURE);

@@ -9,7 +9,7 @@ const ShowPreview = ({ name, image, summary, id }) => {
       <NavLink exact to={getUrlForShow(id)} className="t-link">
         {name}
       </NavLink>
-      {image && <img src={image} />}
+      {image && <img src={image} alt={`${name}`} />}
       <p dangerouslySetInnerHTML={{ __html: summary }} />
     </div>
   );

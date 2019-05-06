@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
 import LoadingBox from '../../components/LoadingBox/LoadingBox';
 
 const ShowRouterProvider = WrappedComponent => {
@@ -10,8 +9,6 @@ const ShowRouterProvider = WrappedComponent => {
     };
 
     componentDidMount() {
-      console.log('ShowRouterProvider props', this.props);
-
       const {
         computedMatch: {
           params: { id }

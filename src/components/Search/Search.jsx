@@ -19,7 +19,6 @@ export default class Search extends Component {
   };
 
   handleChange = ({ target: { value } }) => {
-    console.log('check handleChange', value);
     this.setState({ searchString: value });
   };
 

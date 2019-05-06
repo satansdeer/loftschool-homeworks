@@ -1,24 +1,25 @@
-import { REQUEST, SUCCESS, FAILURE } from './constants';
+import { handleActions } from 'redux-actions';
+import { combineReducers } from 'redux';
+import { searchRequest, searchSuccess, searchFailure } from './actions';
 
-const initialState = {
-  data: [],
-  searchLoading: false
-};
+const series = handleActions(
+  {
+    [searchRequest]: () => [],
+    [searchSuccess]: (_state, action) => action.payload
+  },
+  []
+);
 
-const searchReducer = (state = initialState, { type, payload }) => {
-  switch (type) {
-    case REQUEST:
-      return { ...state, searchLoading: true };
+const isLoading = handleActions(
+  {
+    [searchRequest]: () => true,
+    [searchSuccess]: () => false,
+    [searchFailure]: () => false
+  },
+  false
+);
 
-    case SUCCESS:
-      return { ...state, data: payload, searchLoading: false };
-
-    case FAILURE:
-      return { ...state, searchLoading: false };
-
-    default:
-      return state;
-  }
-};
-
-export default searchReducer;
+export default combineReducers({
+  series,
+  isLoading
+});

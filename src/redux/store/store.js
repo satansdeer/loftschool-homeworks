@@ -1,16 +1,21 @@
-import myMiddleware from '../middleware';
 import { applyMiddleware, compose, createStore } from 'redux';
 import rootReducer from './rootReducer';
+import { searchMiddleware } from '../modules/search/middleware';
+import { showMiddleware } from '../modules/show/middleware';
 
-const store = createStore(
-  rootReducer,
-  applyMiddleware(myMiddleware)
+const createAppStore = () => {
+  const store = createStore(
+    rootReducer,
+    compose(
+      applyMiddleware(searchMiddleware),
+      applyMiddleware(showMiddleware),
+      window.__REDUX_DEVTOOLS_EXTENSION__
+        ? window.__REDUX_DEVTOOLS_EXTENSION__()
+        : noop => noop
+    )
+  );
 
-  ////for using without cypress, it cant compose this :(
-  // compose(
-  //   applyMiddleware(myMiddleware),
-  //   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  // )
-);
+  return store;
+};
 
-export default store;
+export default createAppStore;

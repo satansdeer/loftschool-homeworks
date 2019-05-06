@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   getShowsSelector,
-  searchMiddleware,
-  isLoadingSelector
+  isLoadingSelector,
+  searchRequest
 } from '../../redux/modules/search';
 
 class WrappedContainer extends Component {
   searchShows = value => {
     const { searchShows } = this.props;
-    console.log('check search value before to send', value);
     searchShows(value);
   };
 
@@ -32,7 +31,7 @@ const mapStateToProps = store => {
 const mapDispatchToProps = dispatch => {
   return {
     searchShows(value) {
-      dispatch(searchMiddleware(value));
+      dispatch(searchRequest(value));
     }
   };
 };

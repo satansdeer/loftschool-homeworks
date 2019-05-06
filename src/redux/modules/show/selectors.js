@@ -2,21 +2,28 @@ import { createSelector } from 'reselect';
 import { EMPTY_STRING } from '../../../constants';
 
 const getShowData = state => {
-  if (state.showReducer.show.cast) {
-    const actorsDataOfShow = state.showReducer.show.cast.map(item => {
+  if (
+    state.showReducer.showElements &&
+    state.showReducer.showElements._embedded
+  ) {
+    const {
+      _embedded: { cast }
+    } = state.showReducer.showElements;
+
+    const actorsDataOfShow = cast.map(({ person: { name, image } }) => {
       return {
-        name: item.person.name,
-        image: item.person.image ? item.person.image.medium : EMPTY_STRING
+        name,
+        image: image ? image.medium : EMPTY_STRING
       };
     });
 
-    return { ...state.showReducer.show, cast: actorsDataOfShow };
+    return { ...state.showReducer.showElements, cast: actorsDataOfShow };
   }
 
-  return { ...state.showReducer.show };
+  return { ...state.showReducer.showElements };
 };
 
-const getLoadingState = state => state.showReducer.showLoading;
+const getLoadingState = state => state.showReducer.isLoading;
 
 export const getShowSelector = createSelector(
   [getShowData],

@@ -3,14 +3,11 @@ import { Switch } from 'react-router-dom';
 import SearchPageRoute from '../SearchPageRoute/SearchPageRoute';
 import ShowPageRoute from '../ShowPageRoute';
 
-const MainLayout = props => {
-  console.log('пропсы в MainLayout', props);
-  return (
-    <Switch>
-      <SearchPageRoute exact path="/" {...props} />
-      <ShowPageRoute exact path="/shows/:id" {...props} />
-    </Switch>
-  );
-};
+const MainLayout = props => (
+  <Switch>
+    <SearchPageRoute exact path="/" {...props} />
+    <ShowPageRoute exact path="/shows/:id" {...props} />
+  </Switch>
+);
 
 export default MainLayout;

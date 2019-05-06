@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 
-const getShows = state => state.searchReducer.data;
-const getLoadingState = state => state.searchReducer.searchLoading;
+const getShows = state => state.searchReducer.series;
+const getLoadingState = state => state.searchReducer.isLoading;
 
 export const getShowsSelector = createSelector(
   [getShows],

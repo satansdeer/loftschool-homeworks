@@ -1,10 +1,14 @@
 import { takeLatest, select, put, call, fork } from 'redux-saga/effects';
 import { getUserInfo } from './api';
-import { fetchRequest, fetchSuccess, fetchFailure } from './actions';
+import {
+  fetchUserRequest,
+  fetchUserSuccess,
+  fetchUserFailure
+} from './actions';
 import { getApiKey } from '../Auth/selectors';
 
 function* fetchUserWatcher() {
-  yield takeLatest(fetchRequest, fetchUserFlow);
+  yield takeLatest(fetchUserRequest, fetchUserFlow);
 }
 
 export function* fetchUserFlow(action) {
@@ -12,9 +16,9 @@ export function* fetchUserFlow(action) {
 
   try {
     const response = yield call(getUserInfo, state, action.payload);
-    yield put(fetchSuccess(response));
+    yield put(fetchUserSuccess(response));
   } catch (error) {
-    yield put(fetchFailure(error));
+    yield put(fetchUserFailure(error));
   }
 }
 

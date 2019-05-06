@@ -3,29 +3,33 @@ import { handleActions } from 'redux-actions';
 
 // Обратите внимание на тесты, они помогут вам написать код редьюсера
 
-import { fetchRequest, fetchSuccess, fetchFailure } from './actions';
+import {
+  fetchUserRequest,
+  fetchUserSuccess,
+  fetchUserFailure
+} from './actions';
 
 const data = handleActions(
   {
-    [fetchRequest]: () => [],
-    [fetchSuccess]: (_state, action) => action.payload
+    [fetchUserRequest]: () => [],
+    [fetchUserSuccess]: (_state, action) => action.payload
   },
   []
 );
 
 const isLoading = handleActions(
   {
-    [fetchRequest]: () => true,
-    [fetchSuccess]: () => false,
-    [fetchFailure]: () => false
+    [fetchUserRequest]: () => true,
+    [fetchUserSuccess]: () => false,
+    [fetchUserFailure]: () => false
   },
   false
 );
 
 const error = handleActions(
   {
-    [fetchRequest]: () => null,
-    [fetchFailure]: (_state, action) => action.payload
+    [fetchUserRequest]: () => null,
+    [fetchUserFailure]: (_state, action) => action.payload
   },
   null
 );

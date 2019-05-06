@@ -4,7 +4,7 @@ import {
   getFollowers,
   getIsLoading,
   getError,
-  fetchRequest
+  fetchFollowersRequest
 } from '../../modules/Followers';
 import { getUser } from '../../modules/User';
 import { connect } from 'react-redux';
@@ -60,7 +60,7 @@ const mapStateToProps = state => ({
   error: getError(state)
 });
 
-const mapDispatchToProps = { fetchRequest };
+const mapDispatchToProps = { fetchFollowersRequest };
 
 export default connect(
   mapStateToProps,

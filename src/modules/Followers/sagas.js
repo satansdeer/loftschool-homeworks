@@ -1,10 +1,14 @@
 import { getFollowersInfo } from './api';
-import { fetchRequest, fetchSuccess, fetchFailure } from './actions';
+import {
+  fetchFollowersRequest,
+  fetchFollowersSuccess,
+  fetchFollowersFailure
+} from './actions';
 import { getApiKey } from '../Auth/selectors';
 import { takeLatest, select, put, call, fork } from 'redux-saga/effects';
 
 function* fetchFollowersWatcher() {
-  yield takeLatest(fetchRequest, fetchFollowersFlow);
+  yield takeLatest(fetchFollowersRequest, fetchFollowersFlow);
   // Замените вопросительный знак на подходящий экшен
 }
 
@@ -15,9 +19,9 @@ export function* fetchFollowersFlow(action) {
 
   try {
     const response = yield call(getFollowersInfo, state, action.payload);
-    yield put(fetchSuccess(response));
+    yield put(fetchFollowersSuccess(response));
   } catch (error) {
-    yield put(fetchFailure(error));
+    yield put(fetchFollowersFailure(error));
   }
 }
 

@@ -5,7 +5,7 @@ import { getUrlForShow } from '../../utils';
 
 const ShowPreview = ({ title, imageSrc, description, id }) => {
   return (
-    <div className={styles.showPreviewWrapper}>
+    <div className={`t-preview ${styles.ShowPreview_container}`}>
       <NavLink exact to={getUrlForShow(id)} className="t-link">
         {title}
       </NavLink>

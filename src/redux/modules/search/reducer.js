@@ -1,20 +1,20 @@
-import { REQUEST, SUCCESS, FAILURE } from '../../../constants';
+import { REQUEST, SUCCESS, FAILURE } from './constants';
 
 const initialState = {
   data: [],
-  isLoading: false
+  searchLoading: false
 };
 
 const searchReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case REQUEST:
-      return { ...state, isLoading: true };
+      return { ...state, searchLoading: true };
 
     case SUCCESS:
-      return { ...state, data: payload, isLoading: false };
+      return { ...state, data: payload, searchLoading: false };
 
     case FAILURE:
-      return { ...state, isLoading: false };
+      return { ...state, searchLoading: false };
 
     default:
       return state;

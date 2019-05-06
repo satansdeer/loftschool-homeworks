@@ -1,19 +1,20 @@
-import { REQUEST, SUCCESS, FAILURE } from '../../../constants';
+import { REQUEST, SUCCESS, FAILURE } from './constants';
 
 const initialState = {
-  data: {}
+  show: {},
+  showLoading: false
 };
 
-const showReducer = (state = initialState, action) => {
-  switch (action.type) {
+const showReducer = (state = initialState, { type, payload }) => {
+  switch (type) {
     case REQUEST:
-      return state;
+      return { ...state, showLoading: true };
 
     case SUCCESS:
-      return state;
+      return { ...state, show: payload, showLoading: false };
 
     case FAILURE:
-      return state;
+      return { ...state, showLoading: false };
 
     default:
       return state;

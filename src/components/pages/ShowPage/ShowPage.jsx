@@ -3,16 +3,20 @@ import ActorBox from '../../ActorBox';
 import styles from './ShowPage.module.css';
 
 const ShowPage = props => {
-  const { title, image, description, actors } = props;
+  const {
+    showData: { name, summary, cast }
+  } = props;
   console.log('ShowPage props', props);
   return (
     <>
-      <p>test</p>
-      <img />
-      <p />
-      {/* {actors.map((name, image) => {
-        return <ActorBox name={name} imageSrc={image} />;
-      })} */}
+      <p>{name}</p>
+      <div dangerouslySetInnerHTML={{ __html: summary }} />
+      <div className={styles.cast}>
+        {cast &&
+          cast.map(({ name, image }, index) => {
+            return <ActorBox name={name} imageSrc={image} key={index} />;
+          })}
+      </div>
     </>
   );
 };

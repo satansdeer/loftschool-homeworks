@@ -10,24 +10,28 @@ const normalLayout = ({ searchedShows = [], searchShows }) => {
   return (
     <div className={styles.container}>
       <Search onSearchChange={searchShows} />
-      {searchedShows &&
-        searchedShows.map(item => (
-          <ShowPreview
-            imageSrc={
-              item.image && item.image.medium ? item.image.medium : EMPTY_STRING
-            }
-            description={item.summary}
-            title={item.name}
-            id={item.id}
-            key={item.id}
-          />
-        ))}
+      <div className={`t-search-result ${styles.Search_searchPanel}`}>
+        {searchedShows &&
+          searchedShows.map(item => (
+            <ShowPreview
+              imageSrc={
+                item.image && item.image.medium
+                  ? item.image.medium
+                  : EMPTY_STRING
+              }
+              description={item.summary}
+              title={item.name}
+              id={item.id}
+              key={item.id}
+            />
+          ))}
+      </div>
     </div>
   );
 };
 
-const getSearchPageLayout = ({ searchedShows, searchShows, isLoading }) => {
-  if (isLoading) {
+const getSearchPageLayout = ({ searchedShows, searchShows, searchLoading }) => {
+  if (searchLoading) {
     return <LoadingBox />;
   } else {
     return normalLayout({ searchedShows, searchShows });
@@ -35,9 +39,9 @@ const getSearchPageLayout = ({ searchedShows, searchShows, isLoading }) => {
 };
 
 const SearchPage = props => {
-  const { searchShows, shows: searchedShows, isLoading } = props;
+  const { searchShows, shows: searchedShows, searchLoading } = props;
   console.log('SearchPage props', props);
-  return getSearchPageLayout({ searchedShows, searchShows, isLoading });
+  return getSearchPageLayout({ searchedShows, searchShows, searchLoading });
 };
 
 export default SearchPage;

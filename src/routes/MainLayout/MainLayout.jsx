@@ -8,7 +8,7 @@ const MainLayout = props => {
   return (
     <Switch>
       <SearchPageRoute exact path="/" {...props} />
-      <ShowPageRoute path="/shows/:id" {...props} />
+      <ShowPageRoute exact path="/shows/:id" {...props} />
     </Switch>
   );
 };

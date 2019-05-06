@@ -1,4 +1,4 @@
-import { REQUEST, SUCCESS, FAILURE } from '../../../constants';
+import { REQUEST, SUCCESS, FAILURE } from './constants';
 
 export const searchSuccess = data => ({ type: SUCCESS, payload: data });
 

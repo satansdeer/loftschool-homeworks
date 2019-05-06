@@ -7,11 +7,6 @@ import {
 } from '../../redux/modules/search';
 
 class WrappedContainer extends Component {
-  componentDidMount() {
-    // console.log("check AuthStoreProvider props");
-    // console.log(this.props);
-  }
-
   searchShows = value => {
     const { searchShows } = this.props;
     console.log('check search value before to send', value);
@@ -30,7 +25,7 @@ class WrappedContainer extends Component {
 const mapStateToProps = store => {
   return {
     shows: getShowsSelector(store),
-    isLoading: isLoadingSelector(store)
+    searchLoading: isLoadingSelector(store)
   };
 };
 
@@ -46,5 +41,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(WrappedContainer);
-
-// export default SearchProvider;

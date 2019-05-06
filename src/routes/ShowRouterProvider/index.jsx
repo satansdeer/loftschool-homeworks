@@ -4,6 +4,11 @@ import LoadingBox from '../../components/LoadingBox/LoadingBox';
 
 const ShowRouterProvider = WrappedComponent => {
   return class extends Component {
+    static defaultProps = {
+      downloadDataForShow: id =>
+        console.log('default downloadDataForShow, id', id)
+    };
+
     componentDidMount() {
       console.log('ShowRouterProvider props', this.props);
 
@@ -13,19 +18,20 @@ const ShowRouterProvider = WrappedComponent => {
         }
       } = this.props;
 
-      //   downloadDataForShow(id);
+      this.props.downloadDataForShow(id);
     }
 
-    getLayoutContent = (isLoading, data) => {
-      if (isLoading) {
+    getLayoutContent = (showLoading, data) => {
+      if (showLoading) {
         return <LoadingBox />;
+      } else {
+        return <WrappedComponent {...this.props} />;
       }
     };
 
     render() {
-      const { isLoading, data } = this.props;
-      return this.getLayoutContent(isLoading, data);
-      return <WrappedComponent {...this.props} />;
+      const { showLoading, data } = this.props;
+      return this.getLayoutContent(showLoading, data);
     }
   };
 };

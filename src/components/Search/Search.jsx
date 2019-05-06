@@ -50,13 +50,13 @@ export default class Search extends Component {
           className={styles.input + ' t-input'}
           placeholder="Название сериала"
           onChange={this.handleChange}
-          onKeyDown={this.handleKeyDown}
           value={searchString}
         />
         <div className={styles.buttonWrapper}>
           <button
             className={styles.button + ' t-search-button'}
             onClick={this.handleClick}
+            onKeyDown={this.handleKeyDown}
           >
             Найти
           </button>

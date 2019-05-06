@@ -2,12 +2,15 @@ import React from 'react';
 import styles from './MainWrapper.module.css';
 import MainLayout from '../../../routes/MainLayout/MainLayout';
 import SearchProvider from '../../../containers/SearchProvider/SearchProvider';
+import ShowProvider from '../../../containers/ShowProvider/ShowProvider';
 
-const MainWrapper = props => {
+const MainWrapper = () => {
   return (
     <div className={styles.mainWrapper}>
       <SearchProvider>
-        <MainLayout {...props} />
+        <ShowProvider>
+          <MainLayout />
+        </ShowProvider>
       </SearchProvider>
     </div>
   );

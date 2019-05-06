@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import styles from './followers.module.css';
 import {
-  getFollowers,
+  getDataFollowers,
   getIsLoading,
-  getError,
+  getFollowersError,
   fetchFollowersRequest
 } from '../../modules/Followers';
 import { getUser } from '../../modules/User';
@@ -55,9 +55,9 @@ class Followers extends PureComponent {
 
 const mapStateToProps = state => ({
   user: getUser(state),
-  followers: getFollowers(state),
+  followers: getDataFollowers(state),
   isLoading: getIsLoading(state),
-  error: getError(state)
+  error: getFollowersError(state)
 });
 
 const mapDispatchToProps = { fetchFollowersRequest };

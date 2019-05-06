@@ -3,8 +3,8 @@ import styles from './UserInfo.module.css';
 import {
   getUser,
   getIsLoading,
-  getError,
-  fetchRequest
+  getUserError,
+  fetchUserRequest
 } from '../../modules/User';
 import { connect } from 'react-redux';
 
@@ -57,10 +57,10 @@ class UserInfo extends PureComponent {
 const mapStateToProps = state => ({
   user: getUser(state),
   isLoading: getIsLoading(state),
-  error: getError(state)
+  error: getUserError(state)
 });
 
-const mapDispatchToProps = { fetchRequest };
+const mapDispatchToProps = { fetchUserRequest };
 
 export default connect(
   mapStateToProps,

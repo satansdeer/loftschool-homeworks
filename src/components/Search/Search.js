@@ -3,7 +3,7 @@ import styles from './Search.module.css';
 import Input from '../Input';
 import { connect } from 'react-redux';
 import { fetchUserRequest } from '../../modules/User';
-import { fetchRequest } from '../../modules/Followers';
+import { fetchFollowersRequest } from '../../modules/Followers';
 import UserInfo from '../UserInfo';
 import Followers from '../Followers';
 
@@ -19,12 +19,12 @@ class Search extends PureComponent {
   };
 
   handleKeyPress = event => {
-    const { fetchUserRequest, fetchRequest } = this.props;
+    const { fetchUserRequest, fetchFollowersRequest } = this.props;
     const { user } = this.state;
 
     if (event.key === 'Enter' && user.length > 0) {
       fetchUserRequest(user);
-      fetchRequest(user);
+      fetchFollowersRequest(user);
     }
   };
 
@@ -54,5 +54,5 @@ class Search extends PureComponent {
 
 export default connect(
   undefined,
-  { fetchUserRequest, fetchRequest }
+  { fetchUserRequest, fetchFollowersRequest }
 )(Search);

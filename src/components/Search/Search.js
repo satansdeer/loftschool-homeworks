@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import ShowPreview from '../ShowPreview';
 import { connect } from 'react-redux';
 import { searchRequest } from '../../actions';
+import { getIsFetching, getResult, getError } from '../../reducers/search';
 
 class Search extends Component {
   state = {
@@ -21,7 +22,7 @@ class Search extends Component {
 
   render() {
     const { value } = this.state;
-    const search = this.props;
+    const { isFetching, error, result } = this.props;
     return (
       <>
         <div className={styles.previewList}>
@@ -41,11 +42,20 @@ class Search extends Component {
           </div>
         </div>
         <div className={classNames(styles.searchPanel, 't-search-result')}>
-          {search.isFetching && <p>Данные загружаются</p>}
-          {search.error.length > 0 && <p>Произошла ошибка при загрузке</p>}
-          {search.data.length > 0 ? (
-            <ShowPreview isFetching={search.isFetching} data={search.data} />
-          ) : null}
+          {isFetching && <p>Данные загружаются</p>}
+          {error > 0 && <p>Произошла ошибка при загрузке</p>}
+
+          {result.length > 0
+            ? result.map(el => (
+                <ShowPreview
+                  key={el.id}
+                  id={el.id}
+                  name={el.name}
+                  summary={el.summary}
+                  image={el.image}
+                />
+              ))
+            : null}
         </div>
       </>
     );
@@ -56,15 +66,13 @@ class Search extends Component {
 // чтобы получить ссылку на поле search вашего стейта
 // и экшн searchRequest.
 
-const mapStateToProps = state => state.search;
+const mapStateToProps = state => ({
+  isFetching: getIsFetching(state),
+  result: getResult(state),
+  error: getError(state)
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    searchRequest: query => {
-      dispatch(searchRequest(query));
-    }
-  };
-};
+const mapDispatchToProps = { searchRequest };
 
 export default connect(
   mapStateToProps,

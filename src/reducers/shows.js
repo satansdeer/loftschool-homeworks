@@ -1,30 +1,43 @@
 import { showRequest, showSuccess, showFailure } from '../actions';
+import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
+import { createSelector } from 'reselect';
 
-const shows = handleActions(
+const isFetching = handleActions(
   {
-    [showRequest]: (_, action) => {
-      return {
-        isFetching: true,
-        show: '',
-        error: ''
-      };
-    },
-    [showSuccess]: (_, action) => {
-      return {
-        isFetching: false,
-        show: action.payload,
-        error: ''
-      };
-    },
-    [showFailure]: (_, action) => {
-      return {
-        isFetching: false,
-        show: '',
-        error: action.payload
-      };
-    }
+    [showRequest]: () => true,
+    [showSuccess]: () => false,
+    [showFailure]: () => false
   },
-  { isFetching: false, show: '', error: '' }
+  false
 );
-export default shows;
+
+const result = handleActions(
+  {
+    [showRequest]: () => [],
+    [showSuccess]: (state, action) => action.payload
+  },
+  []
+);
+
+const error = handleActions(
+  {
+    [showRequest]: () => null,
+    [showFailure]: (state, action) => action.payload
+  },
+  null
+);
+
+export default combineReducers({
+  result,
+  isFetching,
+  error
+});
+
+export const getResult = createSelector(
+  state => state.shows.result,
+  result => result
+);
+
+export const getIsFetching = state => state.shows.isFetching;
+export const getError = state => state.shows.error;

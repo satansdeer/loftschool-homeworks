@@ -19,10 +19,19 @@ const renderShow = el => {
   );
 };
 
-const ShowPreview = ({ data }) => {
-  if (data.length > 0) {
-    return <>{data.map(el => renderShow(el))}</>;
-  }
+const ShowPreview = data => {
+  const { id, image, name, summary } = data;
+  return (
+    <div className={classNames('t-preview', styles.container)}>
+      <div>
+        <Link className="t-link" to={`/show/${id}`}>
+          {name}
+        </Link>
+        {image ? <img src={image.medium} alt={name} /> : null}
+      </div>
+      {summary ? <div dangerouslySetInnerHTML={{ __html: summary }} /> : null}
+    </div>
+  );
 };
 
 export default ShowPreview;

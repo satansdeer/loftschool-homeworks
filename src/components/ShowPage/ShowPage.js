@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styles from './ShowPage.module.css';
 import { showRequest } from '../../actions';
 import { connect } from 'react-redux';
+import { getIsFetching, getResult, getError } from '../../reducers/shows';
 
 class ShowPage extends Component {
   componentDidMount() {
@@ -21,7 +22,7 @@ class ShowPage extends Component {
   }
 
   render() {
-    const { isFetching, show, error } = this.props;
+    const { isFetching, result, error } = this.props;
     if (isFetching) {
       return <p>Данные загружаются...</p>;
     }
@@ -30,30 +31,30 @@ class ShowPage extends Component {
     }
     return (
       <>
-        <p>{show.name}</p>
-        {show.image ? <img src={show.image.medium} alt={show.name} /> : null}
+        <p>{result.name}</p>
+        {result.image ? (
+          <img src={result.image.medium} alt={result.name} />
+        ) : null}
         <div>
-          {show.summary ? (
-            <div dangerouslySetInnerHTML={{ __html: show.summary }} />
+          {result.summary ? (
+            <div dangerouslySetInnerHTML={{ __html: result.summary }} />
           ) : null}
         </div>
         <div className={styles.cast}>
-          {show._embedded ? this.renderCast(show._embedded.cast) : null}
+          {result._embedded ? this.renderCast(result._embedded.cast) : null}
         </div>
       </>
     );
   }
 }
 
-const mapStateToProps = state => state.shows;
+const mapStateToProps = state => ({
+  isFetching: getIsFetching(state),
+  result: getResult(state),
+  error: getError(state)
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    showRequest: id => {
-      dispatch(showRequest(id));
-    }
-  };
-};
+const mapDispatchToProps = { showRequest };
 
 export default connect(
   mapStateToProps,

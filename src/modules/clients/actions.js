@@ -7,6 +7,15 @@ export const createNewOrder = (id, recipe) => ({
   type: CREATE_NEW_ORDER,
   payload: { id, recipe }
 });
-export const moveOrderNext = () => {};
-export const moveOrderBack = () => {};
-export const addIngridient = () => {};
+export const moveOrderNext = id => ({
+  type: MOVE_ORDER_NEXT,
+  payload: id
+});
+export const moveOrderBack = id => ({
+  type: MOVE_ORDER_BACK,
+  payload: id
+});
+export const addIngredient = (from, ingredient) => ({
+  type: ADD_INGREDIENT,
+  payload: { from, ingredient }
+});

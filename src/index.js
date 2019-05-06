@@ -1,17 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import AppRouter from 'components/AppRouter';
-import getStore from './store';
+import store from './redux/store/store';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-
-const store = getStore();
+import MainWrapper from './components/globalPackage/MainWrapper/MainWrapper';
 
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
-      <AppRouter />
+      <MainWrapper />
     </Provider>
   </BrowserRouter>,
   document.getElementById('root')

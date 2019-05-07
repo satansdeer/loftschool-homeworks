@@ -46,13 +46,13 @@ export default (state = [], action) => {
       return state.map(order => {
         return order.id === action.payload
           ? { ...order, position: positionNext(order) }
-          : state;
+          : order;
       });
     case MOVE_ORDER_BACK:
       return state.map(order => {
         return order.id === action.payload
           ? { ...order, position: positionBack(order) }
-          : state;
+          : order;
       });
     case ADD_INGREDIENT:
       return state.map(order => {
@@ -63,7 +63,7 @@ export default (state = [], action) => {
               ...order,
               ingredients: [...order.ingredients, action.payload.ingredient]
             }
-          : state;
+          : order;
       });
     default:
       return state;

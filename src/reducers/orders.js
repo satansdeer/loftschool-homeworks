@@ -1,6 +1,6 @@
-import { CREATE_NEW_ORDER } from "../modules/clients";
-import { MOVE_ORDER_NEXT, MOVE_ORDER_BACK } from "../actions/moveOrder";
-import { ADD_INGREDIENT } from "../actions/ingredients";
+import {CREATE_NEW_ORDER} from "../modules/clients";
+import {MOVE_ORDER_NEXT, MOVE_ORDER_BACK} from "../actions/moveOrder";
+import {ADD_INGREDIENT} from "../actions/ingredients";
 
 // Реализуйте редьюсер
 // Типы экшенов, которые вам нужно обрабатывать уже импортированы
@@ -44,7 +44,7 @@ export default (state = [], action) => {
     case
     MOVE_ORDER_NEXT:
       objectId = action.payload;
-      orders = { ...state[objectId] };
+      orders = {...state[objectId]};
       temp = orders.position.split("_");
       // stepIndex = temp.length === 1 ? 1 : ++temp[1];
       if (temp.length === 1) {
@@ -66,7 +66,7 @@ export default (state = [], action) => {
     case
     MOVE_ORDER_BACK:
       objectId = action.payload;
-      orders = { ...state[objectId] };
+      orders = {...state[objectId]};
       temp = orders.position.split("_");
       let position;
       if (parseInt(temp[1]) === 1) {
@@ -80,7 +80,7 @@ export default (state = [], action) => {
       return Array.from(state);
     case
     ADD_INGREDIENT:
-      const { from, ingredient } = action.payload;
+      const {from, ingredient} = action.payload;
       const pizzaOnCurrentPos = state.filter(item => {
         if (item.position === from) {
           return item;
@@ -88,7 +88,6 @@ export default (state = [], action) => {
       });
 
       if (pizzaOnCurrentPos.length === 0) {
-        console.log("StateAreEqual");
         return state;
       }
 
@@ -98,22 +97,17 @@ export default (state = [], action) => {
             return reciepeItem;
           }
         }).length > 0) {
-          item.ingredients.push(ingredient);
+          console.log('Magic', ...item.ingredients);
+          item.ingredients = [...item.ingredients, ingredient];
+          // item.ingredients.push(ingredient);
           state[item.id] = item;
         }
       });
-
       return Array.from(state);
-
-
-      console.log(pizzaOnCurrentPos);
-
-      break;
     default:
       return state;
   }
 }
-;
 
 export const getOrdersFor = (state, position) =>
   state.orders.filter(order => order.position === position);

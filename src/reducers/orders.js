@@ -29,7 +29,7 @@ const addIngredient = (state, action) => {
     }
 
     ingredients.push(ingredient);
-    return { ...order, ingredients };
+    return { ...order, ...ingredients };
   });
 
   return newState;

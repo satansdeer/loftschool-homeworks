@@ -1,13 +1,20 @@
 import { takeLatest, select, put, call, fork } from 'redux-saga/effects';
+import {getFollowersInfo} from './api';
+import {getApiKey} from '../../modules/Auth/reducer'
 
 
 function* fetchFollowersWatcher() {
-  yield takeLatest(?, fetchFollowersFlow); // Замените вопросительный знак на подходящий экшен
+  yield takeLatest('FOLLOWERS/FETCH_REQUEST', fetchFollowersFlow); // Замените вопросительный знак на подходящий экшен
 }
 
 export function* fetchFollowersFlow(action) {
-  // Реализуйте загрузку данных
-  // Используйте экшены FETCH_SUCCESS / FETCH_FAILURE
+  const key = yield select(getApiKey);
+  try {;
+    const data = yield call(getFollowersInfo,key,action.payload)
+    yield put({type: 'FOLLOWERS/FETCH_SUCCESS', payload:data})
+ } catch (error) {
+    yield put({type: 'FOLLOWERS/FETCH_FAILURE', error})
+ }
 }
 
 export default function*() {

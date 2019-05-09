@@ -1,26 +1,35 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import Login from '../Login';
 import styles from './RoversViewer.module.css';
 import isEqual from 'lodash';
 import { connect } from 'react-redux';
 import { getIsAuthorized, addKey } from '../../redux/modules/Auth';
-import { fetchPhotosRequest } from '../../redux/modules/RoverPhotos';
+import {
+  fetchPhotosRequest,
+  getSol,
+  getRoverPhotos
+} from '../../redux/modules/RoverPhotos';
 
-class RoversViewer extends PureComponent {
+class RoversViewer extends Component {
   componentDidMount() {
-    console.log('RoversViewer, props', this.props);
+    console.log('RoversViewer mounted, props', this.props);
+
+    const {
+      photosRequest,
+      appKey,
+      solValue: { current: currentSol }
+    } = this.props;
+
+    this.props.photosRequest(appKey, currentSol);
   }
 
-  handleEnterApiKey = apiKey => {
-    const { addNewKey } = this.props;
-
-    addNewKey(apiKey);
-    // this.props.photosRequest('nYaPlqtaCAn5ZiwWR9XHKFeJQDPeGSjx3ZMDfgWG');
-  };
+  componentDidUpdate() {
+    console.log('RoversViewer updated', this.props);
+  }
 
   render() {
-    const { isAuthorized } = this.props;
-    return isAuthorized ? this.renderRoversViewer() : this.renderLogin();
+    const { appKey } = this.props;
+    return appKey ? this.renderRoversViewer() : this.renderLogin();
   }
 
   renderLogin() {
@@ -34,14 +43,16 @@ class RoversViewer extends PureComponent {
 
 const mapStateToProps = store => {
   return {
-    isAuthorized: getIsAuthorized(store)
+    appKey: getIsAuthorized(store),
+    solValue: getSol(store),
+    photosPackage: getRoverPhotos(store)
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    photosRequest(key) {
-      dispatch(fetchPhotosRequest(key));
+    photosRequest(key, sol) {
+      dispatch(fetchPhotosRequest(key, sol));
     }
   };
 };

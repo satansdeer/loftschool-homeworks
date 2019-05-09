@@ -9,8 +9,13 @@ import { getRoversInitialState } from '../../../utils';
 const initialStateForRoversPhotos = getRoversInitialState();
 
 const initialState = {
-  sol: {},
-  photos: initialStateForRoversPhotos
+  sol: {
+    current: 0,
+    min: 0,
+    max: 100
+  },
+  photos: initialStateForRoversPhotos,
+  error: null
 };
 
 const roverPhotosReducer = (state = initialState, action) => {
@@ -46,14 +51,7 @@ const roverPhotosReducer = (state = initialState, action) => {
     case FETCH_PHOTOS_FAILURE:
       return {
         ...state,
-        photos: {
-          ...state.photos,
-          [action.payload.item]: {
-            ...state.photos[action.payload.item],
-            isLoading: false,
-            error: true
-          }
-        }
+        error: action.payload
       };
 
     default:

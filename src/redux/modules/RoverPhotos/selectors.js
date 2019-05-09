@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 
-const solSelector = state => state.sol;
-const photosSelector = state => state.photos;
+const solSelector = state => state.roverPhotosReducer.sol;
+const photosSelector = state => state.roverPhotosReducer.photos;
 
 export const getSol = createSelector(
   [solSelector],

@@ -1,68 +1,72 @@
 import React, { PureComponent } from 'react';
-import styles from './UserInfo.module.css';
-import {
-  getUser,
-  getIsLoading,
-  getUserError,
-  fetchUserRequest
-} from '../../modules/User';
+import styles from './Login.module.css';
+import { getIsAuthorized, addApiKey } from '../../modules/Auth';
 import { connect } from 'react-redux';
+import { withRouter, Redirect } from 'react-router-dom';
+import Input from '../Input';
 
-class UserInfo extends PureComponent {
-  renderUser = user => {
-    if (user.length === 0) {
-      return <p className="t-no-user-info">Нет информации о пользователе</p>;
-    } else if (user.message === 'Bad credentials') {
-      return (
-        <p className="t-no-user-info">Введенный Вами токен некорректен.</p>
-      );
-    } else if (user.message === 'Not Found') {
-      return (
-        <p className="t-no-user-info">Информация о пользователе не найдена</p>
-      );
-    } else {
-      const { avatar_url, name, bio } = user;
-
-      return (
-        <div className={styles.root}>
-          <div className={styles.imageWrapper}>
-            <img className={styles.image} src={avatar_url} alt="user info" />
-          </div>
-          <div>
-            <p className="t-user-name">{name}</p>
-            <p className="t-user-bio">{bio}</p>
-          </div>
-        </div>
-      );
-    }
+class Login extends PureComponent {
+  // на время разработки свой access token можно вставить сюда, чтобы
+  // не вводить каждый раз
+  state = {
+    key: ''
   };
 
-  render() {
-    const { user, isLoading, error } = this.props;
+  input = React.createRef();
 
-    if (isLoading) {
-      return (
-        <p className="t-no-user-info">Загрузка информации о пользователе</p>
-      );
-    } else {
-      if (error !== null) {
-        return <p className="t-no-user-info">Произошла ошибка: {error} </p>;
-      } else {
-        return this.renderUser(user);
-      }
-    }
+  handleChange = event => {
+    this.setState({ key: event.target.value });
+  };
+
+  handleKeyPress = event => {
+    const { addApiKey } = this.props;
+    const { key } = this.state;
+
+    if (event.key === 'Enter') addApiKey(key);
+  };
+
+  componentDidMount() {
+    this.input.current.focus();
+  }
+
+  render() {
+    const { isAuthorized } = this.props;
+    const { key } = this.state;
+
+    if (isAuthorized) return <Redirect to="/search" />;
+
+    return (
+      <div className={styles.root}>
+        <h1>Токен авторизации</h1>
+        <p className={styles.p}>
+          Получить токен нужно на своей странице github, перейдите по{' '}
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://github.com/settings/tokens"
+          >
+            адресу
+          </a>{' '}
+          и создать себе токен. Запишите куда нибудь токен, так как после
+          создания доступ к нему будет только один раз.
+        </p>
+
+        <Input
+          ref={this.input}
+          value={key}
+          placeholder="access token"
+          className='t-login-input'
+          onChange={this.handleChange}
+          onKeyPress={this.handleKeyPress}
+        />
+
+        <p>После ввода нажмите Enter</p>
+      </div>
+    );
   }
 }
 
-const mapStateToProps = state => ({
-  user: getUser(state),
-  isLoading: getIsLoading(state),
-  error: getUserError(state)
-});
-
-const mapDispatchToProps = { fetchUserRequest };
-
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UserInfo);
+  state => ({ isAuthorized: getIsAuthorized(state) }),
+  { addApiKey }
+)(withRouter(Login));

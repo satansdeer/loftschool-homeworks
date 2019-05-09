@@ -1,27 +1,24 @@
-import { getFollowersInfo } from './api';
-import {
-  fetchFollowersRequest,
-  fetchFollowersSuccess,
-  fetchFollowersFailure
+import { takeLatest, select, put, call, fork } from 'redux-saga/effects';
+import { getFollowersInfo } from './api'
+import { 
+    fetchRequest,
+    fetchSuccess,
+    fetchFailure, 
 } from './actions';
 import { getApiKey } from '../Auth/selectors';
-import { takeLatest, select, put, call, fork } from 'redux-saga/effects';
 
 function* fetchFollowersWatcher() {
-  yield takeLatest(fetchFollowersRequest, fetchFollowersFlow);
-  // Замените вопросительный знак на подходящий экшен
+  yield takeLatest(fetchRequest, fetchFollowersFlow);
 }
 
 export function* fetchFollowersFlow(action) {
-  // Реализуйте загрузку данных
-  // Используйте экшены FETCH_SUCCESS / FETCH_FAILURE
   const state = yield select(getApiKey);
 
   try {
     const response = yield call(getFollowersInfo, state, action.payload);
-    yield put(fetchFollowersSuccess(response));
+    yield put(fetchSuccess(response));
   } catch (error) {
-    yield put(fetchFollowersFailure(error));
+    yield put(fetchFailure(error));
   }
 }
 

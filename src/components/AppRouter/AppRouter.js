@@ -69,7 +69,7 @@ class AppRouter extends PureComponent {
               <Route path="/app/outbox/:id" component={OutboxMail} />
               <Route path="/app/inbox" exact component={InboxList} />
               <Route path="/app/inbox/:id" component={InboxMail} />
-              {/*<Redirect to="/app" />*/}
+              <Redirect to="/app" />
             </Switch>
           </div>
         </div>

@@ -4,24 +4,25 @@
 
 // Этот компонент должен использовать MailList для отображения данных.
 
-import React, { Component } from 'react';
-import { Route, Redirect, NavLink } from 'react-router-dom';
+import React, { PureComponent } from 'react';
 import { withData } from '../../context/Data';
-import { MailList } from '../MailList';
+import MailList from '../MailList';
+import truncate from 'lodash/truncate';
 
-class InboxList extends Component {
+class InboxList extends PureComponent {
   render() {
-    const { match, data } = this.props;
-    console.log({ data: data.inbox });
+    const {
+      data: { inbox }
+    } = this.props;
+
     return (
-      <div>
-        {/* <MailList /> */}
-        <ul>
-          {data.inbox.map(({ id, from }) => (
-            <MailList id={id} from={from} />
-          ))}
-        </ul>
-      </div>
+      <MailList
+        className="t-inbox-list"
+        mails={inbox.map(({ id, body }) => ({
+          title: truncate(body, { length: 55 }),
+          link: `/app/inbox/${id}`
+        }))}
+      />
     );
   }
 }

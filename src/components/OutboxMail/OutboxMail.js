@@ -4,13 +4,22 @@
 
 // Этот компонент должен использовать компонент Mail для отображения данных.
 
-import React, { Component } from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import React, { PureComponent } from 'react';
+import { withData } from '../../context/Data';
+import Mail from '../Mail';
 
-class OutboxMail extends Component {
+class OutboxMail extends PureComponent {
   render() {
-    return <div>OutboxMail</div>;
+    const {
+      match: {
+        params: { id }
+      },
+      data
+    } = this.props;
+    const mail = data.outbox.find(mail => mail.id === id);
+
+    return <Mail {...mail} />;
   }
 }
 
-export default OutboxMail;
+export default withData(OutboxMail);

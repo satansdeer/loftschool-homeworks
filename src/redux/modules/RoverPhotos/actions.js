@@ -7,7 +7,10 @@ import {
 
 export const changeSol = value => ({ type: CHANGE_SOL, payload: value });
 
-export const fetchPhotosRequest = () => ({ type: FETCH_PHOTOS_REQUEST });
+export const fetchPhotosRequest = apiKey => ({
+  type: FETCH_PHOTOS_REQUEST,
+  payload: apiKey
+});
 
 export const fetchPhotosSuccess = photos => ({
   type: FETCH_PHOTOS_SUCCESS,

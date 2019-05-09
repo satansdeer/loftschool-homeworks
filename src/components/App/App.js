@@ -41,7 +41,7 @@ class App extends PureComponent {
 
 const mapStateToProps = store => {
   return {
-    isAuthorized: getIsAuthorized(state)
+    isAuthorized: getIsAuthorized(store)
   };
 };
 

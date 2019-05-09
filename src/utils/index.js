@@ -1,4 +1,4 @@
-import roversConfig from '../../rovers.json';
+import roversConfig from '../rovers.json';
 
 export const getRoversInitialState = () =>
   roversConfig.items.reduce((accumulator, element, index) => {

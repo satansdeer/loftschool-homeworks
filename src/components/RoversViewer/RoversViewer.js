@@ -1,8 +1,52 @@
-// Здесь вам нужно реализовать вью
+import React, { PureComponent } from 'react';
+import Login from '../Login';
+import styles from './RoversViewer.module.css';
+import isEqual from 'lodash';
+import { connect } from 'react-redux';
+import { getIsAuthorized, addKey } from '../../redux/modules/Auth';
+import { fetchPhotosRequest } from '../../redux/modules/RoverPhotos';
 
-// Подключите его к редакс роутеру
-// Вам потребуются селекторы для получения выбранного сола
-// и списка фотографий
+class RoversViewer extends PureComponent {
+  componentDidMount() {
+    console.log('RoversViewer, props', this.props);
+  }
 
-// Так же вы будете диспатчить экшены CHANGE_SOL и FETCH_PHOTOS_REQUEST
-// Эти экшены находятся в модуле ROVER PHOTOS
+  handleEnterApiKey = apiKey => {
+    const { addNewKey } = this.props;
+
+    addNewKey(apiKey);
+    // this.props.photosRequest('nYaPlqtaCAn5ZiwWR9XHKFeJQDPeGSjx3ZMDfgWG');
+  };
+
+  render() {
+    const { isAuthorized } = this.props;
+    return isAuthorized ? this.renderRoversViewer() : this.renderLogin();
+  }
+
+  renderLogin() {
+    return <Login />;
+  }
+
+  renderRoversViewer() {
+    return <p>test</p>;
+  }
+}
+
+const mapStateToProps = store => {
+  return {
+    isAuthorized: getIsAuthorized(store)
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    photosRequest(key) {
+      dispatch(fetchPhotosRequest(key));
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(RoversViewer);

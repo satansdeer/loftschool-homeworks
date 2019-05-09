@@ -13,7 +13,7 @@ const initialState = {
   photos: initialStateForRoversPhotos
 };
 
-const RoverPhotosReducer = (state = initialState, action) => {
+const roverPhotosReducer = (state = initialState, action) => {
   switch (action.type) {
     case CHANGE_SOL:
       return { ...state, sol: { ...state.sol, ...action.payload } };
@@ -61,4 +61,4 @@ const RoverPhotosReducer = (state = initialState, action) => {
   }
 };
 
-export default RoverPhotosReducer;
+export default roverPhotosReducer;

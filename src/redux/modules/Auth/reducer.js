@@ -1,7 +1,7 @@
 import { ADD_KEY } from './constants';
 
 const initialState = {
-  apiKey: null
+  apiKey: 'nYaPlqtaCAn5ZiwWR9XHKFeJQDPeGSjx3ZMDfgWG'
 };
 
 const authReducer = (state = initialState, action) => {

@@ -44,13 +44,14 @@ class Todo extends PureComponent {
 
     if(!inputValue) return;
 
-    const data = savedData;
+    const data = [...savedData];
 
     data.unshift({
       id: this.getId(),
       isComplete: false,
       text: inputValue
     });
+
 
     saveData(data);
     this.setState({inputValue: ''});

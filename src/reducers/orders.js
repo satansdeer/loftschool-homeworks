@@ -7,16 +7,16 @@ import { ADD_INGREDIENT } from '../actions/ingredients';
 // Обратите внимание на `orders.test.js`.
 // Он поможет понять, какие значения должен возвращать редьюсер.
 
-const POSTION_START = 'clients';
-const POSTION_FINISH = 'finish';
+const POSITION_START = 'clients';
+const POSITION_FINISH = 'finish';
 
 const listPosition = [
-  POSTION_START,
+  POSITION_START,
   'conveyor_1',
   'conveyor_2',
   'conveyor_3',
   'conveyor_4',
-  POSTION_FINISH
+  POSITION_FINISH
 ];
 
 /**
@@ -24,7 +24,7 @@ const listPosition = [
  * @param {*} order
  */
 const isOrderCompleted = order => {
-  debugger;
+  
   const { recipe, ingredients } = order;
   let result = true;
 
@@ -51,14 +51,14 @@ const moveOrder = (state, action, direction) => {
     }
 
     let indexPosition = listPosition.indexOf(order.position);
-    const newIndexPostion = indexPosition + direction;
-    const newPosition = listPosition[newIndexPostion];
+    const newIndexPosition = indexPosition + direction;
+    const newPosition = listPosition[newIndexPosition];
 
-    if (newPosition === POSTION_START) {
+    if (newPosition === POSITION_START) {
       return order;
     }
 
-    if (newPosition === POSTION_FINISH && !isOrderCompleted(order)) {
+    if (newPosition === POSITION_FINISH && !isOrderCompleted(order)) {
       return order;
     }
 
@@ -83,8 +83,7 @@ const addIngredient = (state, action) => {
       return order;
     }
 
-    ingredients.push(ingredient);
-    return { ...order, ingredients };
+    return { ...order, ingredients: [...ingredients, ingredient]  };
   });
 
   return updateState;
@@ -96,7 +95,7 @@ export default (state = [], action) => {
       const item = {
         ...action.payload,
         ingredients: [],
-        position: POSTION_START
+        position: POSITION_START
       };
       return [...state, item];
     case MOVE_ORDER_NEXT:

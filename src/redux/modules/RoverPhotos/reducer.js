@@ -31,7 +31,6 @@ const roverPhotosReducer = (state = initialState, action) => {
           [action.payload.name]: {
             ...state.photos[action.payload.name],
             [action.payload.sol]: {
-              ...state.photos[action.payload.name][action.payload.sol],
               isLoading: true,
               isLoaded: false,
               photos: []

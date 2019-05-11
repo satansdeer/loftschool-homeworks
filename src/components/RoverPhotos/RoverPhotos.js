@@ -23,12 +23,8 @@ class RoverPhotos extends Component {
   // }
 
   // shouldComponentUpdate(nextProps) {
-  //   const { photos: prevPhotos } = this.props;
-
-  //   const { photos: newPhotos } = nextProps;
-
-  //   return !isEqual(prevPhotos, newPhotos) ? true : false;
-  //   // return true;
+  // return !isEqual(this.props, nextProps) ? true : false;
+  // return true;
   // }
 
   // componentDidUpdate() {

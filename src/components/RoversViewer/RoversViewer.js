@@ -17,7 +17,7 @@ import roversConfig from '../../rovers.json';
 
 class RoversViewer extends Component {
   componentDidMount() {
-    // console.log('RoversViewer mounted, props', this.props);
+    console.log('RoversViewer mounted, props', this.props);
 
     const {
       photosRequest,
@@ -28,39 +28,22 @@ class RoversViewer extends Component {
     roversConfig.items.forEach(item => photosRequest(appKey, currentSol, item));
   }
 
-  // shouldComponentUpdate(nextProps) {
-  //   const {
-  //     photosPackage,
-  //     solValue: { current: currentSol }
-  //   } = this.props;
-
-  //   const {
-  //     photosPackage: nextPhotosPackage,
-  //     solValue: { current: nextSol }
-  //   } = nextProps;
-
-  //   return isEqual(currentSol, nextSol) &&
-  //     !isEqual(photosPackage, nextPhotosPackage)
-  //     ? true
-  //     : false;
-  // }
-
   componentDidUpdate(prevProps) {
     const {
       appKey,
       photosRequest,
+      photosPackage,
       solValue: { current: currentSol }
     } = this.props;
+
     const {
       solValue: { current: prevSol }
     } = prevProps;
 
-    if (currentSol !== prevSol) {
-      // console.log(
-      //   'RoversViewer updated and made request ///////////////////',
-      //   appKey,
-      //   currentSol
-      // );
+    if (
+      currentSol !== prevSol &&
+      !photosPackage[roversConfig.items[0]][currentSol]
+    ) {
       roversConfig.items.forEach(item =>
         photosRequest(appKey, currentSol, item)
       );
@@ -102,19 +85,24 @@ class RoversViewer extends Component {
   setPhotos = photosArray => (photosArray ? photosArray : []);
 
   renderRoversViewer() {
-    const { photosPackage } = this.props;
+    const {
+      photosPackage,
+      solValue: { current: currentSol }
+    } = this.props;
     // console.log('this.props.photosPackage', this.props.photosPackage);
     // console.count('вызван renderRoversViewer');
 
-    return roversConfig.items.map((item, index) => (
-      // photosPackage[item].photos &&
-      // photosPackage[item].photos.length && (
-      <RoverPhotos
-        name={item}
-        photos={this.setPhotos(photosPackage[item].photos)}
-        key={item + index}
-      />
-    ));
+    return roversConfig.items.map(
+      (item, index) =>
+        photosPackage[item][currentSol] &&
+        photosPackage[item][currentSol].photos.length && (
+          <RoverPhotos
+            name={item}
+            photos={this.setPhotos(photosPackage[item][currentSol].photos)}
+            key={item + index}
+          />
+        )
+    );
   }
 }
 

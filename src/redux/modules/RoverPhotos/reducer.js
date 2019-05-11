@@ -10,8 +10,8 @@ const initialStateForRoversPhotos = getRoversInitialState();
 
 const initialState = {
   sol: {
-    current: 0,
-    min: 0,
+    current: 1,
+    min: 1,
     max: 100
   },
   photos: initialStateForRoversPhotos,
@@ -21,16 +21,21 @@ const initialState = {
 const roverPhotosReducer = (state = initialState, action) => {
   switch (action.type) {
     case CHANGE_SOL:
-      return { ...state, sol: { ...state.sol, ...action.payload } };
+      return { ...state, sol: { ...state.sol, current: action.payload } };
 
     case FETCH_PHOTOS_REQUEST:
       return {
         ...state,
         photos: {
           ...state.photos,
-          [action.payload.item]: {
-            ...state.photos[action.payload.item],
-            isLoading: true
+          [action.payload.name]: {
+            ...state.photos[action.payload.name],
+            [action.payload.sol]: {
+              ...state.photos[action.payload.name][action.payload.sol],
+              isLoading: true,
+              isLoaded: false,
+              photos: []
+            }
           }
         }
       };
@@ -40,10 +45,14 @@ const roverPhotosReducer = (state = initialState, action) => {
         ...state,
         photos: {
           ...state.photos,
-          [action.payload.item]: {
-            ...state.photos[action.payload.item],
-            isLoading: false,
-            photos: action.payload.photos
+          [action.payload.name]: {
+            ...state.photos[action.payload.name],
+            [action.payload.sol]: {
+              ...state.photos[action.payload.name][action.payload.sol],
+              isLoading: false,
+              isLoaded: true,
+              photos: action.payload.photos
+            }
           }
         }
       };

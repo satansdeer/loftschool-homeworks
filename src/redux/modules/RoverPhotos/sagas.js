@@ -4,37 +4,20 @@ import { getPhotos } from '../../../services/api';
 import roversConfig from '../../../rovers.json';
 
 export function* roverSaga(action) {
-  const { apiKey, sol } = action.payload;
-  yield call(sagaDataFetcher, sol, apiKey);
+  const { apiKey, sol, name } = action.payload;
+  yield call(sagaDataFetcher, sol, apiKey, name);
 }
 
-function* sagaDataFetcher(sol, key) {
-  console.log('sagaDataFetcher', sol, key);
+function* sagaDataFetcher(sol, key, name) {
+  console.log('sagaDataFetcher get request', sol, key, name);
 
   try {
-    const [curiosityPhotos, opportunityPhotos, spiritPhotos] = yield all([
-      yield call(getPhotos, key, roversConfig.items[0], sol),
+    const result = yield call(getPhotos, key, name, sol);
 
-      yield call(getPhotos, key, roversConfig.items[1], sol),
+    console.log('get response', result);
 
-      yield call(getPhotos, key, roversConfig.items[2], sol)
-    ]);
-
-    console.log('get response', [
-      curiosityPhotos,
-      opportunityPhotos,
-      spiritPhotos
-    ]);
-
-    yield put(fetchPhotosSuccess(curiosityPhotos, roversConfig.items[0]));
-    yield put(fetchPhotosSuccess(opportunityPhotos, roversConfig.items[1]));
-    yield put(fetchPhotosSuccess(spiritPhotos, roversConfig.items[2]));
+    yield put(fetchPhotosSuccess(result.photos, name, sol));
   } catch (error) {
     yield put(fetchPhotosFailure(error));
   }
-}
-
-export function* changeSolSaga(action) {
-  const { sol, apiKey } = action.payload;
-  yield call(sagaDataFetcher, sol, apiKey);
 }

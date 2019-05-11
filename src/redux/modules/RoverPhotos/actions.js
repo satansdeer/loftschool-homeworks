@@ -5,24 +5,23 @@ import {
   CHANGE_SOL
 } from './constants';
 
-export const changeSol = (apiKey, sol) => ({
+export const changeSol = sol => ({
   type: CHANGE_SOL,
-  payload: { apiKey, sol }
+  payload: sol
 });
 
-export const fetchPhotosRequest = (apiKey, sol) => ({
+export const fetchPhotosRequest = (apiKey, sol, name) => ({
   type: FETCH_PHOTOS_REQUEST,
-  payload: { apiKey, sol }
+  payload: { apiKey, sol, name }
 });
 
-export const fetchPhotosSuccess = (photos, item) => ({
-  type: FETCH_PHOTOS_SUCCESS,
-  payload: { item, photos }
-});
+export const fetchPhotosSuccess = (photos, name, sol) =>
+  console.log('fetchPhotosSuccess', photos, name, sol) || {
+    type: FETCH_PHOTOS_SUCCESS,
+    payload: { name, photos, sol }
+  };
 
 export const fetchPhotosFailure = error => ({
   type: FETCH_PHOTOS_FAILURE,
   payload: error
 });
-
-// {type:'',payload:{item:'',photos:[]}}

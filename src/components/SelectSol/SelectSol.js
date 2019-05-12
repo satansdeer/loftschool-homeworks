@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Slider from '@material-ui/lab/Slider';
@@ -21,6 +22,13 @@ const styles = {
 };
 
 class SelectSol extends PureComponent {
+  static propTypes = {
+    selectedSol: PropTypes.number.isRequired,
+    changeSol: PropTypes.func.isRequired,
+    min: PropTypes.number.isRequired,
+    max: PropTypes.number.isRequired,
+  }
+
   state = {
     sol: this.props.selectedSol // eslint-disable-line react/destructuring-assignment
   };

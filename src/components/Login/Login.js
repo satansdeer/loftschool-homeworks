@@ -21,6 +21,7 @@ const styles = theme => ({
 });
 
 class Login extends PureComponent {
+  // todo: remove api key
   state = {
     inputValue: ''
   };

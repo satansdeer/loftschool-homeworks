@@ -8,8 +8,9 @@ import Input from '../Input';
 class Login extends PureComponent {
   // на время разработки свой access token можно вставить сюда, чтобы
   // не вводить каждый раз
+  // todo: remove token
   state = {
-    key: ''
+    key: '1c9b13ff3820069915eb534fe875d8e79d2538f3'
   };
 
   input = React.createRef();

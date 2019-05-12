@@ -1,14 +1,13 @@
-import { call, put, all } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 import { fetchPhotosSuccess, fetchPhotosFailure } from './actions';
 import { getPhotos } from '../../../services/api';
-import roversConfig from '../../../rovers.json';
 
 export function* roverSaga(action) {
   const { apiKey, sol, name } = action.payload;
-  yield call(sagaDataFetcher, sol, apiKey, name);
+  yield call(sagaDataFetcher, sol, name, apiKey);
 }
 
-function* sagaDataFetcher(sol, key, name) {
+function* sagaDataFetcher(sol, name, key) {
   console.log('sagaDataFetcher get request', sol, key, name);
 
   try {

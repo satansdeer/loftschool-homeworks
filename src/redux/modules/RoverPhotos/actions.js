@@ -10,7 +10,7 @@ export const changeSol = sol => ({
   payload: sol
 });
 
-export const fetchPhotosRequest = (name, sol, apiKey = '') => ({
+export const fetchPhotosRequest = (name, sol, apiKey) => ({
   type: FETCH_PHOTOS_REQUEST,
   payload: { apiKey, sol, name }
 });

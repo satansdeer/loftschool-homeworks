@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import isEqual from 'lodash';
 import { connect } from 'react-redux';
 import Login from '../Login';
 import SelectSol from '../SelectSol';
 import styles from './RoversViewer.module.css';
-import { getIsAuthorized, addKey } from '../../redux/modules/Auth';
+import { getIsAuthorized } from '../../redux/modules/Auth';
 import {
   fetchPhotosRequest,
   getSol,
@@ -17,8 +16,6 @@ import roversConfig from '../../rovers.json';
 
 class RoversViewer extends Component {
   componentDidMount() {
-    console.log('RoversViewer mounted, props', this.props);
-
     const {
       photosRequest,
       appKey,
@@ -60,14 +57,14 @@ class RoversViewer extends Component {
   };
 
   render() {
-    const { appKey, solValue, changeSol } = this.props;
+    const { appKey, solValue } = this.props;
     return appKey ? (
       <div className={styles.root}>
         <SelectSol
           minSol={solValue.min}
           maxSol={solValue.max}
           selectedSol={solValue.current}
-          changeSol={changeSol}
+          changeSol={this.changeSolValue}
         />
         <Grid container alignItems="flex-start" justify="space-between">
           {this.renderRoversViewer()}
@@ -117,7 +114,7 @@ const mapStateToProps = store => {
 const mapDispatchToProps = dispatch => {
   return {
     photosRequest(key, sol, name) {
-      dispatch(fetchPhotosRequest(key, sol, name));
+      dispatch(fetchPhotosRequest(name, sol, key));
     },
     changeSol(newSol) {
       dispatch(changeSol(newSol));

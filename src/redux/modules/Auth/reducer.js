@@ -1,7 +1,7 @@
 import { ADD_KEY } from './constants';
 
 const initialState = {
-  apiKey: null
+  apiKey: 'ad9fKgG7xLF2EuVP20f9s5bOMZlAiE5r62GqmQWH'
 };
 
 // ad9fKgG7xLF2EuVP20f9s5bOMZlAiE5r62GqmQWH

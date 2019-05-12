@@ -6,6 +6,8 @@
 
 .searchPanel {
   padding-bottom: 20px;
+  display: flex;
+  margin: 20px 20px;
 }
 
 .buttonWrapper {
@@ -21,4 +23,23 @@
 
 .input {
   font-size: 16px;
+}
+
+.series__wrapper{
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.episode__wrapper{
+  display: flex;
+  flex-direction: column;
+  margin: 25px 25px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.episode__img{
+  height: 150px;
+  width: 150px;
 }

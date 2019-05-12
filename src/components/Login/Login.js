@@ -10,7 +10,7 @@ class Login extends PureComponent {
   // не вводить каждый раз
   // todo: remove token
   state = {
-    key: '1c9b13ff3820069915eb534fe875d8e79d2538f3'
+    key: ''
   };
 
   input = React.createRef();

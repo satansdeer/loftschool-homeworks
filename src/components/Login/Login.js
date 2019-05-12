@@ -8,6 +8,7 @@ import Input from '../Input';
 class Login extends PureComponent {
   // на время разработки свой access token можно вставить сюда, чтобы
   // не вводить каждый раз
+  // todo: remove token
   state = {
     key: ''
   };

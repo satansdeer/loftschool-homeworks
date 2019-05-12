@@ -4,7 +4,6 @@ import { fetchShowsRequest } from '../../actions';
 import { showSelector, getError, getIsLoading } from '../../selectors/shows';
 import { ErrorStub, LoadingStub } from '../AjaxStubs';
 import styles from './ShowPage.module.css';
-import classnames from 'classnames';
 
 // Реализуйте страницу шоу.
 
@@ -61,7 +60,7 @@ class ShowPage extends PureComponent {
         {image && (<img src={image.medium} alt={name} />) }
         <div>
           <p dangerouslySetInnerHTML={{ __html: summary }} />
-          <div className={classnames('ShowPage', styles.cast)}>
+          <div className={'ShowPage ' + styles.cast}>
             {cast && cast.map(castItem => this.renderCastItem(castItem))}
           </div>
         </div>

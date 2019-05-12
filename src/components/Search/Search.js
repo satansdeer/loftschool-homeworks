@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { fetchSearchRequest } from '../../actions';
 import ShowPreview from '../ShowPreview';
-import classnames from 'classnames';
 import styles from './Search.module.css';
 import { getSearchItems, getIsLoading, getError } from '../../selectors/search';
 import { ErrorStub, LoadingStub } from '../AjaxStubs';
@@ -43,7 +42,7 @@ class Search extends PureComponent {
 
     return (
       <div
-        className={classnames('t-search-result', 'Search', styles.searchPanel)}
+        className={'t-search-result Search ' + styles.searchPanel}
       >
         {searchItems.map(item => (
           <ShowPreview
@@ -62,16 +61,16 @@ class Search extends PureComponent {
     const { searchText } = this.state;
 
     return (
-      <div className={classnames('Search', styles.previewList)}>
+      <div className={'Search ' + styles.previewList}>
         <input
-          className={classnames('Search', styles.input, 't-input')}
+          className={'Search ' + styles.input + ' t-input'}
           placeholder="Название сериала"
           value={searchText}
           onChange={this.handleSearchInputChange}
         />
-        <div className={classnames('Search', styles.buttonWrapper)}>
+        <div className={'Search ' + styles.buttonWrapper}>
           <button
-            className={classnames('Search', styles.button, 't-search-button')}
+            className={'Search ' + styles.button + ' t-search-button'}
             onClick={this.handleSearchButtonCick}
           >
             Найти

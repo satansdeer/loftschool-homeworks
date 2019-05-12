@@ -5,6 +5,7 @@ import {
   CHANGE_SOL
 } from './constants';
 import { getRoversInitialState } from '../../../utils';
+import { set, lensPath } from 'ramda';
 
 const initialStateForRoversPhotos = getRoversInitialState();
 
@@ -18,49 +19,30 @@ const initialState = {
   error: null
 };
 
+const solLens = lensPath(['sol', 'current']);
+const errorLens = lensPath(['error']);
+
 const roverPhotosReducer = (state = initialState, action) => {
   switch (action.type) {
     case CHANGE_SOL:
-      return { ...state, sol: { ...state.sol, current: action.payload } };
+      return set(solLens, action.payload, state);
 
     case FETCH_PHOTOS_REQUEST:
-      return {
-        ...state,
-        photos: {
-          ...state.photos,
-          [action.payload.name]: {
-            ...state.photos[action.payload.name],
-            [action.payload.sol]: {
-              isLoading: true,
-              isLoaded: false,
-              photos: []
-            }
-          }
-        }
-      };
+      return set(
+        lensPath(['photos', `${action.payload.name}`, `${action.payload.sol}`]),
+        { isLoading: true, isLoaded: false, photos: [] },
+        state
+      );
 
     case FETCH_PHOTOS_SUCCESS:
-      return {
-        ...state,
-        photos: {
-          ...state.photos,
-          [action.payload.name]: {
-            ...state.photos[action.payload.name],
-            [action.payload.sol]: {
-              ...state.photos[action.payload.name][action.payload.sol],
-              isLoading: false,
-              isLoaded: true,
-              photos: action.payload.photos
-            }
-          }
-        }
-      };
+      return set(
+        lensPath(['photos', `${action.payload.name}`, `${action.payload.sol}`]),
+        { isLoading: true, isLoaded: false, photos: action.payload.photos },
+        state
+      );
 
     case FETCH_PHOTOS_FAILURE:
-      return {
-        ...state,
-        error: action.payload
-      };
+      return set(errorLens, action.payload, state);
 
     default:
       return state;

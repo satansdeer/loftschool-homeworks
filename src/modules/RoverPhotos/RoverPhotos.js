@@ -6,7 +6,7 @@ import {
   fetchPhotosSuccess,
   fetchPhotosFailure
 } from './actions';
-import {set, lensPath} from 'ramda';
+import { createSelector } from 'reselect';
 
 const initialStateForRoversPhotos = ["curiosity", "opportunity", "spirit"];
 
@@ -26,28 +26,51 @@ const errorLens = ['error'];
 const roverPhotosReducer = (state = initialState, action) => {
   switch (action.type) {
     case changeSol:
-      return set(solLens, action.payload, state);
+      console.log(action.payload);
+      console.log(state);
+      return [];
+      // set(solLens, action.payload, state);
 
     case fetchPhotosRequest:
-      return set(
-        lensPath(['photos', `${action.payload.name}`, `${action.payload.sol}`]),
-        {isLoading: true, isLoaded: false, photos: []},
-        state
-      );
+      console.log(action.payload);
+      console.log(state);
+      return []
+      // return set(
+      //   lensPath(['photos', `${action.payload.name}`, `${action.payload.sol}`]),
+      //   {isLoading: true, isLoaded: false, photos: []},
+      //   state
+      // );
 
     case fetchPhotosSuccess:
-      return set(
-        lensPath(['photos', `${action.payload.name}`, `${action.payload.sol}`]),
-        {isLoading: true, isLoaded: false, photos: action.payload.photos},
-        state
-      );
+      console.log(action.payload);
+      console.log(state);
+      return []
+      // return set(
+      //   lensPath(['photos', `${action.payload.name}`, `${action.payload.sol}`]),
+      //   {isLoading: true, isLoaded: false, photos: action.payload.photos},
+      //   state
+      // );
 
     case fetchPhotosFailure:
-      return set(errorLens, action.payload, state);
+      return [errorLens, action.payload, state];
 
     default:
       return state;
   }
 };
+
+const solSelector = state => state.roverPhotosReducer.sol;
+const photosSelector = state => state.roverPhotosReducer.photos;
+
+export const getSol = createSelector(
+  [solSelector],
+  sol => sol
+);
+
+export const getRoverPhotos = createSelector(
+  [photosSelector],
+  photos => photos
+);
+
 
 export default roverPhotosReducer;

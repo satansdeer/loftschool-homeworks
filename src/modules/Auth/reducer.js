@@ -8,7 +8,7 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case addKey.toString():
-      return state;
+      return {...state, apiKey: action.payload};
     default:
       return state;
   }

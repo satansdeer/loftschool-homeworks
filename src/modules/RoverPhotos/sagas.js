@@ -5,6 +5,7 @@ import { getPhotos } from './api';
 
 export function* roverSaga(action) {
   const { apiKey, sol, name } = action.payload;
+  console.log('InputValues', action.payload);
   yield call(fetchData, sol, name, apiKey);
 }
 

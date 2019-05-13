@@ -2,7 +2,7 @@ import {addKey} from './actions';
 import {createSelector} from 'reselect';
 
 const initialState = {
-  apiKey: 'ImCRVrGVYgq3xikBIPyHRipuIeFlSpwQbULcRmc8'
+  apiKey: ''
 };
 
 const authReducer = (state = initialState, action) => {
@@ -14,7 +14,7 @@ const authReducer = (state = initialState, action) => {
   }
 };
 
-const apiKeySelector = state => state.apiKey;
+const apiKeySelector = state => state.authReducer.apiKey;
 
 export const getIsAuthorized = createSelector(
   [apiKeySelector],

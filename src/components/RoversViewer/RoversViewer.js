@@ -6,3 +6,14 @@
 
 // Так же вы будете диспатчить экшены CHANGE_SOL и FETCH_PHOTOS_REQUEST
 // Эти экшены находятся в модуле ROVER PHOTOS
+
+
+import React, {Component} from 'react';
+
+export default class RoversViewer extends Component {
+ render() {
+   return(
+     <h1>Пошол нахуй</h1>
+   )
+ }
+}

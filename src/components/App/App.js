@@ -13,10 +13,12 @@ class App extends PureComponent {
     const { addKey } = this.props;
 
     addKey(apiKey);
+    this.render();
   };
 
   render() {
     const { isAuthorized } = this.props;
+    console.log('isAuthorized', this.props);
     return isAuthorized ? this.renderApp() : this.renderLogin();
   }
 

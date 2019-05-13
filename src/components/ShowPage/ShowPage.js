@@ -43,9 +43,9 @@ class ShowPage extends Component {
           <img src={result.image.medium} alt={result.name} />
         ) : null}
         <div>
-          {result.summary ? (
+          {result.summary && (
             <div dangerouslySetInnerHTML={{ __html: result.summary }} />
-          ) : null}
+          )}
         </div>
         <div className={styles.cast}>
           {result._embedded ? this.renderCast(result._embedded.cast) : null}

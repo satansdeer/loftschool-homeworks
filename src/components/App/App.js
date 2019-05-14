@@ -6,7 +6,7 @@ import RoversViewer from '../RoversViewer';
 import styles from './App.module.css';
 import { connect } from 'react-redux';
 import { addKey } from '../../modules/Auth';
-import {getIsAuthorized} from '../../modules/Auth/reducer';
+import {getIsAuthorized} from '../../modules/Auth/';
 
 class App extends PureComponent {
   handleEnterApiKey = apiKey => {
@@ -18,7 +18,6 @@ class App extends PureComponent {
 
   render() {
     const { isAuthorized } = this.props;
-    console.log('isAuthorized', this.props);
     return isAuthorized ? this.renderApp() : this.renderLogin();
   }
 
@@ -51,7 +50,6 @@ const mapStateToProps = store => {
 const mapDispatchToProps = dispatch => {
   return {
     addKey(key) {
-      console.log(key);
       dispatch(addKey(key));
     }
   };

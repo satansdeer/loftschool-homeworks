@@ -1,4 +1,4 @@
-import reducer from './RoverPhotos'
+import reducer from './RoverPhotosReducer'
 import {
   changeSol,
   fetchPhotosRequest,

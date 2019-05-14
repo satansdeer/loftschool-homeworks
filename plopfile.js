@@ -64,7 +64,7 @@ module.exports = function(plop) {
       },
       {
         type: 'add',
-        path: 'src/modules/{{pascalCase name}}/sagas.js',
+        path: 'src/modules/{{pascalCase name}}/rootSagas.js',
         templateFile: 'plop-templates/module/sagas.hbs'
       }
     ]

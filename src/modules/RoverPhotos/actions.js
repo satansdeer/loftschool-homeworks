@@ -1,15 +1,19 @@
-import {createAction} from 'redux-actions';
-
-export const changeSol = createAction('ROVER_PHOTOS/CHANGE_SOL');
-
-export const fetchPhotosRequest = (name, sol, apiKey) => ({
-  type: 'FETCH_PHOTOS_REQUEST',
-  payload: { apiKey, sol, name }
+export const changeSol = sol => ({
+  type: 'ROVER_PHOTOS/CHANGE_SOL',
+  payload: sol
 });
 
-export const fetchPhotosSuccess = createAction(
-  'ROVER_PHOTOS/FETCH_PHOTOS_SUCCESS'
-);
-export const fetchPhotosFailure = createAction(
-  'ROVER_PHOTOS/FETCH_PHOTOS_FAILURE'
-);
+export const fetchPhotosRequest = (name, sol, apiKey) => ({
+  type: 'ROVER_PHOTOS/FETCH_PHOTOS_REQUEST',
+  payload: {apiKey, sol, name}
+});
+
+export const fetchPhotosSuccess = (photos, name, sol) => ({
+  type: 'ROVER_PHOTOS/FETCH_PHOTOS_SUCCESS',
+  payload: {name, photos, sol}
+});
+
+export const fetchPhotosFailure = error => ({
+  type: 'ROVER_PHOTOS/FETCH_PHOTOS_FAILURE',
+  payload: error
+});

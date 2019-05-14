@@ -1,11 +1,10 @@
 // Реализуйте саги
-import { call, put } from 'redux-saga/effects';
-import { fetchPhotosSuccess, fetchPhotosFailure } from './actions';
-import { getPhotos } from './api';
+import {call, put} from 'redux-saga/effects';
+import {fetchPhotosSuccess, fetchPhotosFailure} from './actions';
+import {getPhotos} from './api';
 
 export function* roverSaga(action) {
-  const { apiKey, sol, name } = action.payload;
-  console.log('InputValues', action.payload);
+  const {apiKey, sol, name} = action.payload;
   yield call(fetchData, sol, name, apiKey);
 }
 

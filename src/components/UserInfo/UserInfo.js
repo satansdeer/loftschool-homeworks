@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 class UserInfo extends PureComponent {
   renderUserInfo = data => {
     const { avatar_url, login, followers } = data;
-    console.log(followers);
+    console.log('followers',followers);
 
     return (
       <div>

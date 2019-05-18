@@ -1,3 +1,3 @@
-import { createAction } from 'redux-actions';
+import { ADD_KEY } from './constants';
 
-export const addKey = createAction('ADD_KEY')
+export const addKey = key => ({ type: ADD_KEY, payload: key });

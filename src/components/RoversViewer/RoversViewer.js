@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Login from '../Login';
 import SelectSol from '../SelectSol';
 import styles from './RoversViewer.module.css';
-import {getIsAuthorized} from '../../modules/Auth';
+import { getIsAuthorized } from '../../modules/Auth';
 import {
   fetchPhotosRequest,
   getSol,
@@ -12,47 +12,52 @@ import {
 } from '../../modules/RoverPhotos';
 import Grid from '@material-ui/core/Grid';
 import RoverPhotos from '../RoverPhotos';
-
-const columns = ["curiosity", "opportunity", "spirit"];
+import roversConfig from '../../rovers.json';
 
 class RoversViewer extends Component {
   componentDidMount() {
     const {
       photosRequest,
       appKey,
-      solValue: {current: currentSol}
+      solValue: { current: currentSol }
     } = this.props;
 
-    console.log("CurrentProps", this.props);
-
-    columns.forEach(item => photosRequest(appKey, currentSol, item));
+    roversConfig.items.forEach(item => photosRequest(appKey, currentSol, item));
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     const {
       appKey,
       photosRequest,
-      solValue: {current: currentSol}
+      photosPackage,
+      solValue: { current: currentSol }
     } = this.props;
 
-    console.log("CurrentProps", this.props);
+    const {
+      solValue: { current: prevSol }
+    } = prevProps;
 
-    columns.forEach(item =>
-      photosRequest(appKey, currentSol, item)
-    );
+    if (
+      currentSol !== prevSol &&
+      !photosPackage[roversConfig.items[0]][currentSol]
+    ) {
+      roversConfig.items.forEach(item =>
+        photosRequest(appKey, currentSol, item)
+      );
+    }
   }
 
   changeSolValue = value => {
     const {
       changeSol,
-      solValue: {current: currentSol}
+      solValue: { current: currentSol }
     } = this.props;
 
     value !== currentSol && changeSol(value);
   };
 
   render() {
-    const {appKey, solValue} = this.props;
+    const { appKey, solValue } = this.props;
     return appKey ? (
       <div className={styles.root}>
         <SelectSol
@@ -62,38 +67,37 @@ class RoversViewer extends Component {
           changeSol={this.changeSolValue}
         />
         <Grid container alignItems="flex-start" justify="space-between">
-          {this.renderRoversPhoto()}
+          {this.renderRoversViewer()}
         </Grid>
       </div>
     ) : (
-      this.login()
+      this.renderLogin()
     );
   }
 
-  login() {
-    return <Login/>;
+  renderLogin() {
+    return <Login />;
   }
 
   setPhotos = photosArray => (photosArray ? photosArray : []);
 
-  renderRoversPhoto() {
+  renderRoversViewer() {
     const {
-      roverPhotos,
-      solValue: {current: currentSol}
+      photosPackage,
+      solValue: { current: currentSol }
     } = this.props;
 
-
-    console.log('Props', roverPhotos);
-    console.log('OriginalProps', this.props);
-
-    // return columns.map(
-    //   (item, index) =>
-    //     <RoverPhotos
-    //       name={item}
-    //       // photos={this.setPhotos(roverPhotos[index][currentSol].photos)}
-    //       key={item.id}
-    //     />
-    // );
+    return roversConfig.items.map(
+      (item, index) =>
+        photosPackage[item][currentSol] &&
+        photosPackage[item][currentSol].photos.length && (
+          <RoverPhotos
+            name={item}
+            photos={this.setPhotos(photosPackage[item][currentSol].photos)}
+            key={item.id}
+          />
+        )
+    );
   }
 }
 
@@ -101,7 +105,7 @@ const mapStateToProps = store => {
   return {
     appKey: getIsAuthorized(store),
     solValue: getSol(store),
-    roverPhotos: getRoverPhotos(store)
+    photosPackage: getRoverPhotos(store)
   };
 };
 

@@ -11,7 +11,7 @@ module.exports = function(plop) {
     actions: [
       {
         type: 'add',
-        path: 'src/components/{{pascalCase name}}/index.js',
+        path: 'src/components/{{pascalCase name}}/api.js',
         templateFile: 'plop-templates/component/index.hbs'
       },
       {
@@ -44,7 +44,7 @@ module.exports = function(plop) {
     actions: [
       {
         type: 'add',
-        path: 'src/modules/{{pascalCase name}}/index.js',
+        path: 'src/modules/{{pascalCase name}}/api.js',
         templateFile: 'plop-templates/module/index.hbs'
       },
       {
@@ -64,7 +64,7 @@ module.exports = function(plop) {
       },
       {
         type: 'add',
-        path: 'src/modules/{{pascalCase name}}/rootSagas.js',
+        path: 'src/modules/{{pascalCase name}}/sagas.js',
         templateFile: 'plop-templates/module/sagas.hbs'
       }
     ]

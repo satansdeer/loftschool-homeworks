@@ -5,15 +5,13 @@ import NasaCard from '../NasaCard';
 import RoversViewer from '../RoversViewer';
 import styles from './App.module.css';
 import { connect } from 'react-redux';
-import { addKey } from '../../modules/Auth';
-import {getIsAuthorized} from '../../modules/Auth/';
+import { getIsAuthorized, addKey } from '../../modules/Auth';
 
 class App extends PureComponent {
   handleEnterApiKey = apiKey => {
-    const { addKey } = this.props;
+    const { addNewKey } = this.props;
 
-    addKey(apiKey);
-    this.render();
+    addNewKey(apiKey);
   };
 
   render() {
@@ -49,7 +47,7 @@ const mapStateToProps = store => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addKey(key) {
+    addNewKey(key) {
       dispatch(addKey(key));
     }
   };

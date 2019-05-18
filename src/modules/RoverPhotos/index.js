@@ -1,4 +1,5 @@
-export { default } from './RoverPhotosReducer';
-export * from './RoverPhotosReducer';
 export * from './actions';
+export * from './constants';
+export * from './selectors';
+export { default } from './reducer';
 export * from './sagas';

@@ -9,9 +9,9 @@ import { getIsAuthorized, addKey } from '../../modules/Auth';
 
 class App extends PureComponent {
   handleEnterApiKey = apiKey => {
-    const { addKey } = this.props;
+    const { addNewKey } = this.props;
 
-    addKey(apiKey);
+    addNewKey(apiKey);
   };
 
   render() {
@@ -39,7 +39,21 @@ class App extends PureComponent {
   }
 }
 
+const mapStateToProps = store => {
+  return {
+    isAuthorized: getIsAuthorized(store)
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addNewKey(key) {
+      dispatch(addKey(key));
+    }
+  };
+};
+
 export default connect(
-  state => ({ isAuthorized: getIsAuthorized(state) }),
-  { addKey }
+  mapStateToProps,
+  mapDispatchToProps
 )(App);

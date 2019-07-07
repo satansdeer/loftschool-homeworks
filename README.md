@@ -6,16 +6,6 @@
 
 В папке `/src` находятся 6 заданий, тесты для каждого из них должны проходить.
 
-### Props Proxy
-* Manipulating props
-* Accessing the instance via Refs
-* Abstracting State
-* Wrapping the WrappedComponent with other elements
-
-### Inheritance Inversion
-* Render Highjacking
-* Manipulating state
-
 * Запустите тесты при помощи команды `yarn test`
 * Допишите код так, чтобы все тесты проходили
 

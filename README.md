@@ -1,15 +1,22 @@
 # Домашнее задание 5 - HOC
 
-[Пример работы](http://react-hw-localstorage-hoc.surge.sh)
-![пример работы](./example.png)
+В этой домашней работе мы закрепим знания о паттерне HOC.
 
-В данном домашнем задании вам необходимо создать hoc компонент, который будет
-насыщять обернутый компонент 2мя пропсами. SavedData возвращает запись из
-localstorage. SaveData сохраняет данные.
+## Задача
 
-Компонент Todo не должен хранить в своем стейте ничего, кроме значения инпута,
-сами данные по туду задачам должны всегда хранится в localstorage с помощью
-методов из hoc.
+В папке `/src` находятся 6 заданий, тесты для каждого из них должны проходить.
+
+### Props Proxy
+* Manipulating props
+* Accessing the instance via Refs
+* Abstracting State
+* Wrapping the WrappedComponent with other elements
+
+### Inheritance Inversion
+* Render Highjacking
+* Manipulating state
+
+Запустите тесты при помощи команды `yarn test`
 
 ---
 
@@ -34,7 +41,7 @@ npm i -g loftschool-react-cli
 Убедитесь что вы находитесь в пустой папке. Выполните команду `react-course`, чтобы получить домашнюю работу:
 
 ```
-react-course -h homework-1
+react-course -h homework-5-hoc
 ```
 
 #### 4. Начинайте обучение!

@@ -2,7 +2,8 @@
   "extends": "react-app",
   "plugins": [
     "cypress",
-    "react-perf"
+    "react-perf",
+    "react"
   ],
   "env": {
     "cypress/globals": true

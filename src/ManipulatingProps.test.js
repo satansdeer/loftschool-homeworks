@@ -24,14 +24,6 @@ describe('addLoggedInUser', () => {
   });
 });
 
-/*
-Следующая задача - написать withLoading HOC
-он будет обрабатывать проп `loading`.
-
-Если `loading == true` - должен показывать лоадер,
-иначе - обёрнутый компонент.
-*/
-
 describe('withLoading', () => {
   it('returns loader if loading prop is true', () => {
     const MockComponent = jest.fn(() => <div>Mock component</div>)

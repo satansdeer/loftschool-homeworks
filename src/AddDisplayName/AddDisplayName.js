@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 
-export const withDisplayName = WrappedComponent =>
-  class WithDisplayName extends Component {
-    static displayName = `HOC${WrappedComponent.displayName || 'Component'}`
+/*
+  Напишите простой HOC и укажите для него displayName
+*/
 
-    render() {
-      return <WrappedComponent {...this.props} />;
-    }
-  };
+export const withDisplayName

@@ -1,29 +1,19 @@
 import React from 'react';
 
 /*
-Это задание со звёздочкой, его можно не выполнять.
+  Это задание со звёздочкой, его можно не выполнять.
 
-Это необычный вид хока, который называется **inheritance inversion HOC**.
+  Это необычный вид хока, который называется **inheritance inversion HOC**.
 
-В отличие от обычного, в нём мы используем не композицию,
-а наследование от обёрнутого компонента.
+  В отличие от обычного, в нём мы используем не композицию,
+  а наследование от обёрнутого компонента.
 
-ВНИМАНИЕ! Настоятельно не рекомендую использовать этот вид HOC
-на практике
+  ВНИМАНИЕ! Настоятельно не рекомендую использовать этот вид HOC
+  на практике. Паттерн даётся ТОЛЬКО для ознакомления.
+
+  В этом задании нужно перехватить рендеринг
+  и, если самый внешний элемент кнопка - назначить ей
+  стиль 'background: red'
 */
 
-export const withRedBackground = WrappedComponent =>
-  class Enhancer extends WrappedComponent {
-    render() {
-      const elementsTree = super.render();
-      if (!elementsTree || elementsTree.type !== 'button') {
-        return elementsTree;
-      }
-      const props = { ...elementsTree.props, style: { background: 'red' } };
-      return React.cloneElement(
-        elementsTree,
-        props,
-        elementsTree.props.children
-      );
-    }
-  };
+//export const withRedBackground

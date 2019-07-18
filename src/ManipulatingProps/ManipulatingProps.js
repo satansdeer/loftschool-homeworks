@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {getLoggedInUser} from '../utils'
 
 /*
   Манипуляция пропами
@@ -12,13 +13,7 @@ import React, { Component } from 'react';
 
 const LoadingSpinner = () => <div>Loading...</div>;
 
-export const withLoading = WrappedComponent => 
-  class WithLoading extends Component {
-    render() {
-      const { loading, ...props } = this.props;
-      return loading ? <LoadingSpinner /> : <WrappedComponent {...props} />;
-    }
-  };
+export const withLoading
 
 /*
   Следующий HOC - injector, его особенность в том,
@@ -27,27 +22,26 @@ export const withLoading = WrappedComponent =>
 
   Нужно написать HOC, который передаст авторизованного
   пользователя через проп user
+
+  Чтобы получить текущего пользователя - используйте
+  метод `getLoggedInUser` из `utils`
+
+  const user = getLoggedInUser()
 */
 
-const currentLoggedInUser = { name: 'Ivan', surname: 'Ivanov' };
 
-export const addLoggedInUser = WrappedComponent => 
-  class WithLoggedInUser extends Component {
-    render() {
-      return <WrappedComponent {...this.props} user={currentLoggedInUser} />;
-    }
-  };
+export const addLoggedInUser
 
 /*
   Помимо добавления новых пропов можно модифицировать те,
   что уже были переданы в компонент
 
-  Пускай компонент WrappedComponent 
+  Мы будем передавать во WrappedComponent список книг
+  [{title: "Harry Potter", author: "J. K. Rowling"}, ...]
+
+  Ваша задача написать HOC, который перехватит prop books,
+  отсортирует по названиям по алфавиту
+  и передаст в обёрнутый компонент
 */
 
-export const sort = WrappedComponent => 
-  class WithLoggedInUser extends Component {
-    render() {
-      return <WrappedComponent {...this.props} user={currentLoggedInUser} />;
-    }
-  };
+export const withSort

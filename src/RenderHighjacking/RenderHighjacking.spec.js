@@ -8,7 +8,9 @@ import '@testing-library/jest-dom/extend-expect'
 
 afterEach(cleanup)
 
-describe('withRedBackground', () => {
+//Уберите .skip чтобы начать выполнять тест
+
+describe.skip('withRedBackground', () => {
   it('overrides user prop', () => {
     class MockClassComponent extends Component {
         render() {

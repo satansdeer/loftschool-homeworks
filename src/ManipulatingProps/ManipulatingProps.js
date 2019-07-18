@@ -37,3 +37,17 @@ export const addLoggedInUser = WrappedComponent =>
       return <WrappedComponent {...this.props} user={currentLoggedInUser} />;
     }
   };
+
+/*
+  Помимо добавления новых пропов можно модифицировать те,
+  что уже были переданы в компонент
+
+  Пускай компонент WrappedComponent 
+*/
+
+export const sort = WrappedComponent => 
+  class WithLoggedInUser extends Component {
+    render() {
+      return <WrappedComponent {...this.props} user={currentLoggedInUser} />;
+    }
+  };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { wrapWithAbsolutePosition } from './Wrapping';
+import { wrapWithAbsolutePosition } from './LayoutWrapping';
 import {
   render,
   cleanup

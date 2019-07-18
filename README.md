@@ -14,10 +14,11 @@
 ### Display Name
 
 Когда вы оборачиваете компонент в HOC - его `displayName` теряется.
+Подробнее об этом в [документации](https://ru.reactjs.org/docs/higher-order-components.html#convention-wrap-the-display-name-for-easy-debugging)
 
 Укажите `displayName` для вашего HOC.
 
-Задание находится в файле `DisplayName.js`.
+Задание находится в папке `DisplayName`.
 
 ### Манипуляция пропами
 
@@ -25,7 +26,7 @@
 
 Один будет показывать лоадер, а второй должен передавать в обёрнутый компонент данные пользователя.
 
-Задание находится в файле `ManipulatingProps.js`.
+Задание находится в папке `ManipulatingProps`.
 
 ### Обёртка лейаута
 
@@ -33,7 +34,7 @@
 
 > **Внимание!** это проще сделать при помощи паттерна **RenderProps**
 
-Задание находится в файле `Wrapping.js`.
+Задание находится в папке `Wrapping`.
 
 ### Параметры для HOC
 
@@ -41,7 +42,7 @@
 
 Давайте потренируемся это делать.
 
-Задание находится в файле `HOCParams.js`.
+Задание находится в папке `HOCParams`.
 
 ### ⭐ Перехват рендеринга 
 
@@ -52,6 +53,8 @@
 В отличие от обычного, в нём мы используем не композицию, анаследование от обёрнутого компонента.
 
 Задание находится в файле `RenderHighjacking.js`.
+
+> **Внимание!** `inheritance inversion HOC` даётся только в ознакомительных целях. **Избегайте использовать его в реальных проектах!** Более подробное объяснение читайте в [методичке](http://book.loftschool.com/metod-4-api-pattern)
 
 ---
 
@@ -85,4 +88,4 @@ react-course -h homework-5-hoc
 
 <a href="https://loftschool.com/course/react/"><img align="left" width="50" height="50" title="Loftschool" src="https://loftschool.com/_nuxt/img/ec83394.svg"></a>
 
-Репозиторий создан для обучения на профессиональном онлайн‑курсе «[React.js. Разработка веб-приложений](https://loftschool.com/course/react/)» от [Loftschool](https://loftschool.com/).
+Репозиторий создан для обучения на курсе «[React.js. Разработка веб-приложений](https://loftschool.com/course/react/)» от [Loftschool](https://loftschool.com/).

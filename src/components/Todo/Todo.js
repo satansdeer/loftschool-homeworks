@@ -14,25 +14,86 @@ class Todo extends PureComponent {
     return biggest + 1;
   }
 
-  handleChange = event => {};
+  handleChange = event => {
+    this.setState({ inputValue: event.target.value });
+  };
 
-  createNewRecordByEnter = event => {};
+  createNewRecordByEnter = event => {
+    if (event.key === 'Enter') {
+      this.createNewRecord();
+    }
+  };
 
-  toggleRecordComplete = event => {};
+  toggleRecordComplete = event => {
+    const { saveData, savedData } = this.props;
+    let result = savedData.map(el => {
+      if (String(el.id) === event.target.dataset.todoId) {
+        return {
+          text: el.text,
+          id: el.id,
+          checked: !el.checked
+        };
+      } else {
+        return el;
+      }
+    });
+    saveData(result);
+  };
 
-  createNewRecord = () => {};
+  createNewRecord = () => {
+    const { inputValue } = this.state;
+    const { saveData, savedData } = this.props;
 
-  render() {
-    return;
-  }
-
-  renderEmptyRecord() {
-    return;
-  }
+    if (inputValue.length) {
+      saveData([
+        ...savedData,
+        {
+          text: inputValue,
+          id: this.getId(),
+          checked: false
+        }
+      ]);
+    }
+  };
 
   renderRecord = record => {
-    return;
+    return (
+      <div key={record.id} className="todo-item t-todo">
+        <p className="todo-item__text">{record.text}</p>
+        <span
+          className="todo-item__flag t-todo-complete-flag"
+          data-todo-id={record.id}
+          onClick={this.toggleRecordComplete}
+        >
+          {record.checked ? '[x]' : '[]'}
+        </span>
+      </div>
+    );
   };
+
+  render() {
+    const { savedData } = this.props;
+    const { inputValue } = this.state;
+    return (
+      <Card title="Список дел">
+        <div className="todo t-todo-list">
+          <div className="todo-item todo-item-new">
+            <input
+              className="todo-input t-input"
+              placeholder="Введите задачу"
+              value={inputValue}
+              onChange={this.handleChange}
+              onKeyPress={this.createNewRecordByEnter}
+            />
+            <span className="plus t-plus" onClick={this.createNewRecord}>
+              +
+            </span>
+          </div>
+          {savedData.map(this.renderRecord)}
+        </div>
+      </Card>
+    );
+  }
 }
 
 export default withLocalstorage('todo-app', [])(Todo);

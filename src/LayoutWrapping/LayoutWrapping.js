@@ -5,4 +5,4 @@ import React, { Component } from 'react';
   со стилем 'position: absolute'
 */
 
-export const wrapWithAbsolutePosition
+export const wrapWithAbsolutePosition = () => {}

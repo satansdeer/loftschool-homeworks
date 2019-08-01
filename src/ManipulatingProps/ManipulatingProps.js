@@ -13,7 +13,7 @@ import {getLoggedInUser} from '../utils'
 
 const LoadingSpinner = () => <div>Loading...</div>;
 
-export const withLoading
+export const withLoading = () => {}
 
 /*
   Следующий HOC - injector, его особенность в том,
@@ -30,7 +30,7 @@ export const withLoading
 */
 
 
-export const addLoggedInUser
+export const addLoggedInUser = () => {}
 
 /*
   Помимо добавления новых пропов можно модифицировать те,
@@ -44,4 +44,4 @@ export const addLoggedInUser
   и передаст в обёрнутый компонент
 */
 
-export const withSort
+export const withSort = () => {}

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 /*
   Напишите RenderProp компонент, который обернёт лейаут в `div`,

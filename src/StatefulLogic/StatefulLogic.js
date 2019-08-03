@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import {getLoggedInUser} from '../utils'
+import React, { useState } from 'react';
+import { getLoggedInUser } from '../utils';
 
 /*
   Render-props можно использовать для вынесения стейтфул логики
@@ -14,4 +14,5 @@ import {getLoggedInUser} from '../utils'
   Кнопка должна получать onClick коллбек из компонента-обёртки
 */
 
-export const WithTooltip = () => {}
+export const WithTooltip = ({ children }) => {
+};

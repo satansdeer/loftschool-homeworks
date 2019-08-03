@@ -1,5 +1,5 @@
 import React from 'react';
-import { WithLoggedInUser } from './ManipulatingProps';
+import { WithLoggedInUser } from './ProvideData';
 import { render, cleanup } from '@testing-library/react';
 
 afterEach(cleanup);

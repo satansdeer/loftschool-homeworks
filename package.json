@@ -4,8 +4,8 @@
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.0.0",
-    "react": "^16.7",
-    "react-dom": "^16.7",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "react-scripts": "1.1.5"
   },
   "scripts": {
@@ -19,9 +19,8 @@
   },
   "devDependencies": {
     "@testing-library/react": "^8.0.4",
-    "cypress": "^3.1.0",
-    "enzyme": "^3.6.0",
-    "enzyme-adapter-react-16": "^1.5.0",
+    "@testing-library/react-hooks": "^1.1.0",
+    "react-test-renderer": "^16.8.6",
     "eslint-plugin-cypress": "^2.0.1",
     "eslint-plugin-react": "^7.14.2",
     "eslint-plugin-react-perf": "^2.0.9"

@@ -5,9 +5,9 @@ import { render, cleanup, fireEvent } from "@testing-library/react";
 afterEach(cleanup);
 
 describe("Form", () => {
-  describe("on submit", () => {
-    describe("with inputs filled in", () => {
-      it("displays success message", () => {
+  describe("при нажатии на кнопку", () => {
+    describe("с заполненными инпутами", () => {
+      it("показывает сообщение об ошибке", () => {
         const { getByTestId } = render(<Form />);
 
         fireEvent.change(getByTestId("email-input"), {
@@ -26,8 +26,9 @@ describe("Form", () => {
         expect(getByTestId("success-message").textContent).toBe("Вы вошли");
       });
     });
-    describe("with empty inputs", () => {
-      it("does nothing", () => {
+
+    describe("с пустыми инпутами", () => {
+      it("не показывает сообщение", () => {
         const { queryByTestId, getByTestId } = render(<Form />);
 
         fireEvent.click(getByTestId("submit"));

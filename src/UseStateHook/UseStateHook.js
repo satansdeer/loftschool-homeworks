@@ -17,6 +17,9 @@ import React, { useState } from "react";
     У вас получится несколько useState.
     В качестве дополнительной тренировки попробуйте использовать useReducer
     вместо нескольких useState
+
+    Прочитайте документацию:
+    https://reactjs.org/docs/hooks-reference.html#usereducer
 */
 
 export const Form = () => {};

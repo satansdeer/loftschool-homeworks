@@ -1,18 +1,11 @@
 import React, {useEffect, useState} from 'react'
 import {getJoke} from '../utils'
 
-export const UseEffectHook = () => {
-   const [joke, setJoke] = useState()
+/*
+  Напишите компонент, который загрузит шутку о Чаке Норрисе
+  Используйте useEffect
 
-   useEffect(() => {
-    const fetchData = async () => {
-      const result = await getJoke()
+  Вам придётся использовать асинхронный эффект. Это имеет свои особенности.
+*/
 
-      setJoke(result.value);
-    };
-
-    fetchData();
-  }, []);
-
-   return <div data-testid="joke">{joke}</div>
-}
+export const UseEffectHook = () => { }

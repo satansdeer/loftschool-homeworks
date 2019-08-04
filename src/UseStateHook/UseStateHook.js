@@ -1,31 +1,22 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 
-export const Form = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [showSuccess, setShowSuccess] = useState(false);
+/*
+    Напишите компонент с двуми инпутами и кнопкой
 
-  return (
-    <>
-      {showSuccess ? (
-        <div>Вы вошли</div>
-      ) : (
-        <form>
-          <input
-            onChange={e => setEmail(e.target.value)}
-            value={email}
-            data-testid="email-input"
-            type="email"
-          />
-          <input
-            onChange={e => setPassword(e.target.value)}
-            value={password}
-            data-testid="password-input"
-            type="password"
-          />
-          <button onClick={() => setShowSuccess(true)}>Submit</button>
-        </form>
-      )}
-    </>
-  );
-};
+    Если инпуты заполнены - при нажатии на кнопку показывается сообщение об успехе
+
+    У сообщения об успехе должно быть поле data-testid='success'
+    Сообжение должно содержать текст "Вы вошли"
+
+    Email инпут должен иметь поле data-testid='input-email'
+    Password инпут должен иметь поле data-testid='input-password'
+    Кнопка логина должна иметь поле data-testid='submit'
+
+    ##  Дополнительное задание:
+
+    У вас получится несколько useState.
+    В качестве дополнительной тренировки попробуйте использовать useReducer
+    вместо нескольких useState
+*/
+
+export const Form = () => {};

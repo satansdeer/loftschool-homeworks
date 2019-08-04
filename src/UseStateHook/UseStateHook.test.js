@@ -1,27 +1,38 @@
-import { Form } from './UseStateHook';
-import { cleanup, fireEvent } from '@testing-library/react';
-import { renderHook, act } from '@testing-library/react-hooks';
+import React from "react";
+import { Form } from "./UseStateHook";
+import { render, cleanup, fireEvent } from "@testing-library/react";
 
 afterEach(cleanup);
 
-describe('Form', () => {
-  describe('on submit', () => {
-    describe('with inputs filled in', () => {
-      it('displays success message', () => {
-        const { getByTestId } = render(<Form/>)
+describe("Form", () => {
+  describe("on submit", () => {
+    describe("with inputs filled in", () => {
+      it("displays success message", () => {
+        const { getByTestId } = render(<Form />);
 
-        fireEvent.change(getByTestId('email-input'), {
-            target: {
-              value: "test@email.com"
-            },
-          })
+        fireEvent.change(getByTestId("email-input"), {
+          target: {
+            value: "test@email.com"
+          }
+        });
+        fireEvent.change(getByTestId("password-input"), {
+          target: {
+            value: "supersafepassword"
+          }
+        });
 
-        expect(queryByTestId).toBe(1);
+        fireEvent.click(getByTestId("submit"));
+
+        expect(getByTestId("success-message").textContent).toBe("Вы вошли");
       });
     });
-    describe('with empty inputs', () => {
-      it('does nothing', () => {
+    describe("with empty inputs", () => {
+      it("does nothing", () => {
+        const { queryByTestId, getByTestId } = render(<Form />);
 
+        fireEvent.click(getByTestId("submit"));
+
+        expect(queryByTestId("success-message")).toBeFalsy();
       });
     });
   });

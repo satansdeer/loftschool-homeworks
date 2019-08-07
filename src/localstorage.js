@@ -1,16 +1,14 @@
-function load(localStorageKey) {
-  const stringData = window.localStorage.getItem(localStorageKey);
-  let data = null;
+const load = localStorageKey => {
+  if (localStorage.items && localStorage.items !== 'undefined') {
+    return JSON.parse(localStorage.items);
+  }
+  return [];
+};
 
-  try {
-    data = JSON.parse(stringData);
-  } catch (e) {}
-
-  return data;
-}
-
-function save(localStorageKey, data) {
-  window.localStorage.setItem(localStorageKey, JSON.stringify(data));
-}
+const save = data => {
+  if (localStorage) {
+    localStorage.items = JSON.stringify(data);
+  }
+};
 
 export { load, save };

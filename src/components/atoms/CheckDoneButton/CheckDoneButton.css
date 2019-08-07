@@ -1,0 +1,6 @@
+.todo-item__flag {
+  position: absolute;
+  right: 10px;
+  top: 12px;
+  cursor: pointer;
+}

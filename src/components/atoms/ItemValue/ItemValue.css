@@ -1,0 +1,7 @@
+.todo-item__text {
+  background-color: initial;
+  border: none;
+  width: 100%;
+  outline: none;
+  font-size: 15px;
+}

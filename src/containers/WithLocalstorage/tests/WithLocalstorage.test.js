@@ -1,9 +1,9 @@
 import React from 'react';
-import withLocalstorage from './withLocalstorage';
 import { mount } from 'enzyme';
-import * as localstorage from '../../localstorage'
+import withLocalstorage from '../WithLocalstorage';
+import * as localstorage from '../../../localstorage';
 
-jest.mock('../../localstorage');
+jest.mock('../../../localstorage');
 
 const TestComponent = () => React.createElement('p', null, 'test');
 const wrapper = mount(
@@ -19,11 +19,10 @@ it('У обернутого компонента появляются props: sav
 });
 
 it('Вызов saveData вызывает save из модуля localstorage', () => {
-  const mockFn = jest.fn()
+  const mockFn = jest.fn();
 
-  localstorage.save.mockImplementation(mockFn)
-  testComponent.props().saveData()
+  localstorage.save.mockImplementation(mockFn);
+  testComponent.props().saveData();
 
-  expect(mockFn).toBeCalled()
+  expect(mockFn).toBeCalled();
 });
-

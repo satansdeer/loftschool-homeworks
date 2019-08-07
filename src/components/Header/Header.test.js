@@ -29,6 +29,6 @@ describe('Хедер c контекстом { isAuthorized: false }', () => {
   );
 
   it('Хедер пустой', () => {
-    expect(wrapper.children().length).toBe(0);
+    expect(wrapper.find('.header__content').children().length).toBe(0);
   });
 });

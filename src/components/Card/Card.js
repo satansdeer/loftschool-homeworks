@@ -4,6 +4,7 @@ import './Card.css';
 class Card extends PureComponent {
   render() {
     const { children, title } = this.props;
+
     return (
       <div className="card">
         <h3 className="card__title card-title">{title}</h3>

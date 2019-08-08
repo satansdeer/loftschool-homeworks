@@ -24,10 +24,13 @@ export default () => (
             используйте приватный роут.
             По умолчанию должен происходить редирект
             на страницу логина.
-
+            
             /app будет использовать AppRouter в качестве вью
             /login будет использовать LoginForm
           */}
+          <Route path="/login" exact component={LoginForm} />
+          <PrivateRoute path="/app" component={AppRouter} />
+          <Redirect to="/login" />
         </Switch>
       </BrowserRouter>
     </AuthProvider>

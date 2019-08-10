@@ -3,8 +3,12 @@ function load(localStorageKey) {
   let data = null;
 
   try {
+    console.log('TryParse');
     data = JSON.parse(stringData);
-  } catch (e) {}
+    console.log(data);
+  } catch (e) {
+    console.warn(e);
+  }
 
   return data;
 }

@@ -38,7 +38,7 @@ npm i -g loftschool-react-cli
 Убедитесь что вы находитесь в пустой папке. Выполните команду `react-course`, чтобы получить домашнюю работу:
 
 ```
-react-course -h homework-5-hoc
+react-course -h homework-11-tests
 ```
 
 #### 4. Начинайте обучение!

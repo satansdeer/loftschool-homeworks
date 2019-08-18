@@ -1,20 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
+
+const ADD_ITEM = "add_item"
+const REMOVE_ITEM = "remove_item"
+
+const addItem = (item) => ({type: ADD_ITEM, payload: item})
+const removeItem = (item) => ({type: REMOVE_ITEM, payload: item})
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case ADD_ITEM:
+      return [...state, action.payload];
+    case REMOVE_ITEM:
+      return state.filter(item => item !== action.payload);
+    default:
+      throw new Error();
+  }
+};
 
 export const List = () => {
-  const [count, setCount] = useState(0);
-  const increment = () => {
-    setCount(count => count + 1);
+  const [state, dispatch] = useReducer(reducer, []);
+  const [text, setText] = useState("");
+
+  const updateText = event => {
+    setText(event.target.value);
   };
 
-  const decrement = () => {
-    setCount(count => count - 1);
+  const onAdd = () => {
+    if (text && !state.includes(text)) {
+      dispatch(addItem(text));
+    }
+    setText('');
+  };
+
+  const onRemove = value => () => {
+    dispatch(removeItem(value));
   };
 
   return (
     <>
-      <div>{count}</div>
-      <button onClick={increment}>Increment</button>
-      <button onClick={decrement}>Decrement</button>
+      <ul>
+        {state.map(item => (
+          <li key={item} onClick={onRemove(item)}>
+            {item}
+          </li>
+        ))}
+      </ul>
+      <input value={text} onChange={updateText} />
+      <button onClick={onAdd}>Add item</button>
     </>
   );
 };

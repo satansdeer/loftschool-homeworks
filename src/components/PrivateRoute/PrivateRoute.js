@@ -1,12 +1,20 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { withAuth } from '../../context/Auth';
 import { Route, Redirect } from 'react-router-dom';
 
 class PrivateRoute extends Component {
-  // Реализуйте приватный роут.
-  // Он должен проверять статус авторизации
-  // и перенаправлять пользователя на страницу логина,
-  // если тот не авторизован.
+  render() {
+    const { isAuthorized, component: RouteComponent } = this.props;
+    return (
+      <Fragment>
+        {isAuthorized ? (
+          <Route component={RouteComponent} />
+        ) : (
+          <Redirect to="/login" />
+        )}
+      </Fragment>
+    );
+  }
 }
 
 export default withAuth(PrivateRoute);

@@ -5,36 +5,90 @@ import imgBond from './assets/bond_approve.jpg';
 
 export default class Form extends Component {
   state = {
-    firstname: '',
-    lastname: '',
+    firstName: '',
+    lastName: '',
     password: '',
     isValid: false,
+<<<<<<< HEAD
     messageFirstname: '',
     messageLastname: '',
     messagePassword: ''
+=======
+    errorFirstName: '',
+    errorLastName: '',
+    errorPassword: ''
+>>>>>>> cfd9d208b4b713acef15cbda7b67161dcfc7581e
   };
 
   onChangeInput = e => {
     console.log(e.target.name);
     const { name, value } = e.target;
     this.setState({
+<<<<<<< HEAD
       [name]: value.toLowerCase(),
       messageFirstname: '',
       messageLastname: '',
       messagePassword: ''
+=======
+      [name]: value,
+      errorFirstName: '',
+      errorLastName: '',
+      errorPassword: ''
+>>>>>>> cfd9d208b4b713acef15cbda7b67161dcfc7581e
     });
   };
   onSubmit = e => {
     e.preventDefault();
-    this.onValid();
+    this.isValid();
   };
+<<<<<<< HEAD
   onValid = e => {
     const { firstname, lastname, password } = this.state;
+=======
+  validFirstName = () => {
+    const { firstName } = this.state;
+    let message = '';
+    if (firstName === '') {
+      message = 'Нужно указать имя';
+    } else if (firstName !== 'james') {
+      message = 'Имя указано не верно';
+    }
+    this.setState({
+      errorFirstName: message
+    });
+  };
+  validLastName = () => {
+    const { lastName } = this.state;
+    let message = '';
+    if (lastName === '') {
+      message = 'Нужно указать фамилию';
+    } else if (lastName !== 'bond') {
+      message = 'Фамилия указана не верно';
+    }
+    this.setState({
+      errorLastName: message
+    });
+  };
+  validPassword = () => {
+    const { password } = this.state;
+    let message = '';
+    if (password === '') {
+      message = 'Нужно указать пароль';
+    } else if (password !== '007') {
+      message = 'Пароль указан не верно';
+    }
+    this.setState({
+      errorPassword: message
+    });
+  };
+  isValid = () => {
+    const { firstName, lastName, password } = this.state;
+>>>>>>> cfd9d208b4b713acef15cbda7b67161dcfc7581e
 
-    if (firstname === 'james' && lastname === 'bond' && password === '007') {
+    if (firstName === 'james' && lastName === 'bond' && password === '007') {
       this.setState({ isValid: true });
-      console.log('проверка прошла');
     } else {
+<<<<<<< HEAD
       this.checkFirstname(firstname);
       this.checkLastname(lastname);
       this.checkPassword(password);
@@ -88,6 +142,23 @@ export default class Form extends Component {
       messageFirstname,
       messageLastname,
       messagePassword
+=======
+      this.validFirstName();
+      this.validLastName();
+      this.validPassword();
+    }
+  };
+
+  render() {
+    const {
+      firstName,
+      lastName,
+      password,
+      isValid,
+      errorFirstName,
+      errorLastName,
+      errorPassword
+>>>>>>> cfd9d208b4b713acef15cbda7b67161dcfc7581e
     } = this.state;
 
     return (
@@ -99,34 +170,47 @@ export default class Form extends Component {
             <h1>Введите свои данные</h1>
 
             <p className="field">
-              <label htmlFor="firstname" className="field__label">
+              <label htmlFor="firstName" className="field__label">
                 <span className="field-label">Имя</span>
               </label>
               <input
                 onChange={this.onChangeInput}
                 type="text"
+<<<<<<< HEAD
                 value={firstname}
                 name="firstname"
                 className="field__input field-input t-input-firstname"
               />
               <span className="field__error field-error t-error-firstname">
                 {messageFirstname}
+=======
+                value={firstName}
+                name="firstName"
+                className="field__input field-input t-input-firstname"
+              />
+              <span className="field__error field-error t-error-firstname">
+                {errorFirstName}
+>>>>>>> cfd9d208b4b713acef15cbda7b67161dcfc7581e
               </span>
             </p>
 
             <p className="field">
-              <label htmlFor="lastname" className="field__label">
+              <label htmlFor="lastName" className="field__label">
                 <span className="field-label">Фамилия</span>
               </label>
               <input
                 onChange={this.onChangeInput}
                 type="text"
-                value={lastname}
-                name="lastname"
+                value={lastName}
+                name="lastName"
                 className="field__input field-input t-input-lastname"
               />
               <span className="field__error field-error t-error-lastname">
+<<<<<<< HEAD
                 {messageLastname}
+=======
+                {errorLastName}
+>>>>>>> cfd9d208b4b713acef15cbda7b67161dcfc7581e
               </span>
             </p>
 
@@ -142,7 +226,11 @@ export default class Form extends Component {
                 className="field__input field-input t-input-password"
               />
               <span className="field__error field-error t-error-password">
+<<<<<<< HEAD
                 {messagePassword}
+=======
+                {errorPassword}
+>>>>>>> cfd9d208b4b713acef15cbda7b67161dcfc7581e
               </span>
             </p>
 

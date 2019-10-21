@@ -11,7 +11,8 @@ export default class Form extends Component {
     isValid: false,
     messageFirstname: '',
     messageLastname: '',
-    messagePassword: ''
+    messagePassword: '',
+    messagePassword2: ''
   };
 
   onChangeInput = e => {
@@ -21,7 +22,8 @@ export default class Form extends Component {
       [name]: value.toLowerCase(),
       messageFirstname: '',
       messageLastname: '',
-      messagePassword: ''
+      messagePassword: '',
+      messagePassword2: ''
     });
   };
   onSubmit = e => {

@@ -11,11 +11,17 @@ class AuthProvider extends Component {
   };
 
   authorize = (email, password) => {
+    const { isAuthorized } = this.state;
+    console.log(email, password);
     if (email === this.email && password === this.password) {
       this.setState({ isAuthorized: true, authError: '' });
     } else {
-      this.setState({ authError: 'Почта или пароль не верные' });
+      this.setState({
+        authError: 'Почта или пароль не верные',
+        isAuthorized: false
+      });
     }
+    console.log({ isAuthorized });
   };
 
   getProviderValue = () => {
